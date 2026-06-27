@@ -1,0 +1,1436 @@
+run  src/script_train_5_models_singleSplit.py --splitting-choice muPlot_year1only --yearChosen 2020 --restrict-classes 0  --fold 0
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_muPlot_year1only_year=2020_restrClass=0_fold0
+Output directory for this experiment: expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0
+Config saved to: expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/config.json
+[*] Log file: expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training.log
+Experiment short name: std50_muPlot_year1only_year=2020_restrClass=0_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : muPlot_year1only:  by microplot, taking only year 2020
+  Class 0: 840 train samples, from microplots                 ['x33y24'], and from years:                 [2020]
+           909  test samples, from microplots                 ['x30y21'], and from years:                 [2020]
+  Class 1: 928 train samples, from microplots                 ['x35y19'], and from years:                 [2020]
+           1185  test samples, from microplots                 ['x31y24'], and from years:                 [2020]
+  Class 2: 830 train samples, from microplots                 ['x44y21'], and from years:                 [2020]
+           914  test samples, from microplots                 ['x43y22'], and from years:                 [2020]
+  Class 3: 814 train samples, from microplots                 ['x45y19'], and from years:                 [2020]
+           853  test samples, from microplots                 ['x42y22'], and from years:                 [2020]
+  Class 4: 736 train samples, from microplots                 ['x39y20'], and from years:                 [2020]
+           704  test samples, from microplots                 ['x28y22'], and from years:                 [2020]
+  Class 5: 757 train samples, from microplots                 ['x41y23'], and from years:                 [2020]
+           908  test samples, from microplots                 ['x40y20'], and from years:                 [2020]
+  Class 6: 848 train samples, from microplots                 ['x45y24'], and from years:                 [2020]
+           738  test samples, from microplots                 ['x28y21'], and from years:                 [2020]
+  Class 7: 855 train samples, from microplots                 ['x34y21'], and from years:                 [2020]
+           792  test samples, from microplots                 ['x32y23'], and from years:                 [2020]
+  Saved 6608 rows → expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/splits/train.csv
+  Saved 7003 rows → expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/splits/test.csv
+Loaded Train data... shape:(6608, 252, 252, 3)
+Loading Test data... shape:(7003, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training.log
+[*] Restricted classes (0-indexed): [0 1 2 3 4 5 6 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=6608  shape=(252, 252, 3)  y.shape=(6608, 8)
+[*] Train=6080  Val=528
+y.shape=(6608, 8)
+[*] Class distribution in train/val split:
+    Class 0: train=773 (12.7%), val=67 (12.7%)
+    Class 1: train=854 (14.0%), val=74 (14.0%)
+    Class 2: train=764 (12.6%), val=66 (12.5%)
+    Class 3: train=749 (12.3%), val=65 (12.3%)
+    Class 4: train=677 (11.1%), val=59 (11.2%)
+    Class 5: train=696 (11.4%), val=61 (11.6%)
+    Class 6: train=780 (12.8%), val=68 (12.9%)
+    Class 7: train=787 (12.9%), val=68 (12.9%)
+[*] Class weights for weighted loss: [0.97863567 0.88581425 0.9901641  1.0099938  1.1174083  1.0869043
+ 0.96985304 0.96122664]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=1.9642 tr=0.2289 val_bal=0.3589 lr_bb=1.67e-04 t=40.3s G=46s swa=0
+  E02 loss=1.6722 tr=0.3865 val_bal=0.6061 lr_bb=3.33e-04 t=26.8s G=73s swa=0
+  E03 loss=1.6378 tr=0.4207 val_bal=0.6679 lr_bb=5.00e-04 t=26.4s G=99s swa=0
+  E04 loss=1.6021 tr=0.4360 val_bal=0.7423 lr_bb=4.99e-04 t=26.5s G=126s swa=0
+  E05 loss=1.5478 tr=0.4712 val_bal=0.7435 lr_bb=4.98e-04 t=26.4s G=152s swa=1
+  E06 loss=1.5423 tr=0.4609 val_bal=0.7933 lr_bb=4.95e-04 t=26.5s G=179s swa=2
+  E07 loss=1.5039 tr=0.4254 val_bal=0.7473 lr_bb=4.91e-04 t=26.8s G=206s swa=3
+  E08 loss=1.4500 tr=0.5274 val_bal=0.8021 lr_bb=4.86e-04 t=26.2s G=232s swa=4
+  E09 loss=1.4109 tr=0.5445 val_bal=0.8307 lr_bb=4.80e-04 t=26.3s G=259s swa=5
+  E10 loss=1.3043 tr=0.5554 val_bal=0.8258 lr_bb=4.73e-04 t=26.0s G=285s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=1.2488 tr=0.5665 val_bal=0.8478 lr_bb=4.65e-04 t=26.8s G=315s swa=7
+  E12 loss=1.2992 tr=0.5552 val_bal=0.8519 lr_bb=4.56e-04 t=26.9s G=342s swa=8
+  E13 loss=1.2499 tr=0.5800 val_bal=0.8307 lr_bb=4.46e-04 t=26.6s G=369s swa=9
+  E14 loss=1.2015 tr=0.6288 val_bal=0.8549 lr_bb=4.35e-04 t=26.3s G=395s swa=10
+  E15 loss=1.2595 tr=0.5688 val_bal=0.8520 lr_bb=4.24e-04 t=26.7s G=422s swa=10
+  E16 loss=1.2144 tr=0.6107 val_bal=0.8883 lr_bb=4.11e-04 t=26.3s G=448s swa=10
+  E17 loss=1.1586 tr=0.6154 val_bal=0.8724 lr_bb=3.98e-04 t=26.6s G=475s swa=10
+  E18 loss=1.1499 tr=0.6479 val_bal=0.8607 lr_bb=3.85e-04 t=26.1s G=501s swa=10
+  E19 loss=1.2122 tr=0.6080 val_bal=0.8773 lr_bb=3.70e-04 t=26.5s G=527s swa=10
+  E20 loss=1.1166 tr=0.6125 val_bal=0.8783 lr_bb=3.55e-04 t=26.0s G=553s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=1.0518 tr=0.6805 val_bal=0.8917 lr_bb=3.40e-04 t=26.7s G=583s swa=10
+  E22 loss=1.0258 tr=0.6775 val_bal=0.8706 lr_bb=3.24e-04 t=26.3s G=609s swa=10
+  E23 loss=1.1166 tr=0.6677 val_bal=0.8684 lr_bb=3.08e-04 t=56.6s G=666s swa=10
+  E24 loss=1.0906 tr=0.6272 val_bal=0.8855 lr_bb=2.92e-04 t=26.7s G=692s swa=10
+  E25 loss=1.0278 tr=0.6704 val_bal=0.8921 lr_bb=2.75e-04 t=26.9s G=719s swa=10
+  E26 loss=0.9865 tr=0.6995 val_bal=0.8904 lr_bb=2.58e-04 t=27.1s G=746s swa=10
+  E27 loss=0.9847 tr=0.7176 val_bal=0.8986 lr_bb=2.42e-04 t=26.9s G=773s swa=10
+  E28 loss=1.0078 tr=0.6425 val_bal=0.9129 lr_bb=2.25e-04 t=26.7s G=800s swa=10
+  E29 loss=1.0273 tr=0.6604 val_bal=0.8746 lr_bb=2.08e-04 t=26.9s G=827s swa=10
+  E30 loss=0.9050 tr=0.7380 val_bal=0.8892 lr_bb=1.92e-04 t=26.9s G=854s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=0.9764 tr=0.7133 val_bal=0.9026 lr_bb=1.76e-04 t=26.7s G=883s swa=10
+  E32 loss=1.0176 tr=0.6870 val_bal=0.9160 lr_bb=1.60e-04 t=26.6s G=910s swa=10
+  E33 loss=0.8948 tr=0.7580 val_bal=0.9072 lr_bb=1.45e-04 t=26.6s G=936s swa=10
+  E34 loss=0.9853 tr=0.6955 val_bal=0.9159 lr_bb=1.30e-04 t=26.9s G=963s swa=10
+  E35 loss=0.9230 tr=0.7271 val_bal=0.9167 lr_bb=1.15e-04 t=26.6s G=990s swa=10
+  E36 loss=0.9223 tr=0.7041 val_bal=0.9133 lr_bb=1.02e-04 t=26.5s G=1017s swa=10
+  E37 loss=0.8302 tr=0.7798 val_bal=0.9212 lr_bb=8.86e-05 t=26.3s G=1043s swa=10
+  E38 loss=0.9026 tr=0.7359 val_bal=0.9247 lr_bb=7.62e-05 t=26.3s G=1069s swa=10
+  E39 loss=0.9453 tr=0.7417 val_bal=0.9282 lr_bb=6.46e-05 t=26.5s G=1096s swa=10
+  E40 loss=0.9332 tr=0.6935 val_bal=0.9242 lr_bb=5.38e-05 t=26.4s G=1122s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.9588 tr=0.6744 val_bal=0.9343 lr_bb=4.39e-05 t=26.8s G=1152s swa=10
+  E42 loss=0.8385 tr=0.7668 val_bal=0.9301 lr_bb=3.49e-05 t=27.0s G=1179s swa=10
+  E43 loss=0.8535 tr=0.7502 val_bal=0.9364 lr_bb=2.69e-05 t=27.3s G=1206s swa=10
+  E44 loss=0.8848 tr=0.7073 val_bal=0.9361 lr_bb=1.98e-05 t=27.1s G=1233s swa=10
+  E45 loss=0.8839 tr=0.7111 val_bal=0.9339 lr_bb=1.38e-05 t=26.8s G=1260s swa=10
+  E46 loss=0.8241 tr=0.7595 val_bal=0.9381 lr_bb=8.88e-06 t=26.5s G=1286s swa=10
+  E47 loss=0.8414 tr=0.6908 val_bal=0.9339 lr_bb=5.01e-06 t=26.5s G=1313s swa=10
+  E48 loss=0.8814 tr=0.7395 val_bal=0.9360 lr_bb=5.00e-06 t=27.0s G=1340s swa=10
+  E49 loss=0.8766 tr=0.7322 val_bal=0.9381 lr_bb=5.00e-06 t=27.0s G=1367s swa=10
+  E50 loss=0.8594 tr=0.7405 val_bal=0.9377 lr_bb=5.00e-06 t=26.9s G=1394s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9360  best=0.9381  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Fit done  states=1  time=1398s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_muPlot_year1only_year=2020_restrClass=0_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=7003  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/ConvNeXt-Tiny_predictions_std50_muPlot_year1only_year=2020_restrClass=0_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9220
+Performance dict: {'experiment_short_name': 'std50_muPlot_year1only_year=2020_restrClass=0_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': '2020', 'num_classes': 8, 'test_acc': 0.925888904755105, 'val_acc': 0.9219691712685625, 'train_acc': 0.7405252659574468, 'per_class_recall': [0.9383938393839384, 0.9510548523206751, 0.937636761487965, 0.9261430246189918, 0.8167613636363636, 0.9548458149779736, 0.943089430894309, 0.9078282828282829], 'per_class_precision': [0.8997890295358649, 0.9766031195840554, 0.9136460554371002, 0.8866442199775533, 0.9012539184952978, 0.9383116883116883, 0.9182058047493403, 0.9561170212765957], 'restricted_classes': None}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.93839384 0.95105485 0.93763676 0.92614302 0.81676136 0.95484581
+ 0.94308943 0.90782828]
+Precision per class: [0.89978903 0.97660312 0.91364606 0.88664422 0.90125392 0.93831169
+ 0.9182058  0.95611702]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0543
+Mean conf  = 0.8762
+Accuracy   = 0.9259
+Config saved to: expe/std50_muPlot_year1only_year=2020_restrClass=0_fold0/config_end_check.json
+
+real	27m46.644s
+user	90m20.124s
+sys	4m52.246s
+run  src/script_train_5_models_singleSplit.py --splitting-choice random_year1only --yearChosen 2020 --restrict-classes 0  --fold 0
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_random_year1only_year=2020_restrClass=0_fold0
+Output directory for this experiment: expe/std50_random_year1only_year=2020_restrClass=0_fold0
+Config saved to: expe/std50_random_year1only_year=2020_restrClass=0_fold0/config.json
+[*] Log file: expe/std50_random_year1only_year=2020_restrClass=0_fold0/training.log
+Experiment short name: std50_random_year1only_year=2020_restrClass=0_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_random_year1only_year=2020_restrClass=0_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : random_year1only:  randomly, taking only year 2020
+  Class 0: 875 train samples, from microplots                 ['x30y21' 'x33y24'], and from years:                 [2020]
+           874  test samples, from microplots                 ['x30y21' 'x33y24'], and from years:                 [2020]
+  Class 1: 1057 train samples, from microplots                 ['x31y24' 'x35y19'], and from years:                 [2020]
+           1056  test samples, from microplots                 ['x31y24' 'x35y19'], and from years:                 [2020]
+  Class 2: 872 train samples, from microplots                 ['x43y22' 'x44y21'], and from years:                 [2020]
+           872  test samples, from microplots                 ['x43y22' 'x44y21'], and from years:                 [2020]
+  Class 3: 834 train samples, from microplots                 ['x42y22' 'x45y19'], and from years:                 [2020]
+           833  test samples, from microplots                 ['x42y22' 'x45y19'], and from years:                 [2020]
+  Class 4: 720 train samples, from microplots                 ['x28y22' 'x39y20'], and from years:                 [2020]
+           720  test samples, from microplots                 ['x28y22' 'x39y20'], and from years:                 [2020]
+  Class 5: 833 train samples, from microplots                 ['x40y20' 'x41y23'], and from years:                 [2020]
+           832  test samples, from microplots                 ['x40y20' 'x41y23'], and from years:                 [2020]
+  Class 6: 793 train samples, from microplots                 ['x28y21' 'x45y24'], and from years:                 [2020]
+           793  test samples, from microplots                 ['x28y21' 'x45y24'], and from years:                 [2020]
+  Class 7: 824 train samples, from microplots                 ['x32y23' 'x34y21'], and from years:                 [2020]
+           823  test samples, from microplots                 ['x32y23' 'x34y21'], and from years:                 [2020]
+  Saved 6808 rows → expe/std50_random_year1only_year=2020_restrClass=0_fold0/splits/train.csv
+  Saved 6803 rows → expe/std50_random_year1only_year=2020_restrClass=0_fold0/splits/test.csv
+Loaded Train data... shape:(6808, 252, 252, 3)
+Loading Test data... shape:(6803, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training.log
+[*] Restricted classes (0-indexed): [0 1 2 3 4 5 6 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=6808  shape=(252, 252, 3)  y.shape=(6808, 8)
+[*] Train=6262  Val=546
+y.shape=(6808, 8)
+[*] Class distribution in train/val split:
+    Class 0: train=805 (12.9%), val=70 (12.8%)
+    Class 1: train=972 (15.5%), val=85 (15.6%)
+    Class 2: train=802 (12.8%), val=70 (12.8%)
+    Class 3: train=767 (12.2%), val=67 (12.3%)
+    Class 4: train=662 (10.6%), val=58 (10.6%)
+    Class 5: train=766 (12.2%), val=67 (12.3%)
+    Class 6: train=730 (11.7%), val=63 (11.5%)
+    Class 7: train=758 (12.1%), val=66 (12.1%)
+[*] Class weights for weighted loss: [0.9623314  0.79699254 0.9659311  1.0100088  1.1702067  1.0113274
+ 1.0612011  1.022001  ]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=1.9522 tr=0.2319 val_bal=0.5004 lr_bb=1.67e-04 t=50.0s G=56s swa=0
+  E02 loss=1.6735 tr=0.3955 val_bal=0.5596 lr_bb=3.33e-04 t=33.1s G=89s swa=0
+  E03 loss=1.6232 tr=0.4027 val_bal=0.6364 lr_bb=5.00e-04 t=27.4s G=116s swa=0
+  E04 loss=1.5827 tr=0.4354 val_bal=0.6362 lr_bb=4.99e-04 t=27.8s G=144s swa=0
+  E05 loss=1.4917 tr=0.4912 val_bal=0.7455 lr_bb=4.98e-04 t=44.0s G=188s swa=1
+  E06 loss=1.5238 tr=0.4461 val_bal=0.7610 lr_bb=4.95e-04 t=27.4s G=216s swa=2
+  E07 loss=1.5079 tr=0.4434 val_bal=0.7504 lr_bb=4.91e-04 t=27.7s G=243s swa=3
+  E08 loss=1.4124 tr=0.5374 val_bal=0.7609 lr_bb=4.86e-04 t=27.5s G=271s swa=4
+  E09 loss=1.3506 tr=0.5490 val_bal=0.7237 lr_bb=4.80e-04 t=27.6s G=299s swa=5
+  E10 loss=1.3207 tr=0.5742 val_bal=0.7921 lr_bb=4.73e-04 t=27.9s G=327s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_curve_std50_random_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=1.2521 tr=0.5885 val_bal=0.7799 lr_bb=4.65e-04 t=47.5s G=377s swa=7
+  E12 loss=1.2683 tr=0.5760 val_bal=0.8234 lr_bb=4.56e-04 t=27.7s G=405s swa=8
+  E13 loss=1.2518 tr=0.5874 val_bal=0.7773 lr_bb=4.46e-04 t=27.6s G=432s swa=9
+  E14 loss=1.2193 tr=0.6164 val_bal=0.7795 lr_bb=4.35e-04 t=26.9s G=459s swa=10
+  E15 loss=1.2688 tr=0.5379 val_bal=0.8319 lr_bb=4.24e-04 t=26.9s G=486s swa=10
+  E16 loss=1.1991 tr=0.5869 val_bal=0.8630 lr_bb=4.11e-04 t=27.2s G=513s swa=10
+  E17 loss=1.1283 tr=0.6439 val_bal=0.8625 lr_bb=3.98e-04 t=40.7s G=554s swa=10
+  E18 loss=1.1856 tr=0.6359 val_bal=0.8492 lr_bb=3.85e-04 t=27.2s G=581s swa=10
+  E19 loss=1.1979 tr=0.6043 val_bal=0.8636 lr_bb=3.70e-04 t=27.5s G=609s swa=10
+  E20 loss=1.1323 tr=0.6138 val_bal=0.8782 lr_bb=3.55e-04 t=27.5s G=637s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_curve_std50_random_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=1.0473 tr=0.6810 val_bal=0.8533 lr_bb=3.40e-04 t=28.0s G=668s swa=10
+  E22 loss=1.0590 tr=0.6746 val_bal=0.8723 lr_bb=3.24e-04 t=27.5s G=695s swa=10
+  E23 loss=1.1269 tr=0.6313 val_bal=0.8876 lr_bb=3.08e-04 t=27.3s G=723s swa=10
+  E24 loss=1.0730 tr=0.6685 val_bal=0.8865 lr_bb=2.92e-04 t=27.9s G=751s swa=10
+  E25 loss=0.9744 tr=0.7275 val_bal=0.8797 lr_bb=2.75e-04 t=26.8s G=777s swa=10
+  E26 loss=1.0196 tr=0.6818 val_bal=0.8987 lr_bb=2.58e-04 t=27.6s G=805s swa=10
+  E27 loss=1.0609 tr=0.6704 val_bal=0.8862 lr_bb=2.42e-04 t=27.3s G=832s swa=10
+  E28 loss=0.9811 tr=0.7000 val_bal=0.8936 lr_bb=2.25e-04 t=27.0s G=860s swa=10
+  E29 loss=0.9363 tr=0.6989 val_bal=0.8834 lr_bb=2.08e-04 t=27.8s G=887s swa=10
+  E30 loss=0.9718 tr=0.7036 val_bal=0.9114 lr_bb=1.92e-04 t=27.3s G=915s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_curve_std50_random_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=0.9943 tr=0.6759 val_bal=0.9097 lr_bb=1.76e-04 t=27.4s G=945s swa=10
+  E32 loss=1.0310 tr=0.6506 val_bal=0.9094 lr_bb=1.60e-04 t=27.5s G=972s swa=10
+  E33 loss=0.9086 tr=0.7292 val_bal=0.9122 lr_bb=1.45e-04 t=27.0s G=999s swa=10
+  E34 loss=0.9389 tr=0.7524 val_bal=0.9141 lr_bb=1.30e-04 t=27.4s G=1027s swa=10
+  E35 loss=0.8993 tr=0.7565 val_bal=0.9068 lr_bb=1.15e-04 t=27.5s G=1054s swa=10
+  E36 loss=0.8732 tr=0.7563 val_bal=0.9128 lr_bb=1.02e-04 t=27.2s G=1081s swa=10
+  E37 loss=0.9017 tr=0.7832 val_bal=0.9090 lr_bb=8.86e-05 t=27.1s G=1109s swa=10
+  E38 loss=0.9457 tr=0.6927 val_bal=0.9209 lr_bb=7.62e-05 t=27.5s G=1136s swa=10
+  E39 loss=0.8914 tr=0.7279 val_bal=0.9171 lr_bb=6.46e-05 t=27.4s G=1164s swa=10
+  E40 loss=0.9619 tr=0.6626 val_bal=0.9216 lr_bb=5.38e-05 t=27.4s G=1191s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_curve_std50_random_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.8527 tr=0.7285 val_bal=0.9185 lr_bb=4.39e-05 t=27.3s G=1221s swa=10
+  E42 loss=0.8960 tr=0.6852 val_bal=0.9137 lr_bb=3.49e-05 t=27.7s G=1249s swa=10
+  E43 loss=0.8452 tr=0.7332 val_bal=0.9240 lr_bb=2.69e-05 t=27.4s G=1276s swa=10
+  E44 loss=0.9049 tr=0.7275 val_bal=0.9199 lr_bb=1.98e-05 t=27.5s G=1304s swa=10
+  E45 loss=0.8363 tr=0.7544 val_bal=0.9119 lr_bb=1.38e-05 t=27.9s G=1332s swa=10
+  E46 loss=0.8464 tr=0.7223 val_bal=0.9139 lr_bb=8.88e-06 t=27.6s G=1359s swa=10
+  E47 loss=0.9010 tr=0.6753 val_bal=0.9158 lr_bb=5.01e-06 t=27.0s G=1386s swa=10
+  E48 loss=0.8883 tr=0.7082 val_bal=0.9120 lr_bb=5.00e-06 t=27.1s G=1413s swa=10
+  E49 loss=0.8667 tr=0.7363 val_bal=0.9139 lr_bb=5.00e-06 t=27.2s G=1441s swa=10
+  E50 loss=0.8666 tr=0.7930 val_bal=0.9158 lr_bb=5.00e-06 t=27.0s G=1468s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_curve_std50_random_year1only_year=2020_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9179  best=0.9240  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=0_fold0/training_metrics.npz
+[*] Fit done  states=1  time=1472s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_random_year1only_year=2020_restrClass=0_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=6803  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_random_year1only_year=2020_restrClass=0_fold0/ConvNeXt-Tiny_predictions_std50_random_year1only_year=2020_restrClass=0_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9343
+Performance dict: {'experiment_short_name': 'std50_random_year1only_year=2020_restrClass=0_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': '2020', 'num_classes': 8, 'test_acc': 0.9363516095840071, 'val_acc': 0.9342676345595112, 'train_acc': 0.79296875, 'per_class_recall': [0.9176201372997712, 0.9696969696969697, 0.9369266055045872, 0.9411764705882353, 0.8722222222222222, 0.9591346153846154, 0.935687263556116, 0.9416767922235723], 'per_class_precision': [0.9457547169811321, 0.9715370018975332, 0.9434180138568129, 0.8990825688073395, 0.8933143669985776, 0.9556886227544911, 0.9263420724094882, 0.9405339805825242], 'restricted_classes': None}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.91762014 0.96969697 0.93692661 0.94117647 0.87222222 0.95913462
+ 0.93568726 0.94167679]
+Precision per class: [0.94575472 0.971537   0.94341801 0.89908257 0.89331437 0.95568862
+ 0.92634207 0.94053398]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0620
+Mean conf  = 0.8768
+Accuracy   = 0.9364
+Config saved to: expe/std50_random_year1only_year=2020_restrClass=0_fold0/config_end_check.json
+
+real	29m8.924s
+user	96m18.343s
+sys	4m52.397s
+run  src/script_train_5_models_singleSplit.py --splitting-choice muPlot_year1only --yearChosen 2021 --restrict-classes 0  --fold 0
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_muPlot_year1only_year=2021_restrClass=0_fold0
+Output directory for this experiment: expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0
+Config saved to: expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/config.json
+[*] Log file: expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training.log
+Experiment short name: std50_muPlot_year1only_year=2021_restrClass=0_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : muPlot_year1only:  by microplot, taking only year 2020
+  Class 0: 874 train samples, from microplots                 ['x75y20'], and from years:                 [2021]
+           839  test samples, from microplots                 ['x73y14'], and from years:                 [2021]
+  Class 1: 945 train samples, from microplots                 ['x76y12'], and from years:                 [2021]
+           875  test samples, from microplots                 ['x73y16'], and from years:                 [2021]
+  Class 2: 856 train samples, from microplots                 ['x81y18'], and from years:                 [2021]
+           834  test samples, from microplots                 ['x77y15'], and from years:                 [2021]
+  Class 3: 777 train samples, from microplots                 ['x82y12'], and from years:                 [2021]
+           761  test samples, from microplots                 ['x80y16'], and from years:                 [2021]
+  Class 4: 880 train samples, from microplots                 ['x78y11'], and from years:                 [2021]
+           711  test samples, from microplots                 ['x72y18'], and from years:                 [2021]
+  Class 5: 716 train samples, from microplots                 ['x80y20'], and from years:                 [2021]
+           820  test samples, from microplots                 ['x79y13'], and from years:                 [2021]
+  Class 6: 820 train samples, from microplots                 ['x82y19'], and from years:                 [2021]
+           709  test samples, from microplots                 ['x72y15'], and from years:                 [2021]
+  Class 7: 892 train samples, from microplots                 ['x75y12'], and from years:                 [2021]
+           962  test samples, from microplots                 ['x74y17'], and from years:                 [2021]
+  Saved 6760 rows → expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/splits/train.csv
+  Saved 6511 rows → expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/splits/test.csv
+Loaded Train data... shape:(6760, 252, 252, 3)
+Loading Test data... shape:(6511, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training.log
+[*] Restricted classes (0-indexed): [0 1 2 3 4 5 6 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=6760  shape=(252, 252, 3)  y.shape=(6760, 8)
+[*] Train=6220  Val=540
+y.shape=(6760, 8)
+[*] Class distribution in train/val split:
+    Class 0: train=804 (12.9%), val=70 (13.0%)
+    Class 1: train=869 (14.0%), val=76 (14.1%)
+    Class 2: train=788 (12.7%), val=68 (12.6%)
+    Class 3: train=715 (11.5%), val=62 (11.5%)
+    Class 4: train=810 (13.0%), val=70 (13.0%)
+    Class 5: train=659 (10.6%), val=57 (10.6%)
+    Class 6: train=754 (12.1%), val=66 (12.2%)
+    Class 7: train=821 (13.2%), val=71 (13.1%)
+[*] Class weights for weighted loss: [0.9605905  0.88873965 0.98009485 1.0801605  0.953475   1.1719495
+ 1.0242901  0.94070005]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=2.0238 tr=0.1878 val_bal=0.3780 lr_bb=1.67e-04 t=44.3s G=51s swa=0
+  E02 loss=1.7474 tr=0.3787 val_bal=0.6120 lr_bb=3.33e-04 t=27.2s G=78s swa=0
+  E03 loss=1.6490 tr=0.4139 val_bal=0.6404 lr_bb=5.00e-04 t=27.0s G=105s swa=0
+  E04 loss=1.6328 tr=0.4235 val_bal=0.5345 lr_bb=4.99e-04 t=27.4s G=132s swa=0
+  E05 loss=1.5548 tr=0.4780 val_bal=0.6895 lr_bb=4.98e-04 t=27.2s G=160s swa=1
+  E06 loss=1.5121 tr=0.4722 val_bal=0.7474 lr_bb=4.95e-04 t=27.0s G=187s swa=2
+  E07 loss=1.5180 tr=0.4461 val_bal=0.7488 lr_bb=4.91e-04 t=27.3s G=214s swa=3
+  E08 loss=1.4184 tr=0.5405 val_bal=0.7785 lr_bb=4.86e-04 t=27.1s G=241s swa=4
+  E09 loss=1.3669 tr=0.5575 val_bal=0.7697 lr_bb=4.80e-04 t=27.1s G=269s swa=5
+  E10 loss=1.3204 tr=0.5903 val_bal=0.8560 lr_bb=4.73e-04 t=27.0s G=296s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=1.2757 tr=0.5942 val_bal=0.8131 lr_bb=4.65e-04 t=27.3s G=326s swa=7
+  E12 loss=1.2923 tr=0.5858 val_bal=0.8393 lr_bb=4.56e-04 t=27.2s G=353s swa=8
+  E13 loss=1.2782 tr=0.6001 val_bal=0.8085 lr_bb=4.46e-04 t=27.2s G=380s swa=9
+  E14 loss=1.2263 tr=0.6271 val_bal=0.8392 lr_bb=4.35e-04 t=26.9s G=407s swa=10
+  E15 loss=1.2786 tr=0.5490 val_bal=0.8528 lr_bb=4.24e-04 t=26.9s G=434s swa=10
+  E16 loss=1.2022 tr=0.6009 val_bal=0.8628 lr_bb=4.11e-04 t=27.2s G=462s swa=10
+  E17 loss=1.1561 tr=0.6296 val_bal=0.8678 lr_bb=3.98e-04 t=27.3s G=489s swa=10
+  E18 loss=1.1815 tr=0.6590 val_bal=0.8730 lr_bb=3.85e-04 t=27.2s G=516s swa=10
+  E19 loss=1.2133 tr=0.6120 val_bal=0.8762 lr_bb=3.70e-04 t=27.3s G=544s swa=10
+  E20 loss=1.1416 tr=0.6266 val_bal=0.8544 lr_bb=3.55e-04 t=27.2s G=571s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=1.0819 tr=0.6712 val_bal=0.9011 lr_bb=3.40e-04 t=27.7s G=601s swa=10
+  E22 loss=1.0770 tr=0.6742 val_bal=0.9003 lr_bb=3.24e-04 t=27.3s G=629s swa=10
+  E23 loss=1.1396 tr=0.6396 val_bal=0.8789 lr_bb=3.08e-04 t=26.9s G=656s swa=10
+  E24 loss=1.0933 tr=0.6725 val_bal=0.9151 lr_bb=2.92e-04 t=27.4s G=683s swa=10
+  E25 loss=0.9769 tr=0.7339 val_bal=0.9062 lr_bb=2.75e-04 t=46.3s G=730s swa=10
+  E26 loss=1.0309 tr=0.6880 val_bal=0.9115 lr_bb=2.58e-04 t=27.3s G=757s swa=10
+  E27 loss=1.0826 tr=0.6699 val_bal=0.9038 lr_bb=2.42e-04 t=26.9s G=784s swa=10
+  E28 loss=1.0005 tr=0.7074 val_bal=0.8992 lr_bb=2.25e-04 t=26.6s G=810s swa=10
+  E29 loss=0.9558 tr=0.6898 val_bal=0.8914 lr_bb=2.08e-04 t=27.4s G=838s swa=10
+  E30 loss=0.9845 tr=0.7137 val_bal=0.9122 lr_bb=1.92e-04 t=26.9s G=865s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=1.0093 tr=0.6759 val_bal=0.8979 lr_bb=1.76e-04 t=27.0s G=894s swa=10
+  E32 loss=1.0504 tr=0.6520 val_bal=0.9236 lr_bb=1.60e-04 t=27.1s G=921s swa=10
+  E33 loss=0.9211 tr=0.7274 val_bal=0.9186 lr_bb=1.45e-04 t=26.6s G=948s swa=10
+  E34 loss=0.9570 tr=0.7536 val_bal=0.9315 lr_bb=1.30e-04 t=27.0s G=975s swa=10
+  E35 loss=0.9312 tr=0.7407 val_bal=0.9219 lr_bb=1.15e-04 t=57.4s G=1033s swa=10
+  E36 loss=0.8772 tr=0.7669 val_bal=0.9220 lr_bb=1.02e-04 t=26.8s G=1060s swa=10
+  E37 loss=0.9102 tr=0.7855 val_bal=0.9242 lr_bb=8.86e-05 t=26.7s G=1086s swa=10
+  E38 loss=0.9683 tr=0.6958 val_bal=0.9257 lr_bb=7.62e-05 t=27.1s G=1114s swa=10
+  E39 loss=0.9292 tr=0.7166 val_bal=0.9216 lr_bb=6.46e-05 t=26.6s G=1140s swa=10
+  E40 loss=0.9849 tr=0.6628 val_bal=0.9268 lr_bb=5.38e-05 t=27.1s G=1167s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.8646 tr=0.7332 val_bal=0.9268 lr_bb=4.39e-05 t=27.0s G=1197s swa=10
+  E42 loss=0.9049 tr=0.6898 val_bal=0.9258 lr_bb=3.49e-05 t=27.2s G=1224s swa=10
+  E43 loss=0.8749 tr=0.7375 val_bal=0.9303 lr_bb=2.69e-05 t=27.0s G=1251s swa=10
+  E44 loss=0.9158 tr=0.7344 val_bal=0.9269 lr_bb=1.98e-05 t=27.1s G=1278s swa=10
+  E45 loss=0.8602 tr=0.7547 val_bal=0.9279 lr_bb=1.38e-05 t=27.3s G=1305s swa=10
+  E46 loss=0.8462 tr=0.7244 val_bal=0.9302 lr_bb=8.88e-06 t=27.1s G=1333s swa=10
+  E47 loss=0.9153 tr=0.6701 val_bal=0.9340 lr_bb=5.01e-06 t=26.6s G=1359s swa=10
+  E48 loss=0.9018 tr=0.7140 val_bal=0.9340 lr_bb=5.00e-06 t=26.7s G=1386s swa=10
+  E49 loss=0.8755 tr=0.7371 val_bal=0.9340 lr_bb=5.00e-06 t=26.9s G=1413s swa=10
+  E50 loss=0.8875 tr=0.7894 val_bal=0.9362 lr_bb=5.00e-06 t=26.7s G=1440s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9320  best=0.9362  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Fit done  states=1  time=1444s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_muPlot_year1only_year=2021_restrClass=0_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=6511  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/ConvNeXt-Tiny_predictions_std50_muPlot_year1only_year=2021_restrClass=0_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9266
+Performance dict: {'experiment_short_name': 'std50_muPlot_year1only_year=2021_restrClass=0_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': '2021', 'num_classes': 8, 'test_acc': 0.9272001228689909, 'val_acc': 0.9265772704223529, 'train_acc': 0.7893880208333334, 'per_class_recall': [0.9713945172824792, 0.9325714285714286, 0.960431654676259, 0.9316688567674113, 0.9071729957805907, 0.9097560975609756, 0.8942172073342737, 0.9054054054054054], 'per_class_precision': [0.9521028037383178, 0.9466357308584686, 0.9697336561743342, 0.9219765929778934, 0.899581589958159, 0.8977135980746089, 0.9031339031339032, 0.9187763713080169], 'restricted_classes': None}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.97139452 0.93257143 0.96043165 0.93166886 0.907173   0.9097561
+ 0.89421721 0.90540541]
+Precision per class: [0.9521028  0.94663573 0.96973366 0.92197659 0.89958159 0.8977136
+ 0.9031339  0.91877637]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0593
+Mean conf  = 0.8731
+Accuracy   = 0.9272
+Config saved to: expe/std50_muPlot_year1only_year=2021_restrClass=0_fold0/config_end_check.json
+
+real	28m30.142s
+user	93m0.133s
+sys	4m51.244s
+run  src/script_train_5_models_singleSplit.py --splitting-choice random_year1only --yearChosen 2021 --restrict-classes 0  --fold 0
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_random_year1only_year=2021_restrClass=0_fold0
+Output directory for this experiment: expe/std50_random_year1only_year=2021_restrClass=0_fold0
+Config saved to: expe/std50_random_year1only_year=2021_restrClass=0_fold0/config.json
+[*] Log file: expe/std50_random_year1only_year=2021_restrClass=0_fold0/training.log
+Experiment short name: std50_random_year1only_year=2021_restrClass=0_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_random_year1only_year=2021_restrClass=0_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : random_year1only:  randomly, taking only year 2020
+  Class 0: 857 train samples, from microplots                 ['x73y14' 'x75y20'], and from years:                 [2021]
+           856  test samples, from microplots                 ['x73y14' 'x75y20'], and from years:                 [2021]
+  Class 1: 910 train samples, from microplots                 ['x73y16' 'x76y12'], and from years:                 [2021]
+           910  test samples, from microplots                 ['x73y16' 'x76y12'], and from years:                 [2021]
+  Class 2: 845 train samples, from microplots                 ['x77y15' 'x81y18'], and from years:                 [2021]
+           845  test samples, from microplots                 ['x77y15' 'x81y18'], and from years:                 [2021]
+  Class 3: 769 train samples, from microplots                 ['x80y16' 'x82y12'], and from years:                 [2021]
+           769  test samples, from microplots                 ['x80y16' 'x82y12'], and from years:                 [2021]
+  Class 4: 796 train samples, from microplots                 ['x72y18' 'x78y11'], and from years:                 [2021]
+           795  test samples, from microplots                 ['x72y18' 'x78y11'], and from years:                 [2021]
+  Class 5: 768 train samples, from microplots                 ['x79y13' 'x80y20'], and from years:                 [2021]
+           768  test samples, from microplots                 ['x79y13' 'x80y20'], and from years:                 [2021]
+  Class 6: 765 train samples, from microplots                 ['x72y15' 'x82y19'], and from years:                 [2021]
+           764  test samples, from microplots                 ['x72y15' 'x82y19'], and from years:                 [2021]
+  Class 7: 927 train samples, from microplots                 ['x74y17' 'x75y12'], and from years:                 [2021]
+           927  test samples, from microplots                 ['x74y17' 'x75y12'], and from years:                 [2021]
+  Saved 6637 rows → expe/std50_random_year1only_year=2021_restrClass=0_fold0/splits/train.csv
+  Saved 6634 rows → expe/std50_random_year1only_year=2021_restrClass=0_fold0/splits/test.csv
+Loaded Train data... shape:(6637, 252, 252, 3)
+Loading Test data... shape:(6634, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training.log
+[*] Restricted classes (0-indexed): [0 1 2 3 4 5 6 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=6637  shape=(252, 252, 3)  y.shape=(6637, 8)
+[*] Train=6105  Val=532
+y.shape=(6637, 8)
+[*] Class distribution in train/val split:
+    Class 0: train=788 (12.9%), val=69 (13.0%)
+    Class 1: train=837 (13.7%), val=73 (13.7%)
+    Class 2: train=777 (12.7%), val=68 (12.8%)
+    Class 3: train=707 (11.6%), val=62 (11.7%)
+    Class 4: train=732 (12.0%), val=64 (12.0%)
+    Class 5: train=707 (11.6%), val=61 (11.5%)
+    Class 6: train=704 (11.5%), val=61 (11.5%)
+    Class 7: train=853 (14.0%), val=74 (13.9%)
+[*] Class weights for weighted loss: [0.9633481  0.90695137 0.9769862  1.0737175  1.0370468  1.0737175
+ 1.0782931  0.88993937]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=2.0273 tr=0.1809 val_bal=0.4315 lr_bb=1.67e-04 t=37.0s G=44s swa=0
+  E02 loss=1.7410 tr=0.3787 val_bal=0.4936 lr_bb=3.33e-04 t=27.1s G=72s swa=0
+  E03 loss=1.6994 tr=0.4044 val_bal=0.5935 lr_bb=5.00e-04 t=26.7s G=98s swa=0
+  E04 loss=1.6752 tr=0.4101 val_bal=0.7115 lr_bb=4.99e-04 t=26.8s G=125s swa=0
+  E05 loss=1.5596 tr=0.4716 val_bal=0.7509 lr_bb=4.98e-04 t=29.3s G=155s swa=1
+  E06 loss=1.5381 tr=0.4689 val_bal=0.7548 lr_bb=4.95e-04 t=34.1s G=189s swa=2
+  E07 loss=1.5415 tr=0.4189 val_bal=0.7373 lr_bb=4.91e-04 t=27.3s G=217s swa=3
+  E08 loss=1.4840 tr=0.5248 val_bal=0.7789 lr_bb=4.86e-04 t=26.4s G=243s swa=4
+  E09 loss=1.4136 tr=0.5610 val_bal=0.8033 lr_bb=4.80e-04 t=26.4s G=270s swa=5
+  E10 loss=1.2952 tr=0.5790 val_bal=0.8170 lr_bb=4.73e-04 t=26.1s G=296s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_curve_std50_random_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=1.2796 tr=0.5713 val_bal=0.7920 lr_bb=4.65e-04 t=26.9s G=326s swa=7
+  E12 loss=1.3388 tr=0.5750 val_bal=0.8321 lr_bb=4.56e-04 t=27.0s G=353s swa=8
+  E13 loss=1.3067 tr=0.5740 val_bal=0.7985 lr_bb=4.46e-04 t=28.8s G=382s swa=9
+  E14 loss=1.2214 tr=0.6275 val_bal=0.8387 lr_bb=4.35e-04 t=26.6s G=409s swa=10
+  E15 loss=1.2581 tr=0.5761 val_bal=0.8308 lr_bb=4.24e-04 t=27.1s G=436s swa=10
+  E16 loss=1.2409 tr=0.6085 val_bal=0.8430 lr_bb=4.11e-04 t=26.7s G=462s swa=10
+  E17 loss=1.1950 tr=0.6164 val_bal=0.8516 lr_bb=3.98e-04 t=36.6s G=499s swa=10
+  E18 loss=1.1587 tr=0.6494 val_bal=0.8192 lr_bb=3.85e-04 t=26.2s G=525s swa=10
+  E19 loss=1.2549 tr=0.6046 val_bal=0.8537 lr_bb=3.70e-04 t=26.7s G=552s swa=10
+  E20 loss=1.1597 tr=0.5939 val_bal=0.8836 lr_bb=3.55e-04 t=26.2s G=578s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_curve_std50_random_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=1.0724 tr=0.6818 val_bal=0.8739 lr_bb=3.40e-04 t=26.9s G=608s swa=10
+  E22 loss=1.0390 tr=0.6858 val_bal=0.8712 lr_bb=3.24e-04 t=26.3s G=634s swa=10
+  E23 loss=1.1417 tr=0.6516 val_bal=0.8844 lr_bb=3.08e-04 t=26.5s G=661s swa=10
+  E24 loss=1.1202 tr=0.6257 val_bal=0.8974 lr_bb=2.92e-04 t=28.3s G=689s swa=10
+  E25 loss=1.0555 tr=0.6664 val_bal=0.8799 lr_bb=2.75e-04 t=26.8s G=716s swa=10
+  E26 loss=1.0044 tr=0.7033 val_bal=0.8869 lr_bb=2.58e-04 t=69.9s G=786s swa=10
+  E27 loss=1.0115 tr=0.7121 val_bal=0.8722 lr_bb=2.42e-04 t=26.7s G=813s swa=10
+  E28 loss=1.0428 tr=0.6468 val_bal=0.8948 lr_bb=2.25e-04 t=26.7s G=840s swa=10
+  E29 loss=1.0477 tr=0.6591 val_bal=0.9009 lr_bb=2.08e-04 t=26.6s G=866s swa=10
+  E30 loss=0.9139 tr=0.7462 val_bal=0.9121 lr_bb=1.92e-04 t=26.8s G=893s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_curve_std50_random_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=1.0042 tr=0.7104 val_bal=0.9052 lr_bb=1.76e-04 t=26.8s G=923s swa=10
+  E32 loss=1.0513 tr=0.6865 val_bal=0.9008 lr_bb=1.60e-04 t=26.7s G=949s swa=10
+  E33 loss=0.9267 tr=0.7473 val_bal=0.9047 lr_bb=1.45e-04 t=26.7s G=976s swa=10
+  E34 loss=1.0140 tr=0.6973 val_bal=0.9088 lr_bb=1.30e-04 t=27.2s G=1003s swa=10
+  E35 loss=0.9514 tr=0.7183 val_bal=0.9029 lr_bb=1.15e-04 t=26.4s G=1030s swa=10
+  E36 loss=0.9459 tr=0.6993 val_bal=0.9145 lr_bb=1.02e-04 t=26.6s G=1056s swa=10
+  E37 loss=0.8566 tr=0.7723 val_bal=0.9103 lr_bb=8.86e-05 t=26.3s G=1083s swa=10
+  E38 loss=0.9299 tr=0.7365 val_bal=0.9129 lr_bb=7.62e-05 t=26.4s G=1109s swa=10
+  E39 loss=0.9693 tr=0.7387 val_bal=0.9150 lr_bb=6.46e-05 t=26.7s G=1136s swa=10
+  E40 loss=0.9576 tr=0.6995 val_bal=0.9147 lr_bb=5.38e-05 t=26.4s G=1162s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_curve_std50_random_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.9905 tr=0.6720 val_bal=0.9244 lr_bb=4.39e-05 t=26.5s G=1191s swa=10
+  E42 loss=0.8621 tr=0.7653 val_bal=0.9201 lr_bb=3.49e-05 t=26.7s G=1218s swa=10
+  E43 loss=0.8826 tr=0.7487 val_bal=0.9207 lr_bb=2.69e-05 t=26.5s G=1245s swa=10
+  E44 loss=0.9145 tr=0.6986 val_bal=0.9280 lr_bb=1.98e-05 t=39.9s G=1285s swa=10
+  E45 loss=0.9134 tr=0.7124 val_bal=0.9317 lr_bb=1.38e-05 t=27.0s G=1312s swa=10
+  E46 loss=0.8446 tr=0.7563 val_bal=0.9299 lr_bb=8.88e-06 t=26.7s G=1339s swa=10
+  E47 loss=0.8765 tr=0.6903 val_bal=0.9317 lr_bb=5.01e-06 t=26.6s G=1365s swa=10
+  E48 loss=0.9121 tr=0.7397 val_bal=0.9279 lr_bb=5.00e-06 t=27.2s G=1392s swa=10
+  E49 loss=0.9042 tr=0.7183 val_bal=0.9279 lr_bb=5.00e-06 t=27.2s G=1420s swa=10
+  E50 loss=0.8806 tr=0.7497 val_bal=0.9300 lr_bb=5.00e-06 t=26.9s G=1447s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_curve_std50_random_year1only_year=2021_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9279  best=0.9317  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=0_fold0/training_metrics.npz
+[*] Fit done  states=1  time=1451s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_random_year1only_year=2021_restrClass=0_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=6634  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_random_year1only_year=2021_restrClass=0_fold0/ConvNeXt-Tiny_predictions_std50_random_year1only_year=2021_restrClass=0_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9421
+Performance dict: {'experiment_short_name': 'std50_random_year1only_year=2021_restrClass=0_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': '2021', 'num_classes': 8, 'test_acc': 0.9422671088332831, 'val_acc': 0.9420812529208923, 'train_acc': 0.7496675531914894, 'per_class_recall': [0.969626168224299, 0.9593406593406594, 0.9585798816568047, 0.9661898569570871, 0.9169811320754717, 0.9296875, 0.9214659685863874, 0.9147788565264293], 'per_class_precision': [0.9730363423212193, 0.9458288190682557, 0.9723889555822329, 0.9599483204134367, 0.8922888616891065, 0.937007874015748, 0.9202614379084967, 0.9349503858875413], 'restricted_classes': None}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.96962617 0.95934066 0.95857988 0.96618986 0.91698113 0.9296875
+ 0.92146597 0.91477886]
+Precision per class: [0.97303634 0.94582882 0.97238896 0.95994832 0.89228886 0.93700787
+ 0.92026144 0.93495039]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0617
+Mean conf  = 0.8852
+Accuracy   = 0.9423
+Config saved to: expe/std50_random_year1only_year=2021_restrClass=0_fold0/config_end_check.json
+
+real	28m27.983s
+user	94m20.472s
+sys	4m36.535s
+run  src/script_train_5_models_singleSplit.py --splitting-choice muPlot-2muTrain-2muTest --yearChosen 0 --restrict-classes 0  --fold 0
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0
+Output directory for this experiment: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0
+Config saved to: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/config.json
+[*] Log file: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training.log
+Experiment short name: std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : muPlot-2muTrain-2muTest
+  Class 0: 1714 train samples, from microplots                 ['x33y24' 'x75y20'], and from years:                 [2020 2021]
+           1748  test samples, from microplots                 ['x30y21' 'x73y14'], and from years:                 [2020 2021]
+  Class 1: 1873 train samples, from microplots                 ['x35y19' 'x76y12'], and from years:                 [2020 2021]
+           2060  test samples, from microplots                 ['x31y24' 'x73y16'], and from years:                 [2020 2021]
+  Class 2: 1686 train samples, from microplots                 ['x44y21' 'x81y18'], and from years:                 [2020 2021]
+           1748  test samples, from microplots                 ['x43y22' 'x77y15'], and from years:                 [2020 2021]
+  Class 3: 1591 train samples, from microplots                 ['x45y19' 'x82y12'], and from years:                 [2020 2021]
+           1614  test samples, from microplots                 ['x42y22' 'x80y16'], and from years:                 [2020 2021]
+  Class 4: 1616 train samples, from microplots                 ['x39y20' 'x78y11'], and from years:                 [2020 2021]
+           1415  test samples, from microplots                 ['x28y22' 'x72y18'], and from years:                 [2020 2021]
+  Class 5: 1473 train samples, from microplots                 ['x41y23' 'x80y20'], and from years:                 [2020 2021]
+           1728  test samples, from microplots                 ['x40y20' 'x79y13'], and from years:                 [2020 2021]
+  Class 6: 1668 train samples, from microplots                 ['x45y24' 'x82y19'], and from years:                 [2020 2021]
+           1447  test samples, from microplots                 ['x28y21' 'x72y15'], and from years:                 [2020 2021]
+  Class 7: 1747 train samples, from microplots                 ['x34y21' 'x75y12'], and from years:                 [2020 2021]
+           1754  test samples, from microplots                 ['x32y23' 'x74y17'], and from years:                 [2020 2021]
+  Saved 13368 rows → expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/splits/train.csv
+  Saved 13514 rows → expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/splits/test.csv
+Loaded Train data... shape:(13368, 252, 252, 3)
+Loading Test data... shape:(13514, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training.log
+[*] Restricted classes (0-indexed): [0 1 2 3 4 5 6 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=13368  shape=(252, 252, 3)  y.shape=(13368, 8)
+[*] Train=12299  Val=1069
+y.shape=(13368, 8)
+[*] Class distribution in train/val split:
+    Class 0: train=1577 (12.8%), val=137 (12.8%)
+    Class 1: train=1723 (14.0%), val=150 (14.0%)
+    Class 2: train=1551 (12.6%), val=135 (12.6%)
+    Class 3: train=1464 (11.9%), val=127 (11.9%)
+    Class 4: train=1487 (12.1%), val=129 (12.1%)
+    Class 5: train=1355 (11.0%), val=118 (11.0%)
+    Class 6: train=1535 (12.5%), val=133 (12.4%)
+    Class 7: train=1607 (13.1%), val=140 (13.1%)
+[*] Class weights for weighted loss: [0.97060657 0.88836133 0.9868772  1.0455236  1.0293521  1.1296284
+ 0.9971639  0.95248693]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=1.9531 tr=0.2371 val_bal=0.5224 lr_bb=1.67e-04 t=65.1s G=72s swa=0
+  E02 loss=1.7162 tr=0.3842 val_bal=0.5597 lr_bb=3.33e-04 t=55.7s G=128s swa=0
+  E03 loss=1.6593 tr=0.4150 val_bal=0.6977 lr_bb=5.00e-04 t=55.5s G=183s swa=0
+  E04 loss=1.6432 tr=0.4291 val_bal=0.7395 lr_bb=4.99e-04 t=65.9s G=249s swa=0
+  E05 loss=1.5104 tr=0.4990 val_bal=0.7518 lr_bb=4.98e-04 t=54.5s G=304s swa=1
+  E06 loss=1.4151 tr=0.5341 val_bal=0.7217 lr_bb=4.95e-04 t=54.8s G=359s swa=2
+  E07 loss=1.4140 tr=0.5537 val_bal=0.7696 lr_bb=4.91e-04 t=55.7s G=415s swa=3
+  E08 loss=1.3866 tr=0.5255 val_bal=0.7951 lr_bb=4.86e-04 t=54.8s G=470s swa=4
+  E09 loss=1.3364 tr=0.5644 val_bal=0.8251 lr_bb=4.80e-04 t=55.6s G=525s swa=5
+  E10 loss=1.3666 tr=0.5413 val_bal=0.8150 lr_bb=4.73e-04 t=55.1s G=580s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=1.2227 tr=0.6146 val_bal=0.8418 lr_bb=4.65e-04 t=58.2s G=641s swa=7
+  E12 loss=1.2770 tr=0.5811 val_bal=0.8487 lr_bb=4.56e-04 t=53.6s G=695s swa=8
+  E13 loss=1.1790 tr=0.6371 val_bal=0.8596 lr_bb=4.46e-04 t=53.9s G=749s swa=9
+  E14 loss=1.1982 tr=0.6097 val_bal=0.8492 lr_bb=4.35e-04 t=54.5s G=804s swa=10
+  E15 loss=1.1539 tr=0.6527 val_bal=0.8559 lr_bb=4.24e-04 t=54.2s G=858s swa=10
+  E16 loss=1.1977 tr=0.6117 val_bal=0.8580 lr_bb=4.11e-04 t=54.0s G=912s swa=10
+  E17 loss=1.1507 tr=0.6631 val_bal=0.8468 lr_bb=3.98e-04 t=54.2s G=966s swa=10
+  E18 loss=1.1277 tr=0.6619 val_bal=0.8612 lr_bb=3.85e-04 t=54.0s G=1020s swa=10
+  E19 loss=1.1468 tr=0.6576 val_bal=0.8875 lr_bb=3.70e-04 t=53.9s G=1074s swa=10
+  E20 loss=1.1358 tr=0.6644 val_bal=0.8696 lr_bb=3.55e-04 t=54.2s G=1129s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=1.0821 tr=0.6637 val_bal=0.8642 lr_bb=3.40e-04 t=54.4s G=1186s swa=10
+  E22 loss=1.1023 tr=0.6399 val_bal=0.8902 lr_bb=3.24e-04 t=54.4s G=1240s swa=10
+  E23 loss=1.0380 tr=0.7019 val_bal=0.9110 lr_bb=3.08e-04 t=62.8s G=1303s swa=10
+  E24 loss=1.0995 tr=0.6391 val_bal=0.8933 lr_bb=2.92e-04 t=53.9s G=1357s swa=10
+  E25 loss=1.0664 tr=0.6572 val_bal=0.9025 lr_bb=2.75e-04 t=64.8s G=1422s swa=10
+  E26 loss=1.0423 tr=0.6898 val_bal=0.9125 lr_bb=2.58e-04 t=54.3s G=1476s swa=10
+  E27 loss=1.0270 tr=0.6607 val_bal=0.9012 lr_bb=2.42e-04 t=55.2s G=1531s swa=10
+  E28 loss=1.0295 tr=0.6650 val_bal=0.9032 lr_bb=2.25e-04 t=53.9s G=1585s swa=10
+  E29 loss=0.9683 tr=0.6874 val_bal=0.9080 lr_bb=2.08e-04 t=54.9s G=1640s swa=10
+  E30 loss=0.9594 tr=0.7161 val_bal=0.9169 lr_bb=1.92e-04 t=58.4s G=1699s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=0.9458 tr=0.7093 val_bal=0.9234 lr_bb=1.76e-04 t=55.7s G=1757s swa=10
+  E32 loss=0.9368 tr=0.7344 val_bal=0.9195 lr_bb=1.60e-04 t=55.1s G=1812s swa=10
+  E33 loss=0.9976 tr=0.6930 val_bal=0.9206 lr_bb=1.45e-04 t=55.0s G=1867s swa=10
+  E34 loss=1.0037 tr=0.6812 val_bal=0.9282 lr_bb=1.30e-04 t=55.2s G=1922s swa=10
+  E35 loss=0.9698 tr=0.6675 val_bal=0.9227 lr_bb=1.15e-04 t=63.0s G=1986s swa=10
+  E36 loss=0.8518 tr=0.7593 val_bal=0.9309 lr_bb=1.02e-04 t=62.9s G=2049s swa=10
+  E37 loss=0.9375 tr=0.7033 val_bal=0.9285 lr_bb=8.86e-05 t=55.5s G=2104s swa=10
+  E38 loss=0.9134 tr=0.7344 val_bal=0.9338 lr_bb=7.62e-05 t=56.7s G=2161s swa=10
+  E39 loss=0.9180 tr=0.7362 val_bal=0.9405 lr_bb=6.46e-05 t=68.3s G=2229s swa=10
+  E40 loss=0.9372 tr=0.6895 val_bal=0.9393 lr_bb=5.38e-05 t=55.0s G=2284s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.9393 tr=0.6969 val_bal=0.9364 lr_bb=4.39e-05 t=55.2s G=2342s swa=10
+  E42 loss=0.8994 tr=0.7472 val_bal=0.9335 lr_bb=3.49e-05 t=54.3s G=2396s swa=10
+  E43 loss=0.8990 tr=0.7209 val_bal=0.9355 lr_bb=2.69e-05 t=54.9s G=2451s swa=10
+  E44 loss=0.9131 tr=0.7059 val_bal=0.9404 lr_bb=1.98e-05 t=55.0s G=2506s swa=10
+  E45 loss=0.8534 tr=0.7429 val_bal=0.9387 lr_bb=1.38e-05 t=54.1s G=2560s swa=10
+  E46 loss=0.8487 tr=0.7653 val_bal=0.9347 lr_bb=8.88e-06 t=54.1s G=2615s swa=10
+  E47 loss=0.9051 tr=0.7456 val_bal=0.9393 lr_bb=5.01e-06 t=53.5s G=2668s swa=10
+  E48 loss=0.9100 tr=0.7094 val_bal=0.9368 lr_bb=5.00e-06 t=53.7s G=2722s swa=10
+  E49 loss=0.8509 tr=0.7729 val_bal=0.9366 lr_bb=5.00e-06 t=53.7s G=2776s swa=10
+  E50 loss=0.8977 tr=0.7220 val_bal=0.9357 lr_bb=5.00e-06 t=53.8s G=2829s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9376  best=0.9405  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/training_metrics.npz
+[*] Fit done  states=1  time=2834s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=13514  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/ConvNeXt-Tiny_predictions_std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9329
+Performance dict: {'experiment_short_name': 'std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': 'all', 'num_classes': 8, 'test_acc': 0.9345123575551281, 'val_acc': 0.9329352657873518, 'train_acc': 0.7220052083333334, 'per_class_recall': [0.959954233409611, 0.954368932038835, 0.9433638443935927, 0.9399008674101611, 0.8869257950530035, 0.9351851851851852, 0.9315825846579129, 0.9122006841505131], 'per_class_precision': [0.9301552106430155, 0.9571567672833495, 0.9504322766570605, 0.9216281895504252, 0.8919687277896233, 0.9368115942028985, 0.9264604810996564, 0.9478672985781991], 'restricted_classes': None}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.95995423 0.95436893 0.94336384 0.93990087 0.8869258  0.93518519
+ 0.93158258 0.91220068]
+Precision per class: [0.93015521 0.95715677 0.95043228 0.92162819 0.89196873 0.93681159
+ 0.92646048 0.9478673 ]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0541
+Mean conf  = 0.8849
+Accuracy   = 0.9345
+Config saved to: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0/config_end_check.json
+
+real	55m18.797s
+user	185m20.634s
+sys	9m52.445s
+run  src/script_train_5_models_singleSplit.py --splitting-choice muPlot_year1only --yearChosen 2020 --restrict-classes 1  --fold 0
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_muPlot_year1only_year=2020_restrClass=1_fold0
+Output directory for this experiment: expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0
+Config saved to: expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/config.json
+[*] Log file: expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training.log
+Experiment short name: std50_muPlot_year1only_year=2020_restrClass=1_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : muPlot_year1only:  by microplot, taking only year 2020
+  Class 5: 757 train samples, from microplots                 ['x41y23'], and from years:                 [2020]
+           908  test samples, from microplots                 ['x40y20'], and from years:                 [2020]
+  Class 7: 855 train samples, from microplots                 ['x34y21'], and from years:                 [2020]
+           792  test samples, from microplots                 ['x32y23'], and from years:                 [2020]
+  Saved 1612 rows → expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/splits/train.csv
+  Saved 1700 rows → expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/splits/test.csv
+Loaded Train data... shape:(1612, 252, 252, 3)
+Loading Test data... shape:(1700, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training.log
+[*] Restricted classes (0-indexed): [5, 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=1612  shape=(252, 252, 3)  y.shape=(1612, 8)
+[*] Train=1483  Val=129
+y.shape=(1612, 8)
+[*] Class distribution in train/val split:
+    Class 5: train=696 (46.9%), val=61 (47.3%)
+    Class 7: train=787 (53.1%), val=68 (52.7%)
+[*] Class weights for weighted loss: [0.        0.        0.        0.        0.        1.0613621 0.
+ 0.9386379]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=1.5460 tr=0.3743 val_bal=0.7373 lr_bb=1.67e-04 t=14.6s G=20s swa=0
+  E02 loss=0.8745 tr=0.6129 val_bal=0.6837 lr_bb=3.33e-04 t=6.5s G=27s swa=0
+  E03 loss=0.9564 tr=0.5320 val_bal=0.8239 lr_bb=5.00e-04 t=6.2s G=33s swa=0
+  E04 loss=0.9139 tr=0.5895 val_bal=0.5328 lr_bb=4.99e-04 t=6.1s G=39s swa=0
+  E05 loss=0.8202 tr=0.6683 val_bal=0.7577 lr_bb=4.98e-04 t=6.3s G=45s swa=1
+  E06 loss=0.8318 tr=0.6875 val_bal=0.6311 lr_bb=4.95e-04 t=6.3s G=52s swa=2
+  E07 loss=0.8469 tr=0.6293 val_bal=0.7760 lr_bb=4.91e-04 t=6.2s G=58s swa=3
+  E08 loss=0.8322 tr=0.7280 val_bal=0.7155 lr_bb=4.86e-04 t=6.2s G=64s swa=4
+  E09 loss=0.7993 tr=0.6776 val_bal=0.7894 lr_bb=4.80e-04 t=6.2s G=71s swa=5
+  E10 loss=0.7426 tr=0.7116 val_bal=0.8880 lr_bb=4.73e-04 t=6.3s G=77s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=0.8179 tr=0.6747 val_bal=0.6230 lr_bb=4.65e-04 t=6.3s G=86s swa=7
+  E12 loss=0.8616 tr=0.6797 val_bal=0.8493 lr_bb=4.56e-04 t=6.2s G=92s swa=8
+  E13 loss=0.7380 tr=0.7528 val_bal=0.8632 lr_bb=4.46e-04 t=6.2s G=99s swa=9
+  E14 loss=0.7312 tr=0.7159 val_bal=0.8349 lr_bb=4.35e-04 t=6.4s G=105s swa=10
+  E15 loss=0.7193 tr=0.7401 val_bal=0.8861 lr_bb=4.24e-04 t=6.3s G=111s swa=10
+  E16 loss=0.7658 tr=0.7124 val_bal=0.8626 lr_bb=4.11e-04 t=6.3s G=118s swa=10
+  E17 loss=0.7253 tr=0.7294 val_bal=0.8787 lr_bb=3.98e-04 t=6.3s G=124s swa=10
+  E18 loss=0.7734 tr=0.7138 val_bal=0.9050 lr_bb=3.85e-04 t=6.3s G=131s swa=10
+  E19 loss=0.7507 tr=0.7081 val_bal=0.8750 lr_bb=3.70e-04 t=6.3s G=137s swa=10
+  E20 loss=0.6442 tr=0.8395 val_bal=0.9214 lr_bb=3.55e-04 t=6.1s G=143s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=0.6505 tr=0.8089 val_bal=0.8750 lr_bb=3.40e-04 t=6.4s G=152s swa=10
+  E22 loss=0.7116 tr=0.7756 val_bal=0.9550 lr_bb=3.24e-04 t=6.2s G=158s swa=10
+  E23 loss=0.6838 tr=0.7557 val_bal=0.9256 lr_bb=3.08e-04 t=6.5s G=164s swa=10
+  E24 loss=0.7055 tr=0.7628 val_bal=0.9435 lr_bb=2.92e-04 t=6.1s G=170s swa=10
+  E25 loss=0.6937 tr=0.7827 val_bal=0.9460 lr_bb=2.75e-04 t=6.3s G=177s swa=10
+  E26 loss=0.7065 tr=0.7663 val_bal=0.8595 lr_bb=2.58e-04 t=6.3s G=183s swa=10
+  E27 loss=0.6938 tr=0.7507 val_bal=0.8824 lr_bb=2.42e-04 t=6.4s G=190s swa=10
+  E28 loss=0.6844 tr=0.7614 val_bal=0.9624 lr_bb=2.25e-04 t=6.2s G=196s swa=10
+  E29 loss=0.7166 tr=0.7067 val_bal=0.9468 lr_bb=2.08e-04 t=6.2s G=202s swa=10
+  E30 loss=0.6634 tr=0.7578 val_bal=0.9403 lr_bb=1.92e-04 t=6.5s G=209s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=0.6484 tr=0.7869 val_bal=0.9183 lr_bb=1.76e-04 t=6.5s G=217s swa=10
+  E32 loss=0.6631 tr=0.7472 val_bal=0.9248 lr_bb=1.60e-04 t=6.1s G=224s swa=10
+  E33 loss=0.6836 tr=0.7848 val_bal=0.9256 lr_bb=1.45e-04 t=6.4s G=230s swa=10
+  E34 loss=0.6380 tr=0.7798 val_bal=0.9223 lr_bb=1.30e-04 t=6.3s G=236s swa=10
+  E35 loss=0.5863 tr=0.8750 val_bal=0.9542 lr_bb=1.15e-04 t=6.3s G=243s swa=10
+  E36 loss=0.6212 tr=0.8026 val_bal=0.9468 lr_bb=1.02e-04 t=6.4s G=249s swa=10
+  E37 loss=0.6125 tr=0.7536 val_bal=0.9313 lr_bb=8.86e-05 t=6.2s G=255s swa=10
+  E38 loss=0.6149 tr=0.8246 val_bal=0.9338 lr_bb=7.62e-05 t=6.3s G=262s swa=10
+  E39 loss=0.5961 tr=0.8075 val_bal=0.9615 lr_bb=6.46e-05 t=6.6s G=268s swa=10
+  E40 loss=0.6448 tr=0.7869 val_bal=0.9542 lr_bb=5.38e-05 t=6.1s G=274s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.5506 tr=0.9332 val_bal=0.9166 lr_bb=4.39e-05 t=6.3s G=283s swa=10
+  E42 loss=0.5636 tr=0.8189 val_bal=0.9386 lr_bb=3.49e-05 t=6.1s G=289s swa=10
+  E43 loss=0.6092 tr=0.8565 val_bal=0.9468 lr_bb=2.69e-05 t=6.3s G=295s swa=10
+  E44 loss=0.6173 tr=0.7827 val_bal=0.9542 lr_bb=1.98e-05 t=6.3s G=302s swa=10
+  E45 loss=0.5352 tr=0.8722 val_bal=0.9468 lr_bb=1.38e-05 t=6.3s G=308s swa=10
+  E46 loss=0.5843 tr=0.7585 val_bal=0.9386 lr_bb=8.88e-06 t=6.3s G=314s swa=10
+  E47 loss=0.5363 tr=0.8771 val_bal=0.9395 lr_bb=5.01e-06 t=6.4s G=321s swa=10
+  E48 loss=0.5821 tr=0.8913 val_bal=0.9395 lr_bb=5.00e-06 t=6.2s G=327s swa=10
+  E49 loss=0.5897 tr=0.8104 val_bal=0.9468 lr_bb=5.00e-06 t=6.4s G=334s swa=10
+  E50 loss=0.6368 tr=0.7947 val_bal=0.9468 lr_bb=5.00e-06 t=6.5s G=340s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9395  best=0.9624  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Fit done  states=1  time=344s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_muPlot_year1only_year=2020_restrClass=1_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=1700  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/ConvNeXt-Tiny_predictions_std50_muPlot_year1only_year=2020_restrClass=1_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9377
+Performance dict: {'experiment_short_name': 'std50_muPlot_year1only_year=2020_restrClass=1_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': '2020', 'num_classes': 8, 'test_acc': 0.9388235294117647, 'val_acc': 0.9376501802162596, 'train_acc': 0.7947443181818182, 'per_class_recall': [0.9548458149779736, 0.9204545454545454], 'per_class_precision': [0.932258064516129, 0.9467532467532468], 'restricted_classes': [5, 7]}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.95484581 0.92045455]
+Precision per class: [0.93225806 0.94675325]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0517
+Mean conf  = 0.8910
+Accuracy   = 0.9388
+Config saved to: expe/std50_muPlot_year1only_year=2020_restrClass=1_fold0/config_end_check.json
+
+real	7m44.463s
+user	21m31.729s
+sys	1m21.503s
+run  src/script_train_5_models_singleSplit.py --splitting-choice random_year1only --yearChosen 2020 --restrict-classes 1  --fold 0
+/mnt/beegfs/home/landes/torch2/lib/python3.12/site-packages/torch/optim/lr_scheduler.py:224: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_random_year1only_year=2020_restrClass=1_fold0
+Output directory for this experiment: expe/std50_random_year1only_year=2020_restrClass=1_fold0
+Config saved to: expe/std50_random_year1only_year=2020_restrClass=1_fold0/config.json
+[*] Log file: expe/std50_random_year1only_year=2020_restrClass=1_fold0/training.log
+Experiment short name: std50_random_year1only_year=2020_restrClass=1_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_random_year1only_year=2020_restrClass=1_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : random_year1only:  randomly, taking only year 2020
+  Class 5: 833 train samples, from microplots                 ['x40y20' 'x41y23'], and from years:                 [2020]
+           832  test samples, from microplots                 ['x40y20' 'x41y23'], and from years:                 [2020]
+  Class 7: 824 train samples, from microplots                 ['x32y23' 'x34y21'], and from years:                 [2020]
+           823  test samples, from microplots                 ['x32y23' 'x34y21'], and from years:                 [2020]
+  Saved 1657 rows → expe/std50_random_year1only_year=2020_restrClass=1_fold0/splits/train.csv
+  Saved 1655 rows → expe/std50_random_year1only_year=2020_restrClass=1_fold0/splits/test.csv
+Loaded Train data... shape:(1657, 252, 252, 3)
+Loading Test data... shape:(1655, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training.log
+[*] Restricted classes (0-indexed): [5, 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=1657  shape=(252, 252, 3)  y.shape=(1657, 8)
+[*] Train=1524  Val=133
+y.shape=(1657, 8)
+[*] Class distribution in train/val split:
+    Class 5: train=766 (50.3%), val=67 (50.4%)
+    Class 7: train=758 (49.7%), val=66 (49.6%)
+[*] Class weights for weighted loss: [0.        0.        0.        0.        0.        0.9947507 0.
+ 1.0052494]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=1.5058 tr=0.4034 val_bal=0.7226 lr_bb=1.67e-04 t=13.7s G=20s swa=0
+  E02 loss=0.8904 tr=0.5973 val_bal=0.5597 lr_bb=3.33e-04 t=6.4s G=26s swa=0
+  E03 loss=0.9271 tr=0.5696 val_bal=0.8497 lr_bb=5.00e-04 t=6.2s G=32s swa=0
+  E04 loss=0.8342 tr=0.7045 val_bal=0.8278 lr_bb=4.99e-04 t=6.1s G=38s swa=0
+  E05 loss=0.7823 tr=0.6925 val_bal=0.8206 lr_bb=4.98e-04 t=6.3s G=45s swa=1
+  E06 loss=0.8537 tr=0.6747 val_bal=0.7503 lr_bb=4.95e-04 t=6.3s G=51s swa=2
+  E07 loss=0.7934 tr=0.6648 val_bal=0.7983 lr_bb=4.91e-04 t=6.1s G=57s swa=3
+  E08 loss=0.8338 tr=0.7159 val_bal=0.7048 lr_bb=4.86e-04 t=6.1s G=63s swa=4
+  E09 loss=0.7981 tr=0.6648 val_bal=0.7014 lr_bb=4.80e-04 t=6.8s G=70s swa=5
+  E10 loss=0.7809 tr=0.7045 val_bal=0.8717 lr_bb=4.73e-04 t=6.3s G=77s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_curve_std50_random_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=0.7449 tr=0.7379 val_bal=0.8799 lr_bb=4.65e-04 t=6.3s G=86s swa=7
+  E12 loss=0.7063 tr=0.7869 val_bal=0.8410 lr_bb=4.56e-04 t=6.1s G=92s swa=8
+  E13 loss=0.7395 tr=0.7493 val_bal=0.8790 lr_bb=4.46e-04 t=6.1s G=98s swa=9
+  E14 loss=0.7520 tr=0.6967 val_bal=0.8728 lr_bb=4.35e-04 t=6.4s G=105s swa=10
+  E15 loss=0.6706 tr=0.7862 val_bal=0.9094 lr_bb=4.24e-04 t=6.3s G=111s swa=10
+  E16 loss=0.7487 tr=0.7337 val_bal=0.7535 lr_bb=4.11e-04 t=6.3s G=117s swa=10
+  E17 loss=0.7152 tr=0.7500 val_bal=0.9099 lr_bb=3.98e-04 t=6.3s G=124s swa=10
+  E18 loss=0.7542 tr=0.7180 val_bal=0.9248 lr_bb=3.85e-04 t=6.3s G=130s swa=10
+  E19 loss=0.7568 tr=0.7230 val_bal=0.8432 lr_bb=3.70e-04 t=6.3s G=136s swa=10
+  E20 loss=0.6805 tr=0.8047 val_bal=0.9248 lr_bb=3.55e-04 t=6.1s G=142s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_curve_std50_random_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=0.6585 tr=0.7834 val_bal=0.9017 lr_bb=3.40e-04 t=6.3s G=151s swa=10
+  E22 loss=0.7230 tr=0.7642 val_bal=0.9098 lr_bb=3.24e-04 t=6.2s G=157s swa=10
+  E23 loss=0.6906 tr=0.7450 val_bal=0.9172 lr_bb=3.08e-04 t=6.5s G=164s swa=10
+  E24 loss=0.7063 tr=0.7578 val_bal=0.9471 lr_bb=2.92e-04 t=6.1s G=170s swa=10
+  E25 loss=0.6619 tr=0.8111 val_bal=0.9246 lr_bb=2.75e-04 t=6.3s G=176s swa=10
+  E26 loss=0.6738 tr=0.7834 val_bal=0.9396 lr_bb=2.58e-04 t=6.3s G=183s swa=10
+  E27 loss=0.6556 tr=0.7827 val_bal=0.9470 lr_bb=2.42e-04 t=6.3s G=189s swa=10
+  E28 loss=0.6887 tr=0.7457 val_bal=0.9324 lr_bb=2.25e-04 t=6.3s G=195s swa=10
+  E29 loss=0.6770 tr=0.7543 val_bal=0.9397 lr_bb=2.08e-04 t=6.2s G=202s swa=10
+  E30 loss=0.6678 tr=0.7642 val_bal=0.9247 lr_bb=1.92e-04 t=6.4s G=208s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_curve_std50_random_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=0.6483 tr=0.8033 val_bal=0.9173 lr_bb=1.76e-04 t=6.5s G=217s swa=10
+  E32 loss=0.6389 tr=0.7699 val_bal=0.9545 lr_bb=1.60e-04 t=6.2s G=223s swa=10
+  E33 loss=0.6616 tr=0.8089 val_bal=0.9398 lr_bb=1.45e-04 t=6.4s G=229s swa=10
+  E34 loss=0.6205 tr=0.7876 val_bal=0.9249 lr_bb=1.30e-04 t=6.3s G=236s swa=10
+  E35 loss=0.5763 tr=0.8842 val_bal=0.9173 lr_bb=1.15e-04 t=6.4s G=242s swa=10
+  E36 loss=0.6141 tr=0.8239 val_bal=0.9248 lr_bb=1.02e-04 t=6.4s G=249s swa=10
+  E37 loss=0.6043 tr=0.7635 val_bal=0.9397 lr_bb=8.86e-05 t=6.2s G=255s swa=10
+  E38 loss=0.6294 tr=0.8047 val_bal=0.9547 lr_bb=7.62e-05 t=6.4s G=261s swa=10
+  E39 loss=0.5883 tr=0.8288 val_bal=0.9398 lr_bb=6.46e-05 t=6.6s G=268s swa=10
+  E40 loss=0.6242 tr=0.8232 val_bal=0.9472 lr_bb=5.38e-05 t=6.0s G=274s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_curve_std50_random_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.5597 tr=0.9212 val_bal=0.9396 lr_bb=4.39e-05 t=6.2s G=282s swa=10
+  E42 loss=0.5546 tr=0.8288 val_bal=0.9397 lr_bb=3.49e-05 t=6.0s G=288s swa=10
+  E43 loss=0.6091 tr=0.8580 val_bal=0.9472 lr_bb=2.69e-05 t=6.3s G=295s swa=10
+  E44 loss=0.6158 tr=0.7869 val_bal=0.9547 lr_bb=1.98e-05 t=6.2s G=301s swa=10
+  E45 loss=0.5325 tr=0.8864 val_bal=0.9472 lr_bb=1.38e-05 t=6.2s G=307s swa=10
+  E46 loss=0.5826 tr=0.7528 val_bal=0.9472 lr_bb=8.88e-06 t=6.3s G=314s swa=10
+  E47 loss=0.5379 tr=0.8736 val_bal=0.9547 lr_bb=5.01e-06 t=6.3s G=320s swa=10
+  E48 loss=0.5864 tr=0.8928 val_bal=0.9547 lr_bb=5.00e-06 t=6.0s G=326s swa=10
+  E49 loss=0.5782 tr=0.8232 val_bal=0.9547 lr_bb=5.00e-06 t=6.2s G=332s swa=10
+  E50 loss=0.6190 tr=0.8097 val_bal=0.9547 lr_bb=5.00e-06 t=6.3s G=339s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_curve_std50_random_year1only_year=2020_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9472  best=0.9547  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2020_restrClass=1_fold0/training_metrics.npz
+[*] Fit done  states=1  time=343s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_random_year1only_year=2020_restrClass=1_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=1655  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_random_year1only_year=2020_restrClass=1_fold0/ConvNeXt-Tiny_predictions_std50_random_year1only_year=2020_restrClass=1_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9541
+Performance dict: {'experiment_short_name': 'std50_random_year1only_year=2020_restrClass=1_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': '2020', 'num_classes': 8, 'test_acc': 0.9540785498489426, 'val_acc': 0.9540969074212543, 'train_acc': 0.8096590909090909, 'per_class_recall': [0.9507211538461539, 0.9574726609963548], 'per_class_precision': [0.9576271186440678, 0.9505428226779252], 'restricted_classes': [5, 7]}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.95072115 0.95747266]
+Precision per class: [0.95762712 0.95054282]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0680
+Mean conf  = 0.8866
+Accuracy   = 0.9541
+Config saved to: expe/std50_random_year1only_year=2020_restrClass=1_fold0/config_end_check.json
+
+real	7m47.823s
+user	21m48.886s
+sys	1m19.993s
+run  src/script_train_5_models_singleSplit.py --splitting-choice muPlot_year1only --yearChosen 2021 --restrict-classes 1  --fold 0
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_muPlot_year1only_year=2021_restrClass=1_fold0
+Output directory for this experiment: expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0
+Config saved to: expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/config.json
+[*] Log file: expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training.log
+Experiment short name: std50_muPlot_year1only_year=2021_restrClass=1_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : muPlot_year1only:  by microplot, taking only year 2020
+  Class 5: 716 train samples, from microplots                 ['x80y20'], and from years:                 [2021]
+           820  test samples, from microplots                 ['x79y13'], and from years:                 [2021]
+  Class 7: 892 train samples, from microplots                 ['x75y12'], and from years:                 [2021]
+           962  test samples, from microplots                 ['x74y17'], and from years:                 [2021]
+  Saved 1608 rows → expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/splits/train.csv
+  Saved 1782 rows → expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/splits/test.csv
+Loaded Train data... shape:(1608, 252, 252, 3)
+Loading Test data... shape:(1782, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training.log
+[*] Restricted classes (0-indexed): [5, 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=1608  shape=(252, 252, 3)  y.shape=(1608, 8)
+[*] Train=1480  Val=128
+y.shape=(1608, 8)
+[*] Class distribution in train/val split:
+    Class 5: train=659 (44.5%), val=57 (44.5%)
+    Class 7: train=821 (55.5%), val=71 (55.5%)
+[*] Class weights for weighted loss: [0.         0.         0.         0.         0.         1.1094594
+ 0.         0.89054054]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=1.5725 tr=0.3679 val_bal=0.6779 lr_bb=1.67e-04 t=11.0s G=17s swa=0
+  E02 loss=0.8501 tr=0.6108 val_bal=0.8139 lr_bb=3.33e-04 t=7.2s G=25s swa=0
+  E03 loss=0.8154 tr=0.6491 val_bal=0.8384 lr_bb=5.00e-04 t=6.2s G=31s swa=0
+  E04 loss=0.8261 tr=0.7074 val_bal=0.6631 lr_bb=4.99e-04 t=6.2s G=37s swa=0
+  E05 loss=0.8479 tr=0.6094 val_bal=0.8330 lr_bb=4.98e-04 t=6.4s G=43s swa=1
+  E06 loss=0.7767 tr=0.7180 val_bal=0.8682 lr_bb=4.95e-04 t=6.3s G=50s swa=2
+  E07 loss=0.8084 tr=0.6591 val_bal=0.8506 lr_bb=4.91e-04 t=6.2s G=56s swa=3
+  E08 loss=0.8254 tr=0.7216 val_bal=0.8488 lr_bb=4.86e-04 t=6.2s G=62s swa=4
+  E09 loss=0.7589 tr=0.7138 val_bal=0.8840 lr_bb=4.80e-04 t=6.2s G=69s swa=5
+  E10 loss=0.6797 tr=0.7450 val_bal=0.8910 lr_bb=4.73e-04 t=6.3s G=75s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=0.7570 tr=0.7188 val_bal=0.8648 lr_bb=4.65e-04 t=6.2s G=84s swa=7
+  E12 loss=0.6661 tr=0.7990 val_bal=0.8663 lr_bb=4.56e-04 t=6.1s G=90s swa=8
+  E13 loss=0.7409 tr=0.7393 val_bal=0.8188 lr_bb=4.46e-04 t=6.0s G=96s swa=9
+  E14 loss=0.7203 tr=0.7216 val_bal=0.8841 lr_bb=4.35e-04 t=6.3s G=103s swa=10
+  E15 loss=0.6618 tr=0.7805 val_bal=0.9173 lr_bb=4.24e-04 t=6.2s G=109s swa=10
+  E16 loss=0.7372 tr=0.7251 val_bal=0.9015 lr_bb=4.11e-04 t=6.2s G=115s swa=10
+  E17 loss=0.6760 tr=0.7486 val_bal=0.8963 lr_bb=3.98e-04 t=6.3s G=122s swa=10
+  E18 loss=0.7358 tr=0.7301 val_bal=0.8946 lr_bb=3.85e-04 t=6.3s G=128s swa=10
+  E19 loss=0.7197 tr=0.7479 val_bal=0.9067 lr_bb=3.70e-04 t=6.3s G=134s swa=10
+  E20 loss=0.6475 tr=0.8232 val_bal=0.8912 lr_bb=3.55e-04 t=6.1s G=140s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=0.6298 tr=0.7947 val_bal=0.9225 lr_bb=3.40e-04 t=6.4s G=149s swa=10
+  E22 loss=0.7026 tr=0.7749 val_bal=0.8034 lr_bb=3.24e-04 t=6.2s G=155s swa=10
+  E23 loss=0.6657 tr=0.7564 val_bal=0.8981 lr_bb=3.08e-04 t=6.5s G=162s swa=10
+  E24 loss=0.6976 tr=0.7443 val_bal=0.8824 lr_bb=2.92e-04 t=6.1s G=168s swa=10
+  E25 loss=0.6603 tr=0.8061 val_bal=0.9262 lr_bb=2.75e-04 t=6.3s G=174s swa=10
+  E26 loss=0.6378 tr=0.8040 val_bal=0.9034 lr_bb=2.58e-04 t=6.1s G=180s swa=10
+  E27 loss=0.6391 tr=0.7784 val_bal=0.9228 lr_bb=2.42e-04 t=6.2s G=187s swa=10
+  E28 loss=0.6665 tr=0.7699 val_bal=0.8876 lr_bb=2.25e-04 t=6.2s G=193s swa=10
+  E29 loss=0.6630 tr=0.7464 val_bal=0.9280 lr_bb=2.08e-04 t=6.2s G=199s swa=10
+  E30 loss=0.6449 tr=0.7713 val_bal=0.9122 lr_bb=1.92e-04 t=6.4s G=206s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=0.6289 tr=0.7990 val_bal=0.9017 lr_bb=1.76e-04 t=6.5s G=215s swa=10
+  E32 loss=0.6399 tr=0.7614 val_bal=0.9438 lr_bb=1.60e-04 t=7.5s G=222s swa=10
+  E33 loss=0.6522 tr=0.8146 val_bal=0.9209 lr_bb=1.45e-04 t=6.4s G=229s swa=10
+  E34 loss=0.6254 tr=0.7770 val_bal=0.9227 lr_bb=1.30e-04 t=6.3s G=235s swa=10
+  E35 loss=0.5685 tr=0.8722 val_bal=0.9209 lr_bb=1.15e-04 t=6.3s G=241s swa=10
+  E36 loss=0.5982 tr=0.8153 val_bal=0.9209 lr_bb=1.02e-04 t=6.4s G=248s swa=10
+  E37 loss=0.5905 tr=0.7699 val_bal=0.9280 lr_bb=8.86e-05 t=6.2s G=254s swa=10
+  E38 loss=0.6005 tr=0.8217 val_bal=0.9297 lr_bb=7.62e-05 t=6.3s G=260s swa=10
+  E39 loss=0.5620 tr=0.8317 val_bal=0.9068 lr_bb=6.46e-05 t=6.6s G=267s swa=10
+  E40 loss=0.6247 tr=0.7969 val_bal=0.9068 lr_bb=5.38e-05 t=6.1s G=273s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.5392 tr=0.9276 val_bal=0.9139 lr_bb=4.39e-05 t=6.3s G=282s swa=10
+  E42 loss=0.5368 tr=0.8281 val_bal=0.9139 lr_bb=3.49e-05 t=5.9s G=288s swa=10
+  E43 loss=0.5940 tr=0.8622 val_bal=0.9139 lr_bb=2.69e-05 t=6.3s G=294s swa=10
+  E44 loss=0.6020 tr=0.7891 val_bal=0.9209 lr_bb=1.98e-05 t=6.2s G=301s swa=10
+  E45 loss=0.5296 tr=0.8871 val_bal=0.9209 lr_bb=1.38e-05 t=6.3s G=307s swa=10
+  E46 loss=0.5642 tr=0.7756 val_bal=0.9280 lr_bb=8.88e-06 t=6.4s G=313s swa=10
+  E47 loss=0.5302 tr=0.8821 val_bal=0.9209 lr_bb=5.01e-06 t=6.5s G=320s swa=10
+  E48 loss=0.5741 tr=0.8899 val_bal=0.9209 lr_bb=5.00e-06 t=6.2s G=326s swa=10
+  E49 loss=0.5603 tr=0.8359 val_bal=0.9209 lr_bb=5.00e-06 t=6.4s G=333s swa=10
+  E50 loss=0.6186 tr=0.8026 val_bal=0.9209 lr_bb=5.00e-06 t=6.5s G=339s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_curve_std50_muPlot_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9209  best=0.9438  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Fit done  states=1  time=343s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_muPlot_year1only_year=2021_restrClass=1_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=1782  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/ConvNeXt-Tiny_predictions_std50_muPlot_year1only_year=2021_restrClass=1_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9448
+Performance dict: {'experiment_short_name': 'std50_muPlot_year1only_year=2021_restrClass=1_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': '2021', 'num_classes': 8, 'test_acc': 0.9444444444444444, 'val_acc': 0.9447644642766594, 'train_acc': 0.8025568181818182, 'per_class_recall': [0.948780487804878, 0.9407484407484408], 'per_class_precision': [0.9317365269461078, 0.955649419218585], 'restricted_classes': [5, 7]}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.94878049 0.94074844]
+Precision per class: [0.93173653 0.95564942]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0605
+Mean conf  = 0.8870
+Accuracy   = 0.9444
+Config saved to: expe/std50_muPlot_year1only_year=2021_restrClass=1_fold0/config_end_check.json
+
+real	7m45.467s
+user	21m31.959s
+sys	1m19.588s
+run  src/script_train_5_models_singleSplit.py --splitting-choice random_year1only --yearChosen 2021 --restrict-classes 1  --fold 0
+/mnt/beegfs/home/landes/torch2/lib/python3.12/site-packages/torch/optim/lr_scheduler.py:224: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_random_year1only_year=2021_restrClass=1_fold0
+Output directory for this experiment: expe/std50_random_year1only_year=2021_restrClass=1_fold0
+Config saved to: expe/std50_random_year1only_year=2021_restrClass=1_fold0/config.json
+[*] Log file: expe/std50_random_year1only_year=2021_restrClass=1_fold0/training.log
+Experiment short name: std50_random_year1only_year=2021_restrClass=1_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_random_year1only_year=2021_restrClass=1_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : random_year1only:  randomly, taking only year 2020
+  Class 5: 768 train samples, from microplots                 ['x79y13' 'x80y20'], and from years:                 [2021]
+           768  test samples, from microplots                 ['x79y13' 'x80y20'], and from years:                 [2021]
+  Class 7: 927 train samples, from microplots                 ['x74y17' 'x75y12'], and from years:                 [2021]
+           927  test samples, from microplots                 ['x74y17' 'x75y12'], and from years:                 [2021]
+  Saved 1695 rows → expe/std50_random_year1only_year=2021_restrClass=1_fold0/splits/train.csv
+  Saved 1695 rows → expe/std50_random_year1only_year=2021_restrClass=1_fold0/splits/test.csv
+Loaded Train data... shape:(1695, 252, 252, 3)
+Loading Test data... shape:(1695, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training.log
+[*] Restricted classes (0-indexed): [5, 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=1695  shape=(252, 252, 3)  y.shape=(1695, 8)
+[*] Train=1560  Val=135
+y.shape=(1695, 8)
+[*] Class distribution in train/val split:
+    Class 5: train=707 (45.3%), val=61 (45.2%)
+    Class 7: train=853 (54.7%), val=74 (54.8%)
+[*] Class weights for weighted loss: [0.        0.        0.        0.        0.        1.0935898 0.
+ 0.9064103]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=1.5049 tr=0.3952 val_bal=0.7642 lr_bb=1.67e-04 t=10.9s G=15s swa=0
+  E02 loss=0.8420 tr=0.6348 val_bal=0.7555 lr_bb=3.33e-04 t=6.8s G=22s swa=0
+  E03 loss=0.8789 tr=0.6361 val_bal=0.5270 lr_bb=5.00e-04 t=6.9s G=29s swa=0
+  E04 loss=0.8848 tr=0.6211 val_bal=0.5246 lr_bb=4.99e-04 t=6.9s G=36s swa=0
+  E05 loss=0.8985 tr=0.6940 val_bal=0.8404 lr_bb=4.98e-04 t=7.0s G=43s swa=1
+  E06 loss=0.7920 tr=0.7233 val_bal=0.8471 lr_bb=4.95e-04 t=6.7s G=50s swa=2
+  E07 loss=0.7286 tr=0.7786 val_bal=0.8833 lr_bb=4.91e-04 t=6.9s G=57s swa=3
+  E08 loss=0.7254 tr=0.7324 val_bal=0.8755 lr_bb=4.86e-04 t=6.8s G=64s swa=4
+  E09 loss=0.7876 tr=0.7337 val_bal=0.8808 lr_bb=4.80e-04 t=6.8s G=71s swa=5
+  E10 loss=0.7173 tr=0.7786 val_bal=0.8457 lr_bb=4.73e-04 t=7.0s G=78s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_curve_std50_random_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=0.7041 tr=0.7585 val_bal=0.9011 lr_bb=4.65e-04 t=6.9s G=88s swa=7
+  E12 loss=0.7440 tr=0.7174 val_bal=0.8525 lr_bb=4.56e-04 t=6.8s G=95s swa=8
+  E13 loss=0.7526 tr=0.6992 val_bal=0.8523 lr_bb=4.46e-04 t=6.9s G=102s swa=9
+  E14 loss=0.7890 tr=0.6992 val_bal=0.8910 lr_bb=4.35e-04 t=6.8s G=108s swa=10
+  E15 loss=0.7469 tr=0.7383 val_bal=0.9402 lr_bb=4.24e-04 t=7.0s G=116s swa=10
+  E16 loss=0.6958 tr=0.6862 val_bal=0.8968 lr_bb=4.11e-04 t=7.0s G=123s swa=10
+  E17 loss=0.7336 tr=0.6947 val_bal=0.9344 lr_bb=3.98e-04 t=6.6s G=129s swa=10
+  E18 loss=0.6716 tr=0.8066 val_bal=0.9238 lr_bb=3.85e-04 t=7.0s G=136s swa=10
+  E19 loss=0.6629 tr=0.7930 val_bal=0.9252 lr_bb=3.70e-04 t=6.8s G=143s swa=10
+  E20 loss=0.6536 tr=0.7773 val_bal=0.9387 lr_bb=3.55e-04 t=6.9s G=150s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_curve_std50_random_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=0.6721 tr=0.7839 val_bal=0.9103 lr_bb=3.40e-04 t=7.1s G=160s swa=10
+  E22 loss=0.7156 tr=0.7682 val_bal=0.9103 lr_bb=3.24e-04 t=7.0s G=167s swa=10
+  E23 loss=0.7198 tr=0.6953 val_bal=0.9078 lr_bb=3.08e-04 t=7.0s G=174s swa=10
+  E24 loss=0.6803 tr=0.7943 val_bal=0.9238 lr_bb=2.92e-04 t=6.8s G=181s swa=10
+  E25 loss=0.6260 tr=0.8171 val_bal=0.9320 lr_bb=2.75e-04 t=6.7s G=188s swa=10
+  E26 loss=0.6933 tr=0.7812 val_bal=0.9214 lr_bb=2.58e-04 t=6.8s G=195s swa=10
+  E27 loss=0.7077 tr=0.7435 val_bal=0.9402 lr_bb=2.42e-04 t=6.8s G=202s swa=10
+  E28 loss=0.7049 tr=0.7721 val_bal=0.9305 lr_bb=2.25e-04 t=7.0s G=209s swa=10
+  E29 loss=0.6317 tr=0.8379 val_bal=0.9267 lr_bb=2.08e-04 t=6.6s G=215s swa=10
+  E30 loss=0.6810 tr=0.7246 val_bal=0.9334 lr_bb=1.92e-04 t=6.9s G=222s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_curve_std50_random_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=0.6465 tr=0.8301 val_bal=0.9291 lr_bb=1.76e-04 t=6.9s G=232s swa=10
+  E32 loss=0.5653 tr=0.8190 val_bal=0.9402 lr_bb=1.60e-04 t=6.9s G=239s swa=10
+  E33 loss=0.6108 tr=0.7936 val_bal=0.9252 lr_bb=1.45e-04 t=7.0s G=246s swa=10
+  E34 loss=0.6291 tr=0.7786 val_bal=0.9402 lr_bb=1.30e-04 t=6.8s G=252s swa=10
+  E35 loss=0.6108 tr=0.8581 val_bal=0.9605 lr_bb=1.15e-04 t=6.8s G=259s swa=10
+  E36 loss=0.5607 tr=0.8802 val_bal=0.9334 lr_bb=1.02e-04 t=6.9s G=266s swa=10
+  E37 loss=0.6082 tr=0.8047 val_bal=0.9537 lr_bb=8.86e-05 t=6.8s G=273s swa=10
+  E38 loss=0.5973 tr=0.8626 val_bal=0.9469 lr_bb=7.62e-05 t=7.0s G=280s swa=10
+  E39 loss=0.5746 tr=0.8783 val_bal=0.9469 lr_bb=6.46e-05 t=7.0s G=287s swa=10
+  E40 loss=0.5768 tr=0.8867 val_bal=0.9469 lr_bb=5.38e-05 t=6.8s G=294s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_curve_std50_random_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.5912 tr=0.8626 val_bal=0.9455 lr_bb=4.39e-05 t=6.8s G=303s swa=10
+  E42 loss=0.5338 tr=0.8698 val_bal=0.9469 lr_bb=3.49e-05 t=7.0s G=310s swa=10
+  E43 loss=0.5677 tr=0.8490 val_bal=0.9605 lr_bb=2.69e-05 t=7.2s G=317s swa=10
+  E44 loss=0.5569 tr=0.8509 val_bal=0.9605 lr_bb=1.98e-05 t=7.0s G=325s swa=10
+  E45 loss=0.5890 tr=0.7826 val_bal=0.9605 lr_bb=1.38e-05 t=7.0s G=332s swa=10
+  E46 loss=0.6219 tr=0.7760 val_bal=0.9537 lr_bb=8.88e-06 t=6.7s G=338s swa=10
+  E47 loss=0.6135 tr=0.8327 val_bal=0.9469 lr_bb=5.01e-06 t=6.9s G=345s swa=10
+  E48 loss=0.5184 tr=0.8900 val_bal=0.9537 lr_bb=5.00e-06 t=6.9s G=352s swa=10
+  E49 loss=0.5672 tr=0.8346 val_bal=0.9537 lr_bb=5.00e-06 t=7.0s G=359s swa=10
+  E50 loss=0.6300 tr=0.8040 val_bal=0.9605 lr_bb=5.00e-06 t=7.0s G=366s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_curve_std50_random_year1only_year=2021_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9605  best=0.9605  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_random_year1only_year=2021_restrClass=1_fold0/training_metrics.npz
+[*] Fit done  states=1  time=370s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_random_year1only_year=2021_restrClass=1_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=1695  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_random_year1only_year=2021_restrClass=1_fold0/ConvNeXt-Tiny_predictions_std50_random_year1only_year=2021_restrClass=1_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9487
+Performance dict: {'experiment_short_name': 'std50_random_year1only_year=2021_restrClass=1_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': '2021', 'num_classes': 8, 'test_acc': 0.9504424778761061, 'val_acc': 0.9486625202265373, 'train_acc': 0.8040364583333334, 'per_class_recall': [0.9296875, 0.9676375404530745], 'per_class_precision': [0.9596774193548387, 0.943217665615142], 'restricted_classes': [5, 7]}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.9296875  0.96763754]
+Precision per class: [0.95967742 0.94321767]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0515
+Mean conf  = 0.9015
+Accuracy   = 0.9504
+Config saved to: expe/std50_random_year1only_year=2021_restrClass=1_fold0/config_end_check.json
+
+real	8m18.912s
+user	23m43.911s
+sys	1m26.962s
+run  src/script_train_5_models_singleSplit.py --splitting-choice muPlot-2muTrain-2muTest --yearChosen 0 --restrict-classes 1  --fold 0
+/mnt/beegfs/home/landes/torch2/lib/python3.12/site-packages/torch/optim/lr_scheduler.py:224: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+Base Directory: .
+Dataset Directory: data/processed
+Experiment name: std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0
+Output directory for this experiment: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0
+Config saved to: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/config.json
+[*] Log file: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training.log
+Experiment short name: std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0
+DEBUG: Discarding existing split CSVs, for dev time.
+No split CSVs found — creating a new fixed split and saving to: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/splits
+Found 26882 total NPZ files.
+[*] Splitting : muPlot-2muTrain-2muTest
+  Class 5: 1473 train samples, from microplots                 ['x41y23' 'x80y20'], and from years:                 [2020 2021]
+           1728  test samples, from microplots                 ['x40y20' 'x79y13'], and from years:                 [2020 2021]
+  Class 7: 1747 train samples, from microplots                 ['x34y21' 'x75y12'], and from years:                 [2020 2021]
+           1754  test samples, from microplots                 ['x32y23' 'x74y17'], and from years:                 [2020 2021]
+  Saved 3220 rows → expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/splits/train.csv
+  Saved 3482 rows → expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/splits/test.csv
+Loaded Train data... shape:(3220, 252, 252, 3)
+Loading Test data... shape:(3482, 252, 252, 3)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training.log
+[*] Restricted classes (0-indexed): [5, 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=3220  shape=(252, 252, 3)  y.shape=(3220, 8)
+[*] Train=2962  Val=258
+y.shape=(3220, 8)
+[*] Class distribution in train/val split:
+    Class 5: train=1355 (45.7%), val=118 (45.7%)
+    Class 7: train=1607 (54.3%), val=140 (54.3%)
+[*] Class weights for weighted loss: [0.         0.         0.         0.         0.         1.0850776
+ 0.         0.91492236]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=1.2919 tr=0.4721 val_bal=0.6529 lr_bb=1.67e-04 t=16.5s G=22s swa=0
+  E02 loss=0.9175 tr=0.5968 val_bal=0.8059 lr_bb=3.33e-04 t=13.0s G=35s swa=0
+  E03 loss=0.8474 tr=0.6630 val_bal=0.7096 lr_bb=5.00e-04 t=13.0s G=48s swa=0
+  E04 loss=0.8333 tr=0.6613 val_bal=0.6933 lr_bb=4.99e-04 t=13.2s G=62s swa=0
+  E05 loss=0.9047 tr=0.5659 val_bal=0.7395 lr_bb=4.98e-04 t=13.4s G=75s swa=1
+  E06 loss=0.7938 tr=0.7031 val_bal=0.8086 lr_bb=4.95e-04 t=13.1s G=88s swa=2
+  E07 loss=0.7955 tr=0.6797 val_bal=0.8177 lr_bb=4.91e-04 t=13.1s G=102s swa=3
+  E08 loss=0.7819 tr=0.6889 val_bal=0.8567 lr_bb=4.86e-04 t=13.5s G=115s swa=4
+  E09 loss=0.7688 tr=0.6875 val_bal=0.8679 lr_bb=4.80e-04 t=17.3s G=132s swa=5
+  E10 loss=0.7280 tr=0.7707 val_bal=0.8842 lr_bb=4.73e-04 t=13.1s G=146s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=0.7520 tr=0.7262 val_bal=0.8746 lr_bb=4.65e-04 t=13.1s G=162s swa=7
+  E12 loss=0.7585 tr=0.7269 val_bal=0.8375 lr_bb=4.56e-04 t=13.0s G=175s swa=8
+  E13 loss=0.7043 tr=0.7330 val_bal=0.8920 lr_bb=4.46e-04 t=13.2s G=188s swa=9
+  E14 loss=0.7542 tr=0.7272 val_bal=0.8374 lr_bb=4.35e-04 t=13.8s G=202s swa=10
+  E15 loss=0.7795 tr=0.7031 val_bal=0.8918 lr_bb=4.24e-04 t=13.2s G=216s swa=10
+  E16 loss=0.7557 tr=0.7259 val_bal=0.8279 lr_bb=4.11e-04 t=12.9s G=229s swa=10
+  E17 loss=0.6887 tr=0.7486 val_bal=0.8873 lr_bb=3.98e-04 t=13.1s G=242s swa=10
+  E18 loss=0.6962 tr=0.7476 val_bal=0.8967 lr_bb=3.85e-04 t=13.3s G=255s swa=10
+  E19 loss=0.7023 tr=0.7802 val_bal=0.9157 lr_bb=3.70e-04 t=13.1s G=268s swa=10
+  E20 loss=0.6745 tr=0.8115 val_bal=0.9003 lr_bb=3.55e-04 t=13.2s G=282s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=0.6754 tr=0.7653 val_bal=0.9232 lr_bb=3.40e-04 t=13.3s G=298s swa=10
+  E22 loss=0.6321 tr=0.8251 val_bal=0.9346 lr_bb=3.24e-04 t=13.2s G=311s swa=10
+  E23 loss=0.6295 tr=0.8132 val_bal=0.9190 lr_bb=3.08e-04 t=13.5s G=324s swa=10
+  E24 loss=0.6610 tr=0.7490 val_bal=0.9179 lr_bb=2.92e-04 t=13.3s G=338s swa=10
+  E25 loss=0.6445 tr=0.8142 val_bal=0.9226 lr_bb=2.75e-04 t=13.2s G=351s swa=10
+  E26 loss=0.6741 tr=0.7897 val_bal=0.9402 lr_bb=2.58e-04 t=13.2s G=364s swa=10
+  E27 loss=0.6303 tr=0.8224 val_bal=0.9373 lr_bb=2.42e-04 t=13.3s G=378s swa=10
+  E28 loss=0.6459 tr=0.8257 val_bal=0.9324 lr_bb=2.25e-04 t=13.3s G=391s swa=10
+  E29 loss=0.5970 tr=0.8781 val_bal=0.9344 lr_bb=2.08e-04 t=13.1s G=404s swa=10
+  E30 loss=0.6631 tr=0.7945 val_bal=0.9373 lr_bb=1.92e-04 t=13.2s G=417s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=0.6590 tr=0.7796 val_bal=0.9369 lr_bb=1.76e-04 t=13.3s G=433s swa=10
+  E32 loss=0.5778 tr=0.8550 val_bal=0.9447 lr_bb=1.60e-04 t=13.2s G=446s swa=10
+  E33 loss=0.6634 tr=0.7799 val_bal=0.9311 lr_bb=1.45e-04 t=13.1s G=459s swa=10
+  E34 loss=0.6002 tr=0.8397 val_bal=0.9538 lr_bb=1.30e-04 t=13.5s G=473s swa=10
+  E35 loss=0.5976 tr=0.7989 val_bal=0.9509 lr_bb=1.15e-04 t=13.5s G=487s swa=10
+  E36 loss=0.6040 tr=0.8291 val_bal=0.9529 lr_bb=1.02e-04 t=13.5s G=500s swa=10
+  E37 loss=0.5776 tr=0.8237 val_bal=0.9502 lr_bb=8.86e-05 t=13.3s G=513s swa=10
+  E38 loss=0.6194 tr=0.8268 val_bal=0.9558 lr_bb=7.62e-05 t=12.9s G=526s swa=10
+  E39 loss=0.6137 tr=0.8336 val_bal=0.9630 lr_bb=6.46e-05 t=13.1s G=540s swa=10
+  E40 loss=0.6142 tr=0.8393 val_bal=0.9502 lr_bb=5.38e-05 t=13.2s G=553s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=0.5727 tr=0.8468 val_bal=0.9594 lr_bb=4.39e-05 t=13.0s G=568s swa=10
+  E42 loss=0.5816 tr=0.8512 val_bal=0.9636 lr_bb=3.49e-05 t=13.3s G=581s swa=10
+  E43 loss=0.5731 tr=0.8108 val_bal=0.9665 lr_bb=2.69e-05 t=13.6s G=595s swa=10
+  E44 loss=0.5475 tr=0.8730 val_bal=0.9587 lr_bb=1.98e-05 t=13.3s G=609s swa=10
+  E45 loss=0.5384 tr=0.8699 val_bal=0.9623 lr_bb=1.38e-05 t=13.3s G=622s swa=10
+  E46 loss=0.5918 tr=0.8485 val_bal=0.9587 lr_bb=8.88e-06 t=13.2s G=635s swa=10
+  E47 loss=0.5643 tr=0.7897 val_bal=0.9630 lr_bb=5.01e-06 t=13.7s G=649s swa=10
+  E48 loss=0.5752 tr=0.8047 val_bal=0.9594 lr_bb=5.00e-06 t=13.3s G=662s swa=10
+  E49 loss=0.5712 tr=0.8336 val_bal=0.9594 lr_bb=5.00e-06 t=13.5s G=676s swa=10
+  E50 loss=0.5746 tr=0.8037 val_bal=0.9587 lr_bb=5.00e-06 t=13.4s G=689s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_curve_std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9630  best=0.9665  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/training_metrics.npz
+[*] Fit done  states=1  time=693s
+Model weights saved to: models/ConvNeXt-Tiny_Y1_model_std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0.pth
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Y1 Model on Year 1 (In-Domain Upper Bound)...
+[*] Predict probabilities  n=3482  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/ConvNeXt-Tiny_predictions_std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0.npz
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Train Y1 -> Test Y1 (Native): 0.9524
+Performance dict: {'experiment_short_name': 'std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0', 'split_number': 0, 'num_epochs': 50, 'limit_per_year': None, 'year': 'all', 'num_classes': 8, 'test_acc': 0.9523262492820218, 'val_acc': 0.9524222412264032, 'train_acc': 0.8036684782608695, 'per_class_recall': [0.9652777777777778, 0.9395667046750285], 'per_class_precision': [0.9402480270574972, 0.9648711943793911], 'restricted_classes': [5, 7]}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.96527778 0.9395667 ]
+Precision per class: [0.94024803 0.96487119]
+[*] Saved calibration_reliability.png + .pdf  (main text figure)
+[*] Saved calibration_histogram.png + .pdf  (appendix figure)
+ECE        = 0.0512
+Mean conf  = 0.9067
+Accuracy   = 0.9523
+Config saved to: expe/std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0/config_end_check.json
+
+real	14m22.260s
+user	44m12.086s
+sys	2m30.906s

@@ -1,0 +1,3691 @@
+github-Phuoc-preprocessing) flandes@ptb-11200876:~/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing$ ./sbatch-local.sh
+/media/flandes/Expansion/GRAIN_CLASSIFICATION/perfomix_2019-2020_IE_HSI_mix
+Band 15 brightness: 2678.5253424657535
+Band 52 brightness: 14233.758145416228
+Band 80 brightness: 23875.53336670179
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [0.0..1.2346345758131583].
+Control plots saved, please inspect them and adjust the trimming parameters accordingly
+Processing 189 HDR files with 10 workers …
+Waiting for x28y19-mix34_8000_us_2x_2021-02-22T111017_corr.hdr …
+    Using band 80 for segmentation (max_ref=23875.53)
+Band 15 brightness: 2678.5
+Band 52 brightness: 14233.8
+Band 80 brightness: 23875.5
+    Spectralon means [R,G,B]: [np.float64(2678.5), np.float64(14233.8), np.float64(23875.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 167.92 seconds
+        morpho.watershed() took 326.60 seconds
+    Watershed took 495.38s, found 225 grains
+Processing grain 0 of 225
+Got 225 grains for x28y19-mix34_8000_us_2x_2021-02-22T111017_corr in 499.61 seconds
+Waiting for x28y20-mix35_8000_us_2x_2021-02-24T081541_corr.hdr …
+    Using band 80 for segmentation (max_ref=19272.28)
+Band 15 brightness: 2130.0
+Band 52 brightness: 11418.3
+Band 80 brightness: 19272.3
+    Spectralon means [R,G,B]: [np.float64(2130.0), np.float64(11418.3), np.float64(19272.3)]
+    Using band 80 for segmentation (max_ref=23603.85)
+Band 15 brightness: 2572.3
+Band 52 brightness: 13899.0
+Band 80 brightness: 23603.8
+    Spectralon means [R,G,B]: [np.float64(2572.3), np.float64(13899.0), np.float64(23603.8)]
+    Using band 80 for segmentation (max_ref=23167.80)
+Band 15 brightness: 2516.7
+Band 52 brightness: 13633.9
+Band 80 brightness: 23167.8
+    Spectralon means [R,G,B]: [np.float64(2516.7), np.float64(13633.9), np.float64(23167.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19209.63)
+Band 15 brightness: 2119.6
+Band 52 brightness: 11372.7
+Band 80 brightness: 19209.6
+    Spectralon means [R,G,B]: [np.float64(2119.6), np.float64(11372.7), np.float64(19209.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23716.64)
+Band 15 brightness: 2589.3
+Band 52 brightness: 13974.7
+Band 80 brightness: 23716.6
+    Spectralon means [R,G,B]: [np.float64(2589.3), np.float64(13974.7), np.float64(23716.6)]
+        morpho.hminima() took 157.06 seconds
+    Using band 80 for segmentation (max_ref=19082.39)
+Band 15 brightness: 2118.6
+Band 52 brightness: 11315.4
+Band 80 brightness: 19082.4
+    Spectralon means [R,G,B]: [np.float64(2118.6), np.float64(11315.4), np.float64(19082.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23715.08)
+Band 15 brightness: 2593.1
+Band 52 brightness: 13972.7
+Band 80 brightness: 23715.1
+    Spectralon means [R,G,B]: [np.float64(2593.1), np.float64(13972.7), np.float64(23715.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19127.33)
+Band 15 brightness: 2128.7
+Band 52 brightness: 11347.0
+Band 80 brightness: 19127.3
+    Spectralon means [R,G,B]: [np.float64(2128.7), np.float64(11347.0), np.float64(19127.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 270.97 seconds
+        morpho.hminima() took 196.81 seconds
+    Using band 80 for segmentation (max_ref=24070.17)
+Band 15 brightness: 2696.9
+Band 52 brightness: 14342.0
+Band 80 brightness: 24070.2
+    Spectralon means [R,G,B]: [np.float64(2696.9), np.float64(14342.0), np.float64(24070.2)]
+    Using band 80 for segmentation (max_ref=23785.18)
+Band 15 brightness: 2653.6
+Band 52 brightness: 14170.9
+Band 80 brightness: 23785.2
+    Spectralon means [R,G,B]: [np.float64(2653.6), np.float64(14170.9), np.float64(23785.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 244.56 seconds
+        morpho.hminima() took 279.25 seconds
+        morpho.hminima() took 309.79 seconds
+        morpho.hminima() took 147.48 seconds
+        morpho.watershed() took 439.29 seconds
+    Watershed took 597.33s, found 175 grains
+Processing grain 0 of 175
+        morpho.hminima() took 199.06 seconds
+        morpho.hminima() took 346.77 seconds
+    Using band 80 for segmentation (max_ref=23362.82)
+Band 15 brightness: 2624.8
+Band 52 brightness: 13916.4
+Band 80 brightness: 23362.8
+    Spectralon means [R,G,B]: [np.float64(2624.8), np.float64(13916.4), np.float64(23362.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 550.48 seconds
+        morpho.watershed() took 417.05 seconds
+    Watershed took 614.63s, found 149 grains
+Processing grain 0 of 149
+        morpho.watershed() took 526.28 seconds
+    Watershed took 798.27s, found 158 grains
+Processing grain 0 of 158
+        morpho.watershed() took 296.42 seconds
+    Watershed took 445.01s, found 236 grains
+Processing grain 0 of 236
+        morpho.hminima() took 244.98 seconds
+        morpho.watershed() took 480.53 seconds
+    Watershed took 725.94s, found 191 grains
+Processing grain 0 of 191
+        morpho.watershed() took 338.61 seconds
+    Watershed took 538.53s, found 214 grains
+Processing grain 0 of 214
+Got 214 grains for x28y20-mix35_8000_us_2x_2021-02-24T081541_corr in 2760.94 seconds
+Waiting for x28y23-mix18_8000_us_2x_2020-12-03T155658_corr.hdr …
+Got 191 grains for x28y23-mix18_8000_us_2x_2020-12-03T155658_corr in 0.00 seconds
+Waiting for x28y23-mix18_8000_us_2x_2020-12-03T155950_corr.hdr …
+        morpho.watershed() took 487.83 seconds
+    Watershed took 767.79s, found 146 grains
+Processing grain 0 of 146
+        morpho.watershed() took 476.26 seconds
+    Watershed took 786.93s, found 177 grains
+Processing grain 0 of 177
+        morpho.watershed() took 448.37 seconds
+    Watershed took 796.10s, found 203 grains
+Processing grain 0 of 203
+    Using band 80 for segmentation (max_ref=23462.69)
+Band 15 brightness: 2529.4
+Band 52 brightness: 13792.7
+Band 80 brightness: 23462.7
+    Spectralon means [R,G,B]: [np.float64(2529.4), np.float64(13792.7), np.float64(23462.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 554.71 seconds
+    Watershed took 1105.98s, found 197 grains
+Processing grain 0 of 197
+Got 197 grains for x28y23-mix18_8000_us_2x_2020-12-03T155950_corr in 253.05 seconds
+Waiting for x28y23-mix18_8000_us_2x_2020-12-03T160216_corr.hdr …
+Got 158 grains for x28y23-mix18_8000_us_2x_2020-12-03T160216_corr in 0.00 seconds
+Waiting for x28y23-mix18_8000_us_2x_2020-12-03T160450_corr.hdr …
+Got 175 grains for x28y23-mix18_8000_us_2x_2020-12-03T160450_corr in 0.00 seconds
+Waiting for x28y24-mix17_8000_us_2x_2020-12-03T152311_corr.hdr …
+Got 203 grains for x28y24-mix17_8000_us_2x_2020-12-03T152311_corr in 0.00 seconds
+Waiting for x28y24-mix17_8000_us_2x_2020-12-03T152553_corr.hdr …
+Got 146 grains for x28y24-mix17_8000_us_2x_2020-12-03T152553_corr in 0.00 seconds
+Waiting for x28y24-mix17_8000_us_2x_2020-12-03T152811_corr.hdr …
+Got 177 grains for x28y24-mix17_8000_us_2x_2020-12-03T152811_corr in 0.00 seconds
+Waiting for x28y24-mix17_8000_us_2x_2020-12-03T153008_corr.hdr …
+Got 149 grains for x28y24-mix17_8000_us_2x_2020-12-03T153008_corr in 0.00 seconds
+Waiting for x29y19-mix6_8000_us_2x_2021-02-22T113049_corr.hdr …
+Got 236 grains for x29y19-mix6_8000_us_2x_2021-02-22T113049_corr in 0.00 seconds
+Waiting for x29y20-mix47_8000_us_2x_2021-02-22T092933_corr.hdr …
+        morpho.watershed() took 336.22 seconds
+    Watershed took 582.35s, found 313 grains
+Processing grain 0 of 313
+Got 313 grains for x29y20-mix47_8000_us_2x_2021-02-22T092933_corr in 22.92 seconds
+Waiting for x29y22-mix23_8000_us_2x_2020-12-11T165458_corr.hdr …
+        morpho.hminima() took 108.02 seconds
+    Using band 80 for segmentation (max_ref=18538.97)
+Band 15 brightness: 2046.1
+Band 52 brightness: 10984.9
+Band 80 brightness: 18539.0
+    Spectralon means [R,G,B]: [np.float64(2046.1), np.float64(10984.9), np.float64(18539.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 260.76 seconds
+    Watershed took 369.88s, found 284 grains
+Processing grain 0 of 284
+Got 284 grains for x29y22-mix23_8000_us_2x_2020-12-11T165458_corr in 332.99 seconds
+Waiting for x29y23-mix2_8000_us_2x_2020-12-02T165443_corr.hdr …
+        morpho.hminima() took 312.14 seconds
+    Using band 80 for segmentation (max_ref=22890.29)
+Band 15 brightness: 2507.5
+Band 52 brightness: 13511.7
+Band 80 brightness: 22890.3
+    Spectralon means [R,G,B]: [np.float64(2507.5), np.float64(13511.7), np.float64(22890.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 262.61 seconds
+        morpho.watershed() took 458.41 seconds
+    Watershed took 771.53s, found 224 grains
+Processing grain 0 of 224
+Got 224 grains for x29y23-mix2_8000_us_2x_2020-12-02T165443_corr in 569.08 seconds
+Waiting for x29y23-mix2_8000_us_2x_2020-12-02T165814_corr.hdr …
+    Using band 80 for segmentation (max_ref=20032.23)
+Band 15 brightness: 2226.3
+Band 52 brightness: 11885.4
+Band 80 brightness: 20032.2
+    Spectralon means [R,G,B]: [np.float64(2226.3), np.float64(11885.4), np.float64(20032.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 416.57 seconds
+    Watershed took 680.07s, found 205 grains
+Processing grain 0 of 205
+    Using band 80 for segmentation (max_ref=18924.56)
+Band 15 brightness: 2102.8
+Band 52 brightness: 11219.8
+Band 80 brightness: 18924.6
+    Spectralon means [R,G,B]: [np.float64(2102.8), np.float64(11219.8), np.float64(18924.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 262.22 seconds
+    Using band 80 for segmentation (max_ref=19301.12)
+Band 15 brightness: 2150.0
+Band 52 brightness: 11453.6
+Band 80 brightness: 19301.1
+    Spectralon means [R,G,B]: [np.float64(2150.0), np.float64(11453.6), np.float64(19301.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 324.81 seconds
+        morpho.hminima() took 168.82 seconds
+        morpho.watershed() took 397.06 seconds
+    Watershed took 660.01s, found 166 grains
+Processing grain 0 of 166
+    Using band 80 for segmentation (max_ref=23458.15)
+Band 15 brightness: 2566.0
+Band 52 brightness: 13825.3
+Band 80 brightness: 23458.2
+    Spectralon means [R,G,B]: [np.float64(2566.0), np.float64(13825.3), np.float64(23458.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=22758.00)
+Band 15 brightness: 2478.9
+Band 52 brightness: 13414.8
+Band 80 brightness: 22758.0
+    Spectralon means [R,G,B]: [np.float64(2478.9), np.float64(13414.8), np.float64(22758.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 320.51 seconds
+    Watershed took 490.25s, found 181 grains
+Processing grain 0 of 181
+    Using band 80 for segmentation (max_ref=18596.19)
+Band 15 brightness: 2067.0
+Band 52 brightness: 11025.5
+Band 80 brightness: 18596.2
+    Spectralon means [R,G,B]: [np.float64(2067.0), np.float64(11025.5), np.float64(18596.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 479.88 seconds
+    Watershed took 805.71s, found 177 grains
+Processing grain 0 of 177
+        morpho.hminima() took 246.02 seconds
+        morpho.hminima() took 289.96 seconds
+        morpho.hminima() took 193.44 seconds
+    Using band 80 for segmentation (max_ref=23851.26)
+Band 15 brightness: 2668.2
+Band 52 brightness: 14212.6
+Band 80 brightness: 23851.3
+    Spectralon means [R,G,B]: [np.float64(2668.2), np.float64(14212.6), np.float64(23851.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23934.86)
+Band 15 brightness: 2614.4
+Band 52 brightness: 14097.2
+Band 80 brightness: 23934.9
+    Spectralon means [R,G,B]: [np.float64(2614.4), np.float64(14097.2), np.float64(23934.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23218.73)
+Band 15 brightness: 2524.5
+Band 52 brightness: 13669.2
+Band 80 brightness: 23218.7
+    Spectralon means [R,G,B]: [np.float64(2524.5), np.float64(13669.2), np.float64(23218.7)]
+        morpho.watershed() took 402.19 seconds
+    Watershed took 648.89s, found 132 grains
+Processing grain 0 of 132
+        morpho.hminima() took 142.45 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 352.75 seconds
+    Watershed took 547.18s, found 245 grains
+Processing grain 0 of 245
+        morpho.watershed() took 453.92 seconds
+    Watershed took 744.56s, found 132 grains
+Processing grain 0 of 132
+    Using band 80 for segmentation (max_ref=23752.32)
+Band 15 brightness: 2652.0
+Band 52 brightness: 14147.8
+Band 80 brightness: 23752.3
+    Spectralon means [R,G,B]: [np.float64(2652.0), np.float64(14147.8), np.float64(23752.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 161.74 seconds
+        morpho.hminima() took 111.81 seconds
+        morpho.hminima() took 421.09 seconds
+        morpho.watershed() took 290.72 seconds
+    Watershed took 434.09s, found 228 grains
+Processing grain 0 of 228
+    Using band 80 for segmentation (max_ref=19155.09)
+Band 15 brightness: 2130.5
+Band 52 brightness: 11360.2
+Band 80 brightness: 19155.1
+    Spectralon means [R,G,B]: [np.float64(2130.5), np.float64(11360.2), np.float64(19155.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=22824.64)
+Band 15 brightness: 2514.1
+Band 52 brightness: 13490.0
+Band 80 brightness: 22824.6
+    Spectralon means [R,G,B]: [np.float64(2514.1), np.float64(13490.0), np.float64(22824.6)]
+        morpho.watershed() took 274.19 seconds
+    Starting watershed segmentation...
+    Watershed took 386.85s, found 199 grains
+        starting morpho.hminima
+Processing grain 0 of 199
+        morpho.watershed() took 325.49 seconds
+    Watershed took 487.95s, found 158 grains
+Processing grain 0 of 158
+Got 158 grains for x29y23-mix2_8000_us_2x_2020-12-02T165814_corr in 2205.08 seconds
+Waiting for x29y23-mix2_8000_us_2x_2020-12-02T170348_corr.hdr …
+Got 245 grains for x29y23-mix2_8000_us_2x_2020-12-02T170348_corr in 0.00 seconds
+Waiting for x29y23-mix2_8000_us_2x_2020-12-02T170705_corr.hdr …
+    Using band 80 for segmentation (max_ref=19006.26)
+Band 15 brightness: 2114.3
+Band 52 brightness: 11269.7
+Band 80 brightness: 19006.3
+    Spectralon means [R,G,B]: [np.float64(2114.3), np.float64(11269.7), np.float64(19006.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 210.61 seconds
+        morpho.hminima() took 197.98 seconds
+        morpho.watershed() took 461.10 seconds
+    Watershed took 883.17s, found 223 grains
+Processing grain 0 of 223
+        morpho.hminima() took 272.89 seconds
+    Using band 80 for segmentation (max_ref=23824.22)
+Band 15 brightness: 2679.2
+Band 52 brightness: 14201.8
+Band 80 brightness: 23824.2
+    Spectralon means [R,G,B]: [np.float64(2679.2), np.float64(14201.8), np.float64(23824.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 370.38 seconds
+    Watershed took 581.99s, found 208 grains
+Processing grain 0 of 208
+        morpho.watershed() took 362.63 seconds
+    Watershed took 561.42s, found 196 grains
+Processing grain 0 of 196
+    Using band 80 for segmentation (max_ref=22972.22)
+Band 15 brightness: 2506.1
+Band 52 brightness: 13561.9
+Band 80 brightness: 22972.2
+    Spectralon means [R,G,B]: [np.float64(2506.1), np.float64(13561.9), np.float64(22972.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 114.13 seconds
+        morpho.hminima() took 207.66 seconds
+        morpho.watershed() took 450.11 seconds
+    Watershed took 723.85s, found 205 grains
+Processing grain 0 of 205
+    Using band 80 for segmentation (max_ref=23673.02)
+Band 15 brightness: 2588.4
+Band 52 brightness: 13951.5
+Band 80 brightness: 23673.0
+    Spectralon means [R,G,B]: [np.float64(2588.4), np.float64(13951.5), np.float64(23673.0)]
+    Using band 80 for segmentation (max_ref=23498.87)
+Band 15 brightness: 2634.1
+Band 52 brightness: 14003.8
+Band 80 brightness: 23498.9
+    Spectralon means [R,G,B]: [np.float64(2634.1), np.float64(14003.8), np.float64(23498.9)]
+    Starting watershed segmentation...
+        morpho.watershed() took 277.83 seconds
+    Watershed took 392.94s, found 242 grains
+Processing grain 0 of 242
+        morpho.watershed() took 379.59 seconds
+    Watershed took 588.14s, found 226 grains
+Processing grain 0 of 226
+    Using band 80 for segmentation (max_ref=23840.67)
+Band 15 brightness: 2672.8
+Band 52 brightness: 14213.6
+Band 80 brightness: 23840.7
+    Spectralon means [R,G,B]: [np.float64(2672.8), np.float64(14213.6), np.float64(23840.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 131.57 seconds
+    Using band 80 for segmentation (max_ref=18270.05)
+Band 15 brightness: 2036.4
+Band 52 brightness: 10839.7
+Band 80 brightness: 18270.0
+    Spectralon means [R,G,B]: [np.float64(2036.4), np.float64(10839.7), np.float64(18270.0)]
+        morpho.watershed() took 280.77 seconds
+    Watershed took 413.43s, found 281 grains
+Processing grain 0 of 281
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 252.74 seconds
+    Using band 80 for segmentation (max_ref=23820.39)
+Band 15 brightness: 2574.1
+Band 52 brightness: 14011.2
+Band 80 brightness: 23820.4
+    Spectralon means [R,G,B]: [np.float64(2574.1), np.float64(14011.2), np.float64(23820.4)]
+        morpho.watershed() took 415.47 seconds
+    Watershed took 668.96s, found 163 grains
+Processing grain 0 of 163
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23619.41)
+Band 15 brightness: 2660.7
+Band 52 brightness: 14073.3
+Band 80 brightness: 23619.4
+    Spectralon means [R,G,B]: [np.float64(2660.7), np.float64(14073.3), np.float64(23619.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 203.28 seconds
+        morpho.hminima() took 93.33 seconds
+    Using band 80 for segmentation (max_ref=23872.36)
+Band 15 brightness: 2577.3
+Band 52 brightness: 14033.4
+Band 80 brightness: 23872.4
+    Spectralon means [R,G,B]: [np.float64(2577.3), np.float64(14033.4), np.float64(23872.4)]
+        morpho.watershed() took 244.50 seconds
+    Watershed took 338.99s, found 306 grains
+Processing grain 0 of 306
+    Using band 80 for segmentation (max_ref=23976.42)
+Band 15 brightness: 2683.9
+Band 52 brightness: 14288.0
+Band 80 brightness: 23976.4
+    Spectralon means [R,G,B]: [np.float64(2683.9), np.float64(14288.0), np.float64(23976.4)]
+        morpho.watershed() took 300.93 seconds
+    Watershed took 505.32s, found 326 grains
+Processing grain 0 of 326
+    Using band 80 for segmentation (max_ref=23905.61)
+Band 15 brightness: 2611.9
+Band 52 brightness: 14083.9
+Band 80 brightness: 23905.6
+    Spectralon means [R,G,B]: [np.float64(2611.9), np.float64(14083.9), np.float64(23905.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23585.96)
+Band 15 brightness: 2652.1
+Band 52 brightness: 14040.0
+Band 80 brightness: 23586.0
+    Spectralon means [R,G,B]: [np.float64(2652.1), np.float64(14040.0), np.float64(23586.0)]
+        morpho.hminima() took 90.34 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23637.63)
+Band 15 brightness: 2653.9
+Band 52 brightness: 14072.4
+Band 80 brightness: 23637.6
+    Spectralon means [R,G,B]: [np.float64(2653.9), np.float64(14072.4), np.float64(23637.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 278.52 seconds
+    Using band 80 for segmentation (max_ref=23558.27)
+Band 15 brightness: 2575.5
+Band 52 brightness: 13887.1
+Band 80 brightness: 23558.3
+    Spectralon means [R,G,B]: [np.float64(2575.5), np.float64(13887.1), np.float64(23558.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18777.06)
+Band 15 brightness: 2095.6
+Band 52 brightness: 11144.8
+Band 80 brightness: 18777.1
+    Spectralon means [R,G,B]: [np.float64(2095.6), np.float64(11144.8), np.float64(18777.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 148.30 seconds
+        morpho.hminima() took 134.92 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 242.14 seconds
+    Watershed took 333.51s, found 306 grains
+Processing grain 0 of 306
+        morpho.hminima() took 186.61 seconds
+        morpho.hminima() took 155.67 seconds
+    Using band 80 for segmentation (max_ref=18857.54)
+Band 15 brightness: 2101.2
+Band 52 brightness: 11187.7
+Band 80 brightness: 18857.5
+    Spectralon means [R,G,B]: [np.float64(2101.2), np.float64(11187.7), np.float64(18857.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23820.67)
+Band 15 brightness: 2683.5
+Band 52 brightness: 14199.3
+Band 80 brightness: 23820.7
+    Spectralon means [R,G,B]: [np.float64(2683.5), np.float64(14199.3), np.float64(23820.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 290.93 seconds
+    Using band 80 for segmentation (max_ref=23905.09)
+Band 15 brightness: 2668.2
+Band 52 brightness: 14241.4
+Band 80 brightness: 23905.1
+    Spectralon means [R,G,B]: [np.float64(2668.2), np.float64(14241.4), np.float64(23905.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 280.85 seconds
+        morpho.watershed() took 472.16 seconds
+    Watershed took 751.53s, found 158 grains
+Processing grain 0 of 158
+        morpho.watershed() took 412.32 seconds
+    Watershed took 561.70s, found 262 grains
+Processing grain 0 of 262
+        morpho.watershed() took 371.26 seconds
+    Watershed took 507.55s, found 298 grains
+Processing grain 0 of 298
+        morpho.hminima() took 247.44 seconds
+        morpho.hminima() took 171.95 seconds
+        morpho.watershed() took 353.43 seconds
+    Watershed took 510.35s, found 273 grains
+Processing grain 0 of 273
+        morpho.watershed() took 401.13 seconds
+    Using band 80 for segmentation (max_ref=23450.99)
+Band 15 brightness: 2556.2
+Band 52 brightness: 13821.9
+Band 80 brightness: 23451.0
+    Spectralon means [R,G,B]: [np.float64(2556.2), np.float64(13821.9), np.float64(23451.0)]
+    Watershed took 588.34s, found 138 grains
+Processing grain 0 of 138
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 290.23 seconds
+        morpho.watershed() took 460.04 seconds
+    Watershed took 751.78s, found 148 grains
+Processing grain 0 of 148
+        morpho.watershed() took 311.29 seconds
+    Watershed took 484.21s, found 272 grains
+Processing grain 0 of 272
+        morpho.watershed() took 432.68 seconds
+    Watershed took 714.44s, found 192 grains
+Processing grain 0 of 192
+Got 192 grains for x29y23-mix2_8000_us_2x_2020-12-02T170705_corr in 4556.90 seconds
+Waiting for x29y24-mix9_8000_us_2x_2020-12-03T094356_corr.hdr …
+Got 177 grains for x29y24-mix9_8000_us_2x_2020-12-03T094356_corr in 0.00 seconds
+Waiting for x29y24-mix9_8000_us_2x_2020-12-03T094819_corr.hdr …
+Got 205 grains for x29y24-mix9_8000_us_2x_2020-12-03T094819_corr in 0.00 seconds
+Waiting for x29y24-mix9_8000_us_2x_2020-12-03T095306_corr.hdr …
+Got 166 grains for x29y24-mix9_8000_us_2x_2020-12-03T095306_corr in 0.00 seconds
+Waiting for x29y24-mix9_8000_us_2x_2020-12-03T095640_corr.hdr …
+Got 223 grains for x29y24-mix9_8000_us_2x_2020-12-03T095640_corr in 0.00 seconds
+Waiting for x30y19-mix33_8000_us_2x_2021-02-24T082200_corr.hdr …
+Got 228 grains for x30y19-mix33_8000_us_2x_2021-02-24T082200_corr in 0.00 seconds
+Waiting for x30y20-mix13_8000_us_2x_2020-12-03T132602_corr.hdr …
+Got 132 grains for x30y20-mix13_8000_us_2x_2020-12-03T132602_corr in 0.00 seconds
+Waiting for x30y20-mix13_8000_us_2x_2020-12-03T132845_corr.hdr …
+Got 181 grains for x30y20-mix13_8000_us_2x_2020-12-03T132845_corr in 0.00 seconds
+Waiting for x30y20-mix13_8000_us_2x_2020-12-03T133132_corr.hdr …
+Got 132 grains for x30y20-mix13_8000_us_2x_2020-12-03T133132_corr in 0.00 seconds
+Waiting for x30y20-mix13_8000_us_2x_2020-12-03T133428_corr.hdr …
+Got 163 grains for x30y20-mix13_8000_us_2x_2020-12-03T133428_corr in 0.00 seconds
+Waiting for x30y22-mix28_8000_us_2x_2021-02-22T095844_corr.hdr …
+Got 242 grains for x30y22-mix28_8000_us_2x_2021-02-22T095844_corr in 0.00 seconds
+Waiting for x30y23-mix20_8000_us_2x_2021-02-24T075537_corr.hdr …
+Got 199 grains for x30y23-mix20_8000_us_2x_2021-02-24T075537_corr in 0.00 seconds
+Waiting for x30y24-mix10_8000_us_2x_2020-12-03T104911_corr.hdr …
+Got 208 grains for x30y24-mix10_8000_us_2x_2020-12-03T104911_corr in 0.00 seconds
+Waiting for x30y24-mix10_8000_us_2x_2020-12-03T105212_corr.hdr …
+Got 196 grains for x30y24-mix10_8000_us_2x_2020-12-03T105212_corr in 0.00 seconds
+Waiting for x30y24-mix10_8000_us_2x_2020-12-03T105521_corr.hdr …
+Got 205 grains for x30y24-mix10_8000_us_2x_2020-12-03T105521_corr in 0.00 seconds
+Waiting for x30y24-mix10_8000_us_2x_2020-12-03T105805_corr.hdr …
+Got 226 grains for x30y24-mix10_8000_us_2x_2020-12-03T105805_corr in 0.00 seconds
+Waiting for x31y19-mix48_8000_us_2x_2021-02-22T102723_corr.hdr …
+Got 281 grains for x31y19-mix48_8000_us_2x_2021-02-22T102723_corr in 0.00 seconds
+Waiting for x31y20-mix49_8000_us_2x_2021-02-22T093805_corr.hdr …
+Got 306 grains for x31y20-mix49_8000_us_2x_2021-02-22T093805_corr in 0.00 seconds
+Waiting for x31y21-mix26_8000_us_2x_2020-12-11T151643_corr.hdr …
+Got 326 grains for x31y21-mix26_8000_us_2x_2020-12-11T151643_corr in 0.00 seconds
+Waiting for x31y22-mix32_8000_us_2x_2020-12-11T164725_corr.hdr …
+Got 306 grains for x31y22-mix32_8000_us_2x_2020-12-11T164725_corr in 0.00 seconds
+Waiting for x31y23-mix39_8000_us_2x_2021-02-24T082537_corr.hdr …
+Got 262 grains for x31y23-mix39_8000_us_2x_2021-02-24T082537_corr in 0.00 seconds
+Waiting for x32y20-mix41_8000_us_2x_2021-02-22T085939_corr.hdr …
+    Using band 80 for segmentation (max_ref=19756.85)
+Band 15 brightness: 2193.0
+Band 52 brightness: 11721.3
+Band 80 brightness: 19756.9
+    Spectralon means [R,G,B]: [np.float64(2193.0), np.float64(11721.3), np.float64(19756.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 381.42 seconds
+    Watershed took 629.72s, found 167 grains
+Processing grain 0 of 167
+        morpho.hminima() took 351.10 seconds
+    Using band 80 for segmentation (max_ref=23577.38)
+Band 15 brightness: 2582.8
+Band 52 brightness: 13901.0
+Band 80 brightness: 23577.4
+    Spectralon means [R,G,B]: [np.float64(2582.8), np.float64(13901.0), np.float64(23577.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 364.25 seconds
+    Watershed took 655.42s, found 262 grains
+Processing grain 0 of 262
+        morpho.hminima() took 272.20 seconds
+        morpho.hminima() took 243.08 seconds
+        morpho.watershed() took 498.99 seconds
+    Watershed took 850.81s, found 159 grains
+Processing grain 0 of 159
+    Using band 80 for segmentation (max_ref=24067.58)
+Band 15 brightness: 2700.0
+Band 52 brightness: 14356.2
+Band 80 brightness: 24067.6
+    Spectralon means [R,G,B]: [np.float64(2700.0), np.float64(14356.2), np.float64(24067.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 432.07 seconds
+    Watershed took 704.95s, found 145 grains
+Processing grain 0 of 145
+    Using band 80 for segmentation (max_ref=24126.12)
+Band 15 brightness: 2708.4
+Band 52 brightness: 14386.9
+Band 80 brightness: 24126.1
+    Spectralon means [R,G,B]: [np.float64(2708.4), np.float64(14386.9), np.float64(24126.1)]
+        morpho.hminima() took 149.46 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 410.76 seconds
+    Watershed took 654.54s, found 146 grains
+Processing grain 0 of 146
+        morpho.hminima() took 119.55 seconds
+        morpho.watershed() took 291.71 seconds
+    Watershed took 442.10s, found 241 grains
+Processing grain 0 of 241
+        morpho.watershed() took 281.54 seconds
+    Watershed took 402.36s, found 335 grains
+Processing grain 0 of 335
+    Using band 80 for segmentation (max_ref=23462.09)
+Band 15 brightness: 2524.8
+Band 52 brightness: 13792.2
+Band 80 brightness: 23462.1
+    Spectralon means [R,G,B]: [np.float64(2524.8), np.float64(13792.2), np.float64(23462.1)]
+    Using band 80 for segmentation (max_ref=18355.06)
+Band 15 brightness: 2048.4
+Band 52 brightness: 10882.6
+Band 80 brightness: 18355.1
+    Spectralon means [R,G,B]: [np.float64(2048.4), np.float64(10882.6), np.float64(18355.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23912.17)
+Band 15 brightness: 2675.3
+Band 52 brightness: 14252.9
+Band 80 brightness: 23912.2
+    Spectralon means [R,G,B]: [np.float64(2675.3), np.float64(14252.9), np.float64(23912.2)]
+        morpho.hminima() took 103.18 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 148.68 seconds
+    Using band 80 for segmentation (max_ref=23416.02)
+Band 15 brightness: 2555.6
+Band 52 brightness: 13798.8
+Band 80 brightness: 23416.0
+    Spectralon means [R,G,B]: [np.float64(2555.6), np.float64(13798.8), np.float64(23416.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18842.22)
+Band 15 brightness: 2100.0
+Band 52 brightness: 11175.6
+Band 80 brightness: 18842.2
+    Spectralon means [R,G,B]: [np.float64(2100.0), np.float64(11175.6), np.float64(18842.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 249.82 seconds
+    Watershed took 354.01s, found 280 grains
+Processing grain 0 of 280
+    Using band 80 for segmentation (max_ref=23301.34)
+Band 15 brightness: 2550.9
+Band 52 brightness: 13727.7
+Band 80 brightness: 23301.3
+    Spectralon means [R,G,B]: [np.float64(2550.9), np.float64(13727.7), np.float64(23301.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 489.46 seconds
+        morpho.hminima() took 186.87 seconds
+        morpho.hminima() took 245.77 seconds
+        morpho.watershed() took 300.35 seconds
+    Using band 80 for segmentation (max_ref=23884.34)
+Band 15 brightness: 2575.3
+Band 52 brightness: 14034.5
+Band 80 brightness: 23884.3
+    Spectralon means [R,G,B]: [np.float64(2575.3), np.float64(14034.5), np.float64(23884.3)]
+    Watershed took 449.95s, found 231 grains
+Processing grain 0 of 231
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 199.09 seconds
+        morpho.hminima() took 80.80 seconds
+    Using band 80 for segmentation (max_ref=19316.98)
+Band 15 brightness: 2144.2
+Band 52 brightness: 11461.3
+Band 80 brightness: 19317.0
+    Spectralon means [R,G,B]: [np.float64(2144.2), np.float64(11461.3), np.float64(19317.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 341.37 seconds
+    Watershed took 529.13s, found 174 grains
+Processing grain 0 of 174
+    Using band 80 for segmentation (max_ref=23035.94)
+Band 15 brightness: 2521.4
+Band 52 brightness: 13594.2
+Band 80 brightness: 23035.9
+    Spectralon means [R,G,B]: [np.float64(2521.4), np.float64(13594.2), np.float64(23035.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 236.56 seconds
+    Watershed took 318.58s, found 375 grains
+Processing grain 0 of 375
+    Using band 80 for segmentation (max_ref=23693.31)
+Band 15 brightness: 2666.7
+Band 52 brightness: 14123.9
+Band 80 brightness: 23693.3
+    Spectralon means [R,G,B]: [np.float64(2666.7), np.float64(14123.9), np.float64(23693.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23726.60)
+Band 15 brightness: 2663.8
+Band 52 brightness: 14141.1
+Band 80 brightness: 23726.6
+    Spectralon means [R,G,B]: [np.float64(2663.8), np.float64(14141.1), np.float64(23726.6)]
+        morpho.watershed() took 360.59 seconds
+    Watershed took 560.48s, found 170 grains
+Processing grain 0 of 170
+        morpho.watershed() took 403.42 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Watershed took 649.96s, found 189 grains
+Processing grain 0 of 189
+        morpho.watershed() took 498.12 seconds
+    Watershed took 988.52s, found 223 grains
+Processing grain 0 of 223
+        morpho.hminima() took 202.15 seconds
+    Using band 80 for segmentation (max_ref=18976.14)
+Band 15 brightness: 2107.3
+Band 52 brightness: 11256.4
+Band 80 brightness: 18976.1
+    Spectralon means [R,G,B]: [np.float64(2107.3), np.float64(11256.4), np.float64(18976.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 84.72 seconds
+        morpho.hminima() took 145.23 seconds
+        morpho.hminima() took 253.61 seconds
+        morpho.watershed() took 236.92 seconds
+    Watershed took 322.80s, found 344 grains
+Processing grain 0 of 344
+        morpho.hminima() took 273.97 seconds
+    Using band 80 for segmentation (max_ref=23722.80)
+Band 15 brightness: 2591.4
+Band 52 brightness: 13978.0
+Band 80 brightness: 23722.8
+    Spectralon means [R,G,B]: [np.float64(2591.4), np.float64(13978.0), np.float64(23722.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18961.37)
+Band 15 brightness: 2105.9
+Band 52 brightness: 11242.5
+Band 80 brightness: 18961.4
+    Spectralon means [R,G,B]: [np.float64(2105.9), np.float64(11242.5), np.float64(18961.4)]
+        morpho.watershed() took 349.61 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Watershed took 552.58s, found 170 grains
+Processing grain 0 of 170
+    Using band 80 for segmentation (max_ref=18868.93)
+Band 15 brightness: 2101.5
+Band 52 brightness: 11192.0
+Band 80 brightness: 18868.9
+    Spectralon means [R,G,B]: [np.float64(2101.5), np.float64(11192.0), np.float64(18868.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 305.19 seconds
+    Watershed took 451.35s, found 257 grains
+Processing grain 0 of 257
+        morpho.hminima() took 162.58 seconds
+        morpho.hminima() took 191.44 seconds
+        morpho.watershed() took 423.89 seconds
+    Watershed took 678.18s, found 147 grains
+Processing grain 0 of 147
+        morpho.watershed() took 431.47 seconds
+    Watershed took 706.32s, found 159 grains
+Processing grain 0 of 159
+        morpho.watershed() took 328.09 seconds
+    Watershed took 491.52s, found 186 grains
+Processing grain 0 of 186
+        morpho.watershed() took 362.14 seconds
+    Watershed took 554.45s, found 163 grains
+Processing grain 0 of 163
+        morpho.hminima() took 607.33 seconds
+    Using band 80 for segmentation (max_ref=23391.09)
+Band 15 brightness: 2556.4
+Band 52 brightness: 13785.1
+Band 80 brightness: 23391.1
+    Spectralon means [R,G,B]: [np.float64(2556.4), np.float64(13785.1), np.float64(23391.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23853.35)
+Band 15 brightness: 2618.0
+Band 52 brightness: 14059.4
+Band 80 brightness: 23853.3
+    Spectralon means [R,G,B]: [np.float64(2618.0), np.float64(14059.4), np.float64(23853.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19133.62)
+Band 15 brightness: 2126.8
+Band 52 brightness: 11348.5
+Band 80 brightness: 19133.6
+    Spectralon means [R,G,B]: [np.float64(2126.8), np.float64(11348.5), np.float64(19133.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 196.58 seconds
+        morpho.hminima() took 255.68 seconds
+    Using band 80 for segmentation (max_ref=23624.69)
+Band 15 brightness: 2582.7
+Band 52 brightness: 13923.4
+Band 80 brightness: 23624.7
+    Spectralon means [R,G,B]: [np.float64(2582.7), np.float64(13923.4), np.float64(23624.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 268.92 seconds
+        morpho.watershed() took 589.08 seconds
+    Watershed took 1197.28s, found 179 grains
+Processing grain 0 of 179
+    Using band 80 for segmentation (max_ref=19220.99)
+Band 15 brightness: 2142.5
+Band 52 brightness: 11404.5
+Band 80 brightness: 19221.0
+    Spectralon means [R,G,B]: [np.float64(2142.5), np.float64(11404.5), np.float64(19221.0)]
+        morpho.hminima() took 220.72 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 351.00 seconds
+    Watershed took 548.51s, found 194 grains
+Processing grain 0 of 194
+    Using band 80 for segmentation (max_ref=23680.84)
+Band 15 brightness: 2646.2
+Band 52 brightness: 14088.6
+Band 80 brightness: 23680.8
+    Spectralon means [R,G,B]: [np.float64(2646.2), np.float64(14088.6), np.float64(23680.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 410.87 seconds
+    Watershed took 667.26s, found 164 grains
+Processing grain 0 of 164
+    Using band 80 for segmentation (max_ref=23849.63)
+Band 15 brightness: 2608.8
+Band 52 brightness: 14048.1
+Band 80 brightness: 23849.6
+    Spectralon means [R,G,B]: [np.float64(2608.8), np.float64(14048.1), np.float64(23849.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 90.72 seconds
+        morpho.hminima() took 225.31 seconds
+        morpho.watershed() took 432.16 seconds
+    Watershed took 701.80s, found 155 grains
+Processing grain 0 of 155
+        morpho.watershed() took 387.09 seconds
+    Watershed took 608.61s, found 157 grains
+Processing grain 0 of 157
+        morpho.hminima() took 276.60 seconds
+        morpho.watershed() took 251.47 seconds
+    Watershed took 343.24s, found 299 grains
+Processing grain 0 of 299
+    Using band 80 for segmentation (max_ref=19061.30)
+Band 15 brightness: 2113.9
+Band 52 brightness: 11298.4
+Band 80 brightness: 19061.3
+    Spectralon means [R,G,B]: [np.float64(2113.9), np.float64(11298.4), np.float64(19061.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 401.99 seconds
+    Watershed took 628.21s, found 153 grains
+Processing grain 0 of 153
+    Using band 80 for segmentation (max_ref=23190.93)
+Band 15 brightness: 2505.2
+Band 52 brightness: 13648.9
+Band 80 brightness: 23190.9
+    Spectralon means [R,G,B]: [np.float64(2505.2), np.float64(13648.9), np.float64(23190.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 448.13 seconds
+    Watershed took 725.52s, found 185 grains
+Processing grain 0 of 185
+        morpho.hminima() took 258.11 seconds
+        morpho.hminima() took 364.70 seconds
+    Using band 80 for segmentation (max_ref=23629.41)
+Band 15 brightness: 2657.1
+Band 52 brightness: 14079.5
+Band 80 brightness: 23629.4
+    Spectralon means [R,G,B]: [np.float64(2657.1), np.float64(14079.5), np.float64(23629.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 86.53 seconds
+        morpho.watershed() took 415.28 seconds
+    Watershed took 674.21s, found 169 grains
+Processing grain 0 of 169
+        morpho.watershed() took 235.25 seconds
+    Watershed took 322.89s, found 295 grains
+Processing grain 0 of 295
+        morpho.watershed() took 531.45 seconds
+    Watershed took 896.92s, found 208 grains
+Processing grain 0 of 208
+    Using band 80 for segmentation (max_ref=19242.53)
+Band 15 brightness: 2135.6
+Band 52 brightness: 11399.3
+Band 80 brightness: 19242.5
+    Spectralon means [R,G,B]: [np.float64(2135.6), np.float64(11399.3), np.float64(19242.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19363.87)
+Band 15 brightness: 2140.4
+Band 52 brightness: 11479.5
+Band 80 brightness: 19363.9
+    Spectralon means [R,G,B]: [np.float64(2140.4), np.float64(11479.5), np.float64(19363.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19318.71)
+Band 15 brightness: 2162.6
+Band 52 brightness: 11467.6
+Band 80 brightness: 19318.7
+    Spectralon means [R,G,B]: [np.float64(2162.6), np.float64(11467.6), np.float64(19318.7)]
+        morpho.hminima() took 221.80 seconds
+        morpho.hminima() took 180.78 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18860.93)
+Band 15 brightness: 2094.0
+Band 52 brightness: 11185.5
+Band 80 brightness: 18860.9
+    Spectralon means [R,G,B]: [np.float64(2094.0), np.float64(11185.5), np.float64(18860.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 165.50 seconds
+    Using band 80 for segmentation (max_ref=23461.64)
+Band 15 brightness: 2563.9
+Band 52 brightness: 13827.3
+Band 80 brightness: 23461.6
+    Spectralon means [R,G,B]: [np.float64(2563.9), np.float64(13827.3), np.float64(23461.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 366.93 seconds
+    Watershed took 589.51s, found 163 grains
+Processing grain 0 of 163
+        morpho.watershed() took 336.43 seconds
+    Watershed took 518.06s, found 151 grains
+Processing grain 0 of 151
+        morpho.hminima() took 263.26 seconds
+    Using band 80 for segmentation (max_ref=23860.83)
+Band 15 brightness: 2680.2
+Band 52 brightness: 14225.7
+Band 80 brightness: 23860.8
+    Spectralon means [R,G,B]: [np.float64(2680.2), np.float64(14225.7), np.float64(23860.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 333.20 seconds
+    Watershed took 499.63s, found 178 grains
+Processing grain 0 of 178
+        morpho.hminima() took 273.16 seconds
+        morpho.watershed() took 428.77 seconds
+    Watershed took 692.80s, found 168 grains
+Processing grain 0 of 168
+        morpho.hminima() took 352.64 seconds
+    Using band 80 for segmentation (max_ref=21784.28)
+Band 15 brightness: 2325.5
+Band 52 brightness: 12796.2
+Band 80 brightness: 21784.3
+    Spectralon means [R,G,B]: [np.float64(2325.5), np.float64(12796.2), np.float64(21784.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23823.59)
+Band 15 brightness: 2564.9
+Band 52 brightness: 14004.8
+Band 80 brightness: 23823.6
+    Spectralon means [R,G,B]: [np.float64(2564.9), np.float64(14004.8), np.float64(23823.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23076.89)
+Band 15 brightness: 2496.9
+Band 52 brightness: 13576.7
+Band 80 brightness: 23076.9
+    Spectralon means [R,G,B]: [np.float64(2496.9), np.float64(13576.7), np.float64(23076.9)]
+        morpho.watershed() took 435.34 seconds
+    Watershed took 709.30s, found 171 grains
+Processing grain 0 of 171
+        morpho.hminima() took 78.08 seconds
+        morpho.hminima() took 95.96 seconds
+    Using band 80 for segmentation (max_ref=18580.84)
+Band 15 brightness: 2071.7
+Band 52 brightness: 11021.9
+Band 80 brightness: 18580.8
+    Spectralon means [R,G,B]: [np.float64(2071.7), np.float64(11021.9), np.float64(18580.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 226.47 seconds
+    Watershed took 305.77s, found 338 grains
+Processing grain 0 of 338
+        morpho.watershed() took 404.99 seconds
+    Watershed took 758.66s, found 264 grains
+Processing grain 0 of 264
+    Using band 80 for segmentation (max_ref=23745.14)
+Band 15 brightness: 2602.5
+Band 52 brightness: 13985.4
+Band 80 brightness: 23745.1
+    Spectralon means [R,G,B]: [np.float64(2602.5), np.float64(13985.4), np.float64(23745.1)]
+        morpho.watershed() took 255.03 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Watershed took 352.08s, found 306 grains
+Processing grain 0 of 306
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 257.93 seconds
+    Using band 80 for segmentation (max_ref=24117.08)
+Band 15 brightness: 2710.4
+Band 52 brightness: 14382.6
+Band 80 brightness: 24117.1
+    Spectralon means [R,G,B]: [np.float64(2710.4), np.float64(14382.6), np.float64(24117.1)]
+        morpho.hminima() took 196.97 seconds
+    Using band 80 for segmentation (max_ref=23877.32)
+Band 15 brightness: 2686.3
+Band 52 brightness: 14230.6
+Band 80 brightness: 23877.3
+    Spectralon means [R,G,B]: [np.float64(2686.3), np.float64(14230.6), np.float64(23877.3)]
+        morpho.hminima() took 271.80 seconds
+    Using band 80 for segmentation (max_ref=19765.91)
+Band 15 brightness: 2189.8
+Band 52 brightness: 11715.9
+Band 80 brightness: 19765.9
+    Spectralon means [R,G,B]: [np.float64(2189.8), np.float64(11715.9), np.float64(19765.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 120.53 seconds
+        morpho.hminima() took 132.17 seconds
+        morpho.hminima() took 257.49 seconds
+        morpho.watershed() took 359.81 seconds
+    Watershed took 557.54s, found 180 grains
+Processing grain 0 of 180
+    Using band 80 for segmentation (max_ref=23728.54)
+Band 15 brightness: 2665.5
+Band 52 brightness: 14140.5
+Band 80 brightness: 23728.5
+    Spectralon means [R,G,B]: [np.float64(2665.5), np.float64(14140.5), np.float64(23728.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 409.09 seconds
+    Watershed took 667.94s, found 193 grains
+Processing grain 0 of 193
+    Using band 80 for segmentation (max_ref=24026.42)
+Band 15 brightness: 2697.1
+Band 52 brightness: 14327.1
+Band 80 brightness: 24026.4
+    Spectralon means [R,G,B]: [np.float64(2697.1), np.float64(14327.1), np.float64(24026.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 428.26 seconds
+    Watershed took 700.78s, found 178 grains
+Processing grain 0 of 178
+    Using band 80 for segmentation (max_ref=23799.47)
+Band 15 brightness: 2602.5
+Band 52 brightness: 14020.6
+Band 80 brightness: 23799.5
+    Spectralon means [R,G,B]: [np.float64(2602.5), np.float64(14020.6), np.float64(23799.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 282.94 seconds
+    Watershed took 404.45s, found 255 grains
+Processing grain 0 of 255
+        morpho.hminima() took 162.27 seconds
+        morpho.watershed() took 298.00 seconds
+    Watershed took 430.97s, found 204 grains
+Processing grain 0 of 204
+    Using band 80 for segmentation (max_ref=23672.33)
+Band 15 brightness: 2583.9
+Band 52 brightness: 13948.1
+Band 80 brightness: 23672.3
+    Spectralon means [R,G,B]: [np.float64(2583.9), np.float64(13948.1), np.float64(23672.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 231.27 seconds
+        morpho.hminima() took 204.55 seconds
+        morpho.watershed() took 429.10 seconds
+    Watershed took 687.36s, found 162 grains
+Processing grain 0 of 162
+    Using band 80 for segmentation (max_ref=23267.79)
+Band 15 brightness: 2550.1
+Band 52 brightness: 13734.6
+Band 80 brightness: 23267.8
+    Spectralon means [R,G,B]: [np.float64(2550.1), np.float64(13734.6), np.float64(23267.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 320.15 seconds
+    Watershed took 483.20s, found 190 grains
+Processing grain 0 of 190
+        morpho.hminima() took 294.39 seconds
+    Using band 80 for segmentation (max_ref=18893.58)
+Band 15 brightness: 2109.3
+Band 52 brightness: 11206.8
+Band 80 brightness: 18893.6
+    Spectralon means [R,G,B]: [np.float64(2109.3), np.float64(11206.8), np.float64(18893.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 320.91 seconds
+    Watershed took 553.22s, found 278 grains
+Processing grain 0 of 278
+    Using band 80 for segmentation (max_ref=18998.52)
+Band 15 brightness: 2116.8
+Band 52 brightness: 11266.1
+Band 80 brightness: 18998.5
+    Spectralon means [R,G,B]: [np.float64(2116.8), np.float64(11266.1), np.float64(18998.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23397.37)
+Band 15 brightness: 2563.0
+Band 52 brightness: 13794.7
+Band 80 brightness: 23397.4
+    Spectralon means [R,G,B]: [np.float64(2563.0), np.float64(13794.7), np.float64(23397.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 244.10 seconds
+        morpho.hminima() took 185.71 seconds
+        morpho.watershed() took 379.61 seconds
+    Watershed took 584.89s, found 171 grains
+Processing grain 0 of 171
+        morpho.hminima() took 193.69 seconds
+        morpho.hminima() took 265.66 seconds
+    Using band 80 for segmentation (max_ref=19694.91)
+Band 15 brightness: 2185.1
+Band 52 brightness: 11675.1
+Band 80 brightness: 19694.9
+    Spectralon means [R,G,B]: [np.float64(2185.1), np.float64(11675.1), np.float64(19694.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23637.99)
+Band 15 brightness: 2580.2
+Band 52 brightness: 13926.9
+Band 80 brightness: 23638.0
+    Spectralon means [R,G,B]: [np.float64(2580.2), np.float64(13926.9), np.float64(23638.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18683.32)
+Band 15 brightness: 2077.0
+Band 52 brightness: 11076.8
+Band 80 brightness: 18683.3
+    Spectralon means [R,G,B]: [np.float64(2077.0), np.float64(11076.8), np.float64(18683.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 447.97 seconds
+    Watershed took 743.10s, found 171 grains
+Processing grain 0 of 171
+        morpho.hminima() took 134.38 seconds
+    Using band 80 for segmentation (max_ref=23760.22)
+Band 15 brightness: 2596.2
+Band 52 brightness: 13997.3
+Band 80 brightness: 23760.2
+    Spectralon means [R,G,B]: [np.float64(2596.2), np.float64(13997.3), np.float64(23760.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 354.60 seconds
+    Watershed took 541.28s, found 140 grains
+Processing grain 0 of 140
+        morpho.watershed() took 404.83 seconds
+    Watershed took 649.64s, found 149 grains
+Processing grain 0 of 149
+        morpho.watershed() took 378.34 seconds
+    Watershed took 572.84s, found 164 grains
+Processing grain 0 of 164
+        morpho.hminima() took 289.31 seconds
+        morpho.hminima() took 158.30 seconds
+    Using band 80 for segmentation (max_ref=19251.80)
+Band 15 brightness: 2133.4
+Band 52 brightness: 11412.4
+Band 80 brightness: 19251.8
+    Spectralon means [R,G,B]: [np.float64(2133.4), np.float64(11412.4), np.float64(19251.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 439.49 seconds
+    Watershed took 705.94s, found 145 grains
+Processing grain 0 of 145
+        morpho.watershed() took 300.50 seconds
+    Watershed took 435.78s, found 197 grains
+Processing grain 0 of 197
+    Using band 80 for segmentation (max_ref=23162.94)
+Band 15 brightness: 2520.5
+Band 52 brightness: 13642.8
+Band 80 brightness: 23162.9
+    Spectralon means [R,G,B]: [np.float64(2520.5), np.float64(13642.8), np.float64(23162.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 322.61 seconds
+    Watershed took 481.73s, found 165 grains
+Processing grain 0 of 165
+        morpho.hminima() took 313.97 seconds
+        morpho.hminima() took 683.95 seconds
+        morpho.watershed() took 450.25 seconds
+    Watershed took 740.42s, found 176 grains
+Processing grain 0 of 176
+    Using band 80 for segmentation (max_ref=18800.38)
+Band 15 brightness: 2075.6
+Band 52 brightness: 11141.2
+Band 80 brightness: 18800.4
+    Spectralon means [R,G,B]: [np.float64(2075.6), np.float64(11141.2), np.float64(18800.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 241.94 seconds
+    Using band 80 for segmentation (max_ref=23962.18)
+Band 15 brightness: 2692.5
+Band 52 brightness: 14288.5
+Band 80 brightness: 23962.2
+    Spectralon means [R,G,B]: [np.float64(2692.5), np.float64(14288.5), np.float64(23962.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 229.07 seconds
+        morpho.hminima() took 121.97 seconds
+    Using band 80 for segmentation (max_ref=23802.04)
+Band 15 brightness: 2677.3
+Band 52 brightness: 14187.2
+Band 80 brightness: 23802.0
+    Spectralon means [R,G,B]: [np.float64(2677.3), np.float64(14187.2), np.float64(23802.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 468.81 seconds
+    Using band 80 for segmentation (max_ref=24087.38)
+    Watershed took 783.80s, found 217 grains
+Band 15 brightness: 2702.4
+Processing grain 0 of 217
+Band 52 brightness: 14360.8
+Band 80 brightness: 24087.4
+    Spectralon means [R,G,B]: [np.float64(2702.4), np.float64(14360.8), np.float64(24087.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 121.46 seconds
+        morpho.watershed() took 403.01 seconds
+    Watershed took 645.97s, found 258 grains
+Processing grain 0 of 258
+        morpho.hminima() took 106.66 seconds
+        morpho.watershed() took 284.08 seconds
+    Watershed took 406.94s, found 222 grains
+Processing grain 0 of 222
+        morpho.watershed() took 646.46 seconds
+    Watershed took 1331.30s, found 197 grains
+Processing grain 0 of 197
+        morpho.watershed() took 392.68 seconds
+    Watershed took 622.51s, found 166 grains
+Processing grain 0 of 166
+    Using band 80 for segmentation (max_ref=22890.49)
+Band 15 brightness: 2492.6
+Band 52 brightness: 13485.0
+Band 80 brightness: 22890.5
+    Spectralon means [R,G,B]: [np.float64(2492.6), np.float64(13485.0), np.float64(22890.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 283.01 seconds
+    Watershed took 405.58s, found 270 grains
+Processing grain 0 of 270
+    Using band 80 for segmentation (max_ref=19172.75)
+Band 15 brightness: 2120.8
+Band 52 brightness: 11363.1
+Band 80 brightness: 19172.8
+    Spectralon means [R,G,B]: [np.float64(2120.8), np.float64(11363.1), np.float64(19172.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 276.85 seconds
+    Watershed took 384.33s, found 216 grains
+Processing grain 0 of 216
+        morpho.hminima() took 174.51 seconds
+    Using band 80 for segmentation (max_ref=23415.67)
+Band 15 brightness: 2559.3
+Band 52 brightness: 13793.6
+Band 80 brightness: 23415.7
+    Spectralon means [R,G,B]: [np.float64(2559.3), np.float64(13793.6), np.float64(23415.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19014.78)
+Band 15 brightness: 2105.5
+Band 52 brightness: 11270.6
+Band 80 brightness: 19014.8
+    Spectralon means [R,G,B]: [np.float64(2105.5), np.float64(11270.6), np.float64(19014.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 255.34 seconds
+    Using band 80 for segmentation (max_ref=22913.77)
+Band 15 brightness: 2488.3
+Band 52 brightness: 13480.1
+Band 80 brightness: 22913.8
+    Spectralon means [R,G,B]: [np.float64(2488.3), np.float64(13480.1), np.float64(22913.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 321.85 seconds
+    Watershed took 497.20s, found 196 grains
+Processing grain 0 of 196
+    Using band 80 for segmentation (max_ref=18710.94)
+Band 15 brightness: 2078.0
+Band 52 brightness: 11096.5
+Band 80 brightness: 18710.9
+    Spectralon means [R,G,B]: [np.float64(2078.0), np.float64(11096.5), np.float64(18710.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 292.21 seconds
+        morpho.hminima() took 237.19 seconds
+    Using band 80 for segmentation (max_ref=23412.45)
+Band 15 brightness: 2546.0
+Band 52 brightness: 13794.9
+Band 80 brightness: 23412.4
+    Spectralon means [R,G,B]: [np.float64(2546.0), np.float64(13794.9), np.float64(23412.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18995.70)
+Band 15 brightness: 2105.3
+Band 52 brightness: 11258.8
+Band 80 brightness: 18995.7
+    Spectralon means [R,G,B]: [np.float64(2105.3), np.float64(11258.8), np.float64(18995.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 248.68 seconds
+        morpho.watershed() took 404.08 seconds
+    Watershed took 660.75s, found 205 grains
+Processing grain 0 of 205
+        morpho.hminima() took 253.92 seconds
+        morpho.hminima() took 278.25 seconds
+        morpho.hminima() took 278.94 seconds
+        morpho.watershed() took 400.80 seconds
+        morpho.watershed() took 447.71 seconds
+    Watershed took 638.80s, found 191 grains
+Processing grain 0 of 191
+    Watershed took 740.82s, found 218 grains
+Processing grain 0 of 218
+    Using band 80 for segmentation (max_ref=23863.15)
+Band 15 brightness: 2675.2
+Band 52 brightness: 14223.3
+Band 80 brightness: 23863.1
+    Spectralon means [R,G,B]: [np.float64(2675.2), np.float64(14223.3), np.float64(23863.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23653.16)
+Band 15 brightness: 2553.9
+Band 52 brightness: 13906.4
+Band 80 brightness: 23653.2
+    Spectralon means [R,G,B]: [np.float64(2553.9), np.float64(13906.4), np.float64(23653.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 70.59 seconds
+        morpho.watershed() took 416.25 seconds
+    Watershed took 665.65s, found 149 grains
+Processing grain 0 of 149
+        morpho.watershed() took 420.49 seconds
+    Watershed took 675.19s, found 167 grains
+Processing grain 0 of 167
+    Using band 80 for segmentation (max_ref=23854.49)
+Band 15 brightness: 2676.6
+Band 52 brightness: 14219.1
+Band 80 brightness: 23854.5
+    Spectralon means [R,G,B]: [np.float64(2676.6), np.float64(14219.1), np.float64(23854.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 224.77 seconds
+    Watershed took 296.60s, found 367 grains
+Processing grain 0 of 367
+        morpho.hminima() took 338.22 seconds
+        morpho.hminima() took 122.74 seconds
+        morpho.watershed() took 436.69 seconds
+    Watershed took 715.78s, found 197 grains
+Processing grain 0 of 197
+        morpho.watershed() took 407.93 seconds
+    Watershed took 687.78s, found 182 grains
+Processing grain 0 of 182
+        morpho.watershed() took 280.71 seconds
+    Watershed took 404.40s, found 268 grains
+Processing grain 0 of 268
+        morpho.watershed() took 404.94 seconds
+    Watershed took 744.09s, found 258 grains
+Processing grain 0 of 258
+    Using band 80 for segmentation (max_ref=18851.28)
+Band 15 brightness: 2095.5
+Band 52 brightness: 11185.9
+Band 80 brightness: 18851.3
+    Spectralon means [R,G,B]: [np.float64(2095.5), np.float64(11185.9), np.float64(18851.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23563.23)
+Band 15 brightness: 2576.1
+Band 52 brightness: 13879.6
+Band 80 brightness: 23563.2
+    Spectralon means [R,G,B]: [np.float64(2576.1), np.float64(13879.6), np.float64(23563.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23422.00)
+Band 15 brightness: 2560.1
+Band 52 brightness: 13797.4
+Band 80 brightness: 23422.0
+    Spectralon means [R,G,B]: [np.float64(2560.1), np.float64(13797.4), np.float64(23422.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 221.80 seconds
+        morpho.hminima() took 275.19 seconds
+        morpho.hminima() took 257.46 seconds
+    Using band 80 for segmentation (max_ref=24051.58)
+Band 15 brightness: 2704.4
+Band 52 brightness: 14342.5
+Band 80 brightness: 24051.6
+    Spectralon means [R,G,B]: [np.float64(2704.4), np.float64(14342.5), np.float64(24051.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 372.80 seconds
+    Watershed took 595.40s, found 193 grains
+Processing grain 0 of 193
+    Using band 80 for segmentation (max_ref=23982.78)
+Band 15 brightness: 2690.9
+Band 52 brightness: 14297.8
+Band 80 brightness: 23982.8
+    Spectralon means [R,G,B]: [np.float64(2690.9), np.float64(14297.8), np.float64(23982.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 422.53 seconds
+    Watershed took 698.60s, found 186 grains
+Processing grain 0 of 186
+    Using band 80 for segmentation (max_ref=23849.44)
+Band 15 brightness: 2665.1
+Band 52 brightness: 14204.1
+Band 80 brightness: 23849.4
+    Spectralon means [R,G,B]: [np.float64(2665.1), np.float64(14204.1), np.float64(23849.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 138.83 seconds
+        morpho.hminima() took 131.04 seconds
+        morpho.hminima() took 144.81 seconds
+    Using band 80 for segmentation (max_ref=23221.86)
+Band 15 brightness: 2505.2
+Band 52 brightness: 13649.5
+Band 80 brightness: 23221.9
+    Spectralon means [R,G,B]: [np.float64(2505.2), np.float64(13649.5), np.float64(23221.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 423.49 seconds
+    Watershed took 681.72s, found 168 grains
+Processing grain 0 of 168
+        morpho.hminima() took 87.94 seconds
+        morpho.watershed() took 296.90 seconds
+    Watershed took 436.67s, found 229 grains
+Processing grain 0 of 229
+    Using band 80 for segmentation (max_ref=19395.28)
+Band 15 brightness: 2156.2
+Band 52 brightness: 11496.1
+Band 80 brightness: 19395.3
+    Spectralon means [R,G,B]: [np.float64(2156.2), np.float64(11496.1), np.float64(19395.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 289.70 seconds
+    Watershed took 421.51s, found 196 grains
+Processing grain 0 of 196
+    Using band 80 for segmentation (max_ref=23686.63)
+Band 15 brightness: 2594.2
+Band 52 brightness: 13961.2
+Band 80 brightness: 23686.6
+    Spectralon means [R,G,B]: [np.float64(2594.2), np.float64(13961.2), np.float64(23686.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 304.07 seconds
+    Watershed took 449.81s, found 258 grains
+Processing grain 0 of 258
+    Using band 80 for segmentation (max_ref=20127.41)
+Band 15 brightness: 2233.6
+Band 52 brightness: 11941.5
+Band 80 brightness: 20127.4
+    Spectralon means [R,G,B]: [np.float64(2233.6), np.float64(11941.5), np.float64(20127.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 250.72 seconds
+    Watershed took 339.71s, found 325 grains
+Processing grain 0 of 325
+        morpho.hminima() took 216.19 seconds
+        morpho.hminima() took 226.56 seconds
+        morpho.hminima() took 206.66 seconds
+    Using band 80 for segmentation (max_ref=18626.68)
+Band 15 brightness: 2080.4
+Band 52 brightness: 11045.4
+Band 80 brightness: 18626.7
+    Spectralon means [R,G,B]: [np.float64(2080.4), np.float64(11045.4), np.float64(18626.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23881.07)
+Band 15 brightness: 2669.1
+Band 52 brightness: 14227.0
+Band 80 brightness: 23881.1
+    Spectralon means [R,G,B]: [np.float64(2669.1), np.float64(14227.0), np.float64(23881.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 364.27 seconds
+    Watershed took 581.51s, found 202 grains
+Processing grain 0 of 202
+    Using band 80 for segmentation (max_ref=23816.92)
+Band 15 brightness: 2671.9
+Band 52 brightness: 14191.2
+Band 80 brightness: 23816.9
+    Spectralon means [R,G,B]: [np.float64(2671.9), np.float64(14191.2), np.float64(23816.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 296.36 seconds
+        morpho.watershed() took 361.21 seconds
+    Watershed took 568.66s, found 184 grains
+Processing grain 0 of 184
+        morpho.watershed() took 385.67 seconds
+    Watershed took 612.93s, found 160 grains
+Processing grain 0 of 160
+    Using band 80 for segmentation (max_ref=23191.15)
+Band 15 brightness: 2544.7
+Band 52 brightness: 13692.5
+Band 80 brightness: 23191.1
+    Spectralon means [R,G,B]: [np.float64(2544.7), np.float64(13692.5), np.float64(23191.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 122.70 seconds
+        morpho.hminima() took 157.61 seconds
+        morpho.hminima() took 204.15 seconds
+        morpho.watershed() took 275.98 seconds
+    Watershed took 399.67s, found 259 grains
+Processing grain 0 of 259
+        morpho.watershed() took 314.87 seconds
+    Watershed took 473.60s, found 258 grains
+Processing grain 0 of 258
+        morpho.watershed() took 448.46 seconds
+    Watershed took 745.82s, found 207 grains
+Processing grain 0 of 207
+    Using band 80 for segmentation (max_ref=18435.24)
+Band 15 brightness: 2026.7
+Band 52 brightness: 10922.4
+Band 80 brightness: 18435.2
+    Spectralon means [R,G,B]: [np.float64(2026.7), np.float64(10922.4), np.float64(18435.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23378.94)
+Band 15 brightness: 2563.7
+Band 52 brightness: 13794.7
+Band 80 brightness: 23378.9
+    Spectralon means [R,G,B]: [np.float64(2563.7), np.float64(13794.7), np.float64(23378.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 398.63 seconds
+    Watershed took 603.47s, found 152 grains
+Processing grain 0 of 152
+    Using band 80 for segmentation (max_ref=19045.79)
+Band 15 brightness: 2118.4
+Band 52 brightness: 11292.1
+Band 80 brightness: 19045.8
+    Spectralon means [R,G,B]: [np.float64(2118.4), np.float64(11292.1), np.float64(19045.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 261.30 seconds
+        morpho.hminima() took 217.07 seconds
+        morpho.hminima() took 263.09 seconds
+    Using band 80 for segmentation (max_ref=23646.52)
+Band 15 brightness: 2555.6
+Band 52 brightness: 13897.5
+Band 80 brightness: 23646.5
+    Spectralon means [R,G,B]: [np.float64(2555.6), np.float64(13897.5), np.float64(23646.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 372.34 seconds
+    Watershed took 590.22s, found 181 grains
+Processing grain 0 of 181
+        morpho.watershed() took 411.05 seconds
+    Watershed took 673.17s, found 145 grains
+Processing grain 0 of 145
+    Using band 80 for segmentation (max_ref=23724.69)
+Band 15 brightness: 2548.8
+Band 52 brightness: 13950.4
+Band 80 brightness: 23724.7
+    Spectralon means [R,G,B]: [np.float64(2548.8), np.float64(13950.4), np.float64(23724.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 89.42 seconds
+        morpho.hminima() took 95.38 seconds
+    Using band 80 for segmentation (max_ref=23101.66)
+Band 15 brightness: 2451.7
+Band 52 brightness: 13526.4
+Band 80 brightness: 23101.7
+    Spectralon means [R,G,B]: [np.float64(2451.7), np.float64(13526.4), np.float64(23101.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 431.33 seconds
+    Watershed took 695.17s, found 150 grains
+Processing grain 0 of 150
+        morpho.hminima() took 108.64 seconds
+        morpho.watershed() took 242.20 seconds
+    Watershed took 332.88s, found 340 grains
+Processing grain 0 of 340
+        morpho.watershed() took 251.06 seconds
+    Watershed took 347.47s, found 293 grains
+Processing grain 0 of 293
+    Using band 80 for segmentation (max_ref=23226.25)
+Band 15 brightness: 2543.3
+Band 52 brightness: 13694.2
+Band 80 brightness: 23226.3
+    Spectralon means [R,G,B]: [np.float64(2543.3), np.float64(13694.2), np.float64(23226.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=22781.14)
+Band 15 brightness: 2478.7
+Band 52 brightness: 13430.8
+Band 80 brightness: 22781.1
+    Spectralon means [R,G,B]: [np.float64(2478.7), np.float64(13430.8), np.float64(22781.1)]
+        morpho.watershed() took 277.83 seconds
+    Watershed took 387.33s, found 225 grains
+Processing grain 0 of 225
+    Using band 80 for segmentation (max_ref=20061.45)
+Band 15 brightness: 2226.8
+Band 52 brightness: 11898.1
+Band 80 brightness: 20061.5
+    Spectralon means [R,G,B]: [np.float64(2226.8), np.float64(11898.1), np.float64(20061.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18530.00)
+Band 15 brightness: 2062.2
+Band 52 brightness: 10991.5
+Band 80 brightness: 18530.0
+    Spectralon means [R,G,B]: [np.float64(2062.2), np.float64(10991.5), np.float64(18530.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 245.42 seconds
+        morpho.hminima() took 217.68 seconds
+    Using band 80 for segmentation (max_ref=23637.77)
+Band 15 brightness: 2662.2
+Band 52 brightness: 14081.2
+Band 80 brightness: 23637.8
+    Spectralon means [R,G,B]: [np.float64(2662.2), np.float64(14081.2), np.float64(23637.8)]
+        morpho.hminima() took 298.67 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 378.34 seconds
+    Watershed took 624.66s, found 193 grains
+Processing grain 0 of 193
+    Using band 80 for segmentation (max_ref=23837.28)
+Band 15 brightness: 2671.3
+Band 52 brightness: 14211.4
+Band 80 brightness: 23837.3
+    Spectralon means [R,G,B]: [np.float64(2671.3), np.float64(14211.4), np.float64(23837.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 131.76 seconds
+        morpho.watershed() took 382.79 seconds
+    Watershed took 601.26s, found 171 grains
+Processing grain 0 of 171
+    Using band 80 for segmentation (max_ref=23795.92)
+Band 15 brightness: 2670.3
+Band 52 brightness: 14184.0
+Band 80 brightness: 23795.9
+    Spectralon means [R,G,B]: [np.float64(2670.3), np.float64(14184.0), np.float64(23795.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 291.91 seconds
+        morpho.hminima() took 128.73 seconds
+        morpho.watershed() took 455.19 seconds
+    Watershed took 754.76s, found 212 grains
+Processing grain 0 of 212
+    Using band 80 for segmentation (max_ref=24066.87)
+Band 15 brightness: 2637.9
+Band 52 brightness: 14206.5
+Band 80 brightness: 24066.9
+    Spectralon means [R,G,B]: [np.float64(2637.9), np.float64(14206.5), np.float64(24066.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 289.63 seconds
+    Watershed took 422.24s, found 244 grains
+Processing grain 0 of 244
+        morpho.hminima() took 108.48 seconds
+        morpho.watershed() took 290.54 seconds
+    Watershed took 420.23s, found 264 grains
+Processing grain 0 of 264
+        morpho.watershed() took 367.69 seconds
+    Watershed took 660.69s, found 263 grains
+Processing grain 0 of 263
+    Using band 80 for segmentation (max_ref=23164.06)
+Band 15 brightness: 2528.3
+Band 52 brightness: 13647.3
+Band 80 brightness: 23164.1
+    Spectralon means [R,G,B]: [np.float64(2528.3), np.float64(13647.3), np.float64(23164.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23659.88)
+Band 15 brightness: 2640.9
+Band 52 brightness: 14080.5
+Band 80 brightness: 23659.9
+    Spectralon means [R,G,B]: [np.float64(2640.9), np.float64(14080.5), np.float64(23659.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 269.76 seconds
+    Watershed took 379.28s, found 241 grains
+Processing grain 0 of 241
+        morpho.hminima() took 128.94 seconds
+    Using band 80 for segmentation (max_ref=23800.86)
+Band 15 brightness: 2676.8
+Band 52 brightness: 14185.7
+Band 80 brightness: 23800.9
+    Spectralon means [R,G,B]: [np.float64(2676.8), np.float64(14185.7), np.float64(23800.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 303.58 seconds
+        morpho.hminima() took 97.16 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 285.95 seconds
+    Watershed took 415.96s, found 234 grains
+Processing grain 0 of 234
+    Using band 80 for segmentation (max_ref=22988.15)
+Band 15 brightness: 2576.2
+Band 52 brightness: 13682.6
+Band 80 brightness: 22988.1
+    Spectralon means [R,G,B]: [np.float64(2576.2), np.float64(13682.6), np.float64(22988.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 255.28 seconds
+    Watershed took 353.55s, found 263 grains
+Processing grain 0 of 263
+    Using band 80 for segmentation (max_ref=23590.52)
+Band 15 brightness: 2655.2
+Band 52 brightness: 14054.7
+Band 80 brightness: 23590.5
+    Spectralon means [R,G,B]: [np.float64(2655.2), np.float64(14054.7), np.float64(23590.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 238.77 seconds
+        morpho.hminima() took 85.01 seconds
+        morpho.hminima() took 128.38 seconds
+    Using band 80 for segmentation (max_ref=23853.09)
+Band 15 brightness: 2679.4
+Band 52 brightness: 14215.6
+Band 80 brightness: 23853.1
+    Spectralon means [R,G,B]: [np.float64(2679.4), np.float64(14215.6), np.float64(23853.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 466.92 seconds
+    Watershed took 771.36s, found 213 grains
+Processing grain 0 of 213
+    Using band 80 for segmentation (max_ref=23807.77)
+Band 15 brightness: 2671.5
+Band 52 brightness: 14198.0
+Band 80 brightness: 23807.8
+    Spectralon means [R,G,B]: [np.float64(2671.5), np.float64(14198.0), np.float64(23807.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23824.43)
+Band 15 brightness: 2662.8
+Band 52 brightness: 14195.8
+Band 80 brightness: 23824.4
+    Spectralon means [R,G,B]: [np.float64(2662.8), np.float64(14195.8), np.float64(23824.4)]
+    Starting watershed segmentation...
+        morpho.hminima() took 136.23 seconds
+        starting morpho.hminima
+        morpho.watershed() took 234.25 seconds
+    Watershed took 320.51s, found 392 grains
+Processing grain 0 of 392
+        morpho.hminima() took 240.27 seconds
+        morpho.watershed() took 282.24 seconds
+    Watershed took 411.58s, found 247 grains
+Processing grain 0 of 247
+    Using band 80 for segmentation (max_ref=23796.07)
+Band 15 brightness: 2666.1
+Band 52 brightness: 14190.3
+Band 80 brightness: 23796.1
+    Spectralon means [R,G,B]: [np.float64(2666.1), np.float64(14190.3), np.float64(23796.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 388.11 seconds
+    Watershed took 627.71s, found 191 grains
+Processing grain 0 of 191
+        morpho.hminima() took 159.04 seconds
+    Using band 80 for segmentation (max_ref=24015.90)
+Band 15 brightness: 2698.2
+Band 52 brightness: 14342.1
+Band 80 brightness: 24015.9
+    Spectralon means [R,G,B]: [np.float64(2698.2), np.float64(14342.1), np.float64(24015.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 115.82 seconds
+        morpho.hminima() took 74.41 seconds
+        morpho.watershed() took 300.84 seconds
+    Watershed took 437.92s, found 228 grains
+Processing grain 0 of 228
+        morpho.watershed() took 326.82 seconds
+    Watershed took 568.12s, found 276 grains
+Processing grain 0 of 276
+        morpho.watershed() took 313.74 seconds
+    Watershed took 473.78s, found 239 grains
+Processing grain 0 of 239
+        morpho.watershed() took 274.45 seconds
+    Watershed took 391.22s, found 260 grains
+Processing grain 0 of 260
+        morpho.watershed() took 232.48 seconds
+    Watershed took 308.04s, found 312 grains
+Processing grain 0 of 312
+    Using band 80 for segmentation (max_ref=19472.96)
+Band 15 brightness: 2170.9
+Band 52 brightness: 11552.1
+Band 80 brightness: 19473.0
+    Spectralon means [R,G,B]: [np.float64(2170.9), np.float64(11552.1), np.float64(19473.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=22948.37)
+Band 15 brightness: 2509.0
+Band 52 brightness: 13556.8
+Band 80 brightness: 22948.4
+    Spectralon means [R,G,B]: [np.float64(2509.0), np.float64(13556.8), np.float64(22948.4)]
+    Using band 80 for segmentation (max_ref=23588.62)
+Band 15 brightness: 2575.7
+Band 52 brightness: 13909.5
+Band 80 brightness: 23588.6
+    Spectralon means [R,G,B]: [np.float64(2575.7), np.float64(13909.5), np.float64(23588.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19675.86)
+Band 15 brightness: 2180.6
+Band 52 brightness: 11668.7
+Band 80 brightness: 19675.9
+    Spectralon means [R,G,B]: [np.float64(2180.6), np.float64(11668.7), np.float64(19675.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 270.71 seconds
+        morpho.hminima() took 240.47 seconds
+        morpho.hminima() took 201.21 seconds
+        morpho.hminima() took 202.33 seconds
+    Using band 80 for segmentation (max_ref=17885.55)
+Band 15 brightness: 1989.2
+Band 52 brightness: 10593.5
+Band 80 brightness: 17885.5
+    Spectralon means [R,G,B]: [np.float64(1989.2), np.float64(10593.5), np.float64(17885.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23146.30)
+Band 15 brightness: 2525.6
+Band 52 brightness: 13648.7
+Band 80 brightness: 23146.3
+    Spectralon means [R,G,B]: [np.float64(2525.6), np.float64(13648.7), np.float64(23146.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 395.69 seconds
+    Watershed took 667.24s, found 159 grains
+Processing grain 0 of 159
+    Using band 80 for segmentation (max_ref=23562.65)
+Band 15 brightness: 2534.1
+Band 52 brightness: 13855.9
+Band 80 brightness: 23562.6
+    Spectralon means [R,G,B]: [np.float64(2534.1), np.float64(13855.9), np.float64(23562.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 227.51 seconds
+        morpho.hminima() took 242.52 seconds
+        morpho.watershed() took 366.71 seconds
+    Watershed took 568.66s, found 130 grains
+Processing grain 0 of 130
+        morpho.hminima() took 93.17 seconds
+        morpho.watershed() took 365.76 seconds
+    Watershed took 568.86s, found 166 grains
+Processing grain 0 of 166
+        morpho.watershed() took 402.78 seconds
+    Watershed took 644.08s, found 152 grains
+Processing grain 0 of 152
+    Using band 80 for segmentation (max_ref=23713.97)
+Band 15 brightness: 2592.1
+Band 52 brightness: 13976.5
+Band 80 brightness: 23714.0
+    Spectralon means [R,G,B]: [np.float64(2592.1), np.float64(13976.5), np.float64(23714.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 245.70 seconds
+    Watershed took 339.92s, found 317 grains
+Processing grain 0 of 317
+        morpho.watershed() took 389.93 seconds
+    Watershed took 618.44s, found 177 grains
+Processing grain 0 of 177
+    Using band 80 for segmentation (max_ref=23893.11)
+Band 15 brightness: 2683.1
+Band 52 brightness: 14245.9
+Band 80 brightness: 23893.1
+    Spectralon means [R,G,B]: [np.float64(2683.1), np.float64(14245.9), np.float64(23893.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 411.97 seconds
+    Watershed took 655.29s, found 181 grains
+Processing grain 0 of 181
+        morpho.hminima() took 150.88 seconds
+        morpho.hminima() took 491.79 seconds
+        morpho.watershed() took 310.19 seconds
+    Watershed took 461.97s, found 249 grains
+Processing grain 0 of 249
+
+        morpho.watershed() took 510.08 seconds
+    Watershed took 1002.82s, found 177 grains
+Processing grain 0 of 177
+    Using band 80 for segmentation (max_ref=23731.22)
+Band 15 brightness: 2647.1
+Band 52 brightness: 14127.8
+Band 80 brightness: 23731.2
+    Spectralon means [R,G,B]: [np.float64(2647.1), np.float64(14127.8), np.float64(23731.2)]
+    Using band 80 for segmentation (max_ref=23842.06)
+Band 15 brightness: 2682.5
+Band 52 brightness: 14207.7
+Band 80 brightness: 23842.1
+    Spectralon means [R,G,B]: [np.float64(2682.5), np.float64(14207.7), np.float64(23842.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=22448.54)
+Band 15 brightness: 2447.6
+Band 52 brightness: 13241.9
+Band 80 brightness: 22448.5
+    Spectralon means [R,G,B]: [np.float64(2447.6), np.float64(13241.9), np.float64(22448.5)]
+    Using band 80 for segmentation (max_ref=23997.58)
+Band 15 brightness: 2585.9
+Band 52 brightness: 14112.0
+Band 80 brightness: 23997.6
+    Spectralon means [R,G,B]: [np.float64(2585.9), np.float64(14112.0), np.float64(23997.6)]
+        morpho.hminima() took 130.73 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=24150.62)
+Band 15 brightness: 2722.7
+Band 52 brightness: 14424.2
+Band 80 brightness: 24150.6
+    Spectralon means [R,G,B]: [np.float64(2722.7), np.float64(14424.2), np.float64(24150.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 127.36 seconds
+    Using band 80 for segmentation (max_ref=23806.02)
+Band 15 brightness: 2670.9
+Band 52 brightness: 14194.6
+Band 80 brightness: 23806.0
+    Spectralon means [R,G,B]: [np.float64(2670.9), np.float64(14194.6), np.float64(23806.0)]
+    Using band 80 for segmentation (max_ref=23389.08)
+Band 15 brightness: 2519.8
+Band 52 brightness: 13744.8
+Band 80 brightness: 23389.1
+    Spectralon means [R,G,B]: [np.float64(2519.8), np.float64(13744.8), np.float64(23389.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 93.01 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 97.60 seconds
+        morpho.hminima() took 225.17 seconds
+        morpho.hminima() took 111.02 seconds
+        morpho.watershed() took 274.27 seconds
+    Watershed took 406.16s, found 201 grains
+Processing grain 0 of 201
+        morpho.hminima() took 135.84 seconds
+    Using band 80 for segmentation (max_ref=23876.63)
+Band 15 brightness: 2574.6
+Band 52 brightness: 14034.0
+Band 80 brightness: 23876.6
+    Spectralon means [R,G,B]: [np.float64(2574.6), np.float64(14034.0), np.float64(23876.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23962.22)
+Band 15 brightness: 2690.4
+Band 52 brightness: 14283.6
+Band 80 brightness: 23962.2
+    Spectralon means [R,G,B]: [np.float64(2690.4), np.float64(14283.6), np.float64(23962.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 287.37 seconds
+    Watershed took 415.83s, found 271 grains
+Processing grain 0 of 271
+        morpho.hminima() took 108.15 seconds
+        morpho.watershed() took 279.08 seconds
+    Watershed took 373.15s, found 306 grains
+Processing grain 0 of 306
+        morpho.watershed() took 286.93 seconds
+    Watershed took 385.55s, found 296 grains
+Processing grain 0 of 296
+        morpho.watershed() took 250.51 seconds
+    Watershed took 362.65s, found 305 grains
+Processing grain 0 of 305
+        morpho.hminima() took 270.43 seconds
+        morpho.watershed() took 297.63 seconds
+    Watershed took 434.49s, found 270 grains
+Processing grain 0 of 270
+    Using band 80 for segmentation (max_ref=17547.27)
+Band 15 brightness: 1961.0
+Band 52 brightness: 10406.5
+Band 80 brightness: 17547.3
+    Spectralon means [R,G,B]: [np.float64(1961.0), np.float64(10406.5), np.float64(17547.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 253.92 seconds
+        morpho.watershed() took 397.68 seconds
+    Watershed took 623.56s, found 159 grains
+    Watershed took 363.15s, found 321 grains
+Processing grain 0 of 159
+Processing grain 0 of 321
+    Using band 80 for segmentation (max_ref=23499.13)
+Band 15 brightness: 2577.4
+Band 52 brightness: 13866.2
+Band 80 brightness: 23499.1
+    Spectralon means [R,G,B]: [np.float64(2577.4), np.float64(13866.2), np.float64(23499.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 359.88 seconds
+    Watershed took 631.34s, found 294 grains
+Processing grain 0 of 294
+        morpho.hminima() took 339.88 seconds
+    Using band 80 for segmentation (max_ref=19672.21)
+Band 15 brightness: 2184.9
+Band 52 brightness: 11667.7
+Band 80 brightness: 19672.2
+    Spectralon means [R,G,B]: [np.float64(2184.9), np.float64(11667.7), np.float64(19672.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 199.82 seconds
+        morpho.hminima() took 212.83 seconds
+        morpho.watershed() took 462.57 seconds
+    Watershed took 803.32s, found 185 grains
+Processing grain 0 of 185
+    Using band 80 for segmentation (max_ref=18798.00)
+Band 15 brightness: 2092.9
+Band 52 brightness: 11149.8
+Band 80 brightness: 18798.0
+    Spectralon means [R,G,B]: [np.float64(2092.9), np.float64(11149.8), np.float64(18798.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 353.53 seconds
+    Watershed took 554.16s, found 169 grains
+Processing grain 0 of 169
+    Using band 80 for segmentation (max_ref=24009.24)
+Band 15 brightness: 2635.5
+Band 52 brightness: 14143.9
+Band 80 brightness: 24009.2
+    Spectralon means [R,G,B]: [np.float64(2635.5), np.float64(14143.9), np.float64(24009.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 383.29 seconds
+    Watershed took 596.95s, found 172 grains
+Processing grain 0 of 172
+    Using band 80 for segmentation (max_ref=19882.92)
+Band 15 brightness: 2206.4
+Band 52 brightness: 11794.4
+Band 80 brightness: 19882.9
+    Spectralon means [R,G,B]: [np.float64(2206.4), np.float64(11794.4), np.float64(19882.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23872.50)
+Band 15 brightness: 2612.7
+Band 52 brightness: 14062.9
+Band 80 brightness: 23872.5
+    Spectralon means [R,G,B]: [np.float64(2612.7), np.float64(14062.9), np.float64(23872.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 273.72 seconds
+    Using band 80 for segmentation (max_ref=23604.48)
+Band 15 brightness: 2588.6
+Band 52 brightness: 13909.9
+Band 80 brightness: 23604.5
+    Spectralon means [R,G,B]: [np.float64(2588.6), np.float64(13909.9), np.float64(23604.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 165.40 seconds
+        morpho.hminima() took 213.45 seconds
+        morpho.hminima() took 281.02 seconds
+        morpho.watershed() took 403.15 seconds
+    Watershed took 677.70s, found 178 grains
+Processing grain 0 of 178
+    Using band 80 for segmentation (max_ref=23793.56)
+Band 15 brightness: 2656.0
+Band 52 brightness: 14175.8
+Band 80 brightness: 23793.6
+    Spectralon means [R,G,B]: [np.float64(2656.0), np.float64(14175.8), np.float64(23793.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23841.86)
+Band 15 brightness: 2576.1
+Band 52 brightness: 14022.5
+Band 80 brightness: 23841.9
+    Spectralon means [R,G,B]: [np.float64(2576.1), np.float64(14022.5), np.float64(23841.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=23892.15)
+Band 15 brightness: 2669.9
+Band 52 brightness: 14232.9
+Band 80 brightness: 23892.1
+    Spectralon means [R,G,B]: [np.float64(2669.9), np.float64(14232.9), np.float64(23892.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 620.18 seconds
+        morpho.watershed() took 338.90 seconds
+    Watershed took 505.13s, found 139 grains
+Processing grain 0 of 139
+    Using band 80 for segmentation (max_ref=23950.36)
+Band 15 brightness: 2695.9
+Band 52 brightness: 14267.6
+Band 80 brightness: 23950.4
+    Spectralon means [R,G,B]: [np.float64(2695.9), np.float64(14267.6), np.float64(23950.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19120.02)
+Band 15 brightness: 2123.2
+Band 52 brightness: 11340.5
+Band 80 brightness: 19120.0
+    Spectralon means [R,G,B]: [np.float64(2123.2), np.float64(11340.5), np.float64(19120.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 109.22 seconds
+        morpho.hminima() took 123.42 seconds
+        morpho.hminima() took 100.34 seconds
+        morpho.hminima() took 162.43 seconds
+        morpho.watershed() took 438.86 seconds
+    Watershed took 653.15s, found 141 grains
+Processing grain 0 of 141
+        morpho.hminima() took 196.81 seconds
+        morpho.watershed() took 481.60 seconds
+    Watershed took 763.51s, found 171 grains
+Processing grain 0 of 171
+        morpho.watershed() took 268.56 seconds
+    Watershed took 378.80s, found 299 grains
+Processing grain 0 of 299
+        morpho.watershed() took 255.43 seconds
+    Watershed took 356.67s, found 239 grains
+Processing grain 0 of 239
+        morpho.watershed() took 280.70 seconds
+    Watershed took 405.02s, found 252 grains
+Processing grain 0 of 252
+        morpho.watershed() took 309.74 seconds
+    Watershed took 473.07s, found 262 grains
+Processing grain 0 of 262
+        morpho.watershed() took 355.08 seconds
+    Watershed took 552.65s, found 152 grains
+Processing grain 0 of 152
+        morpho.watershed() took 616.07 seconds
+    Watershed took 1237.04s, found 164 grains
+Processing grain 0 of 164
+concurrent.futures.process._RemoteTraceback:
+"""
+Traceback (most recent call last):
+  File "/home/flandes/.local/share/uv/python/cpython-3.14.3-linux-x86_64-gnu/lib/python3.14/concurrent/futures/process.py", line 254, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/script_hyspex_to_rgb.py", line 51, in _process_one_hdr_worker
+    process_one_hdr(
+    ~~~~~~~~~~~~~~~^
+        hdr,
+        ^^^^
+    ...<8 lines>...
+        output_jpg=output_jpg,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/grain_hs/rgb_pipeline.py", line 39, in process_one_hdr
+    img_name, grains, image_cropped_spectralon, labelled_cropped_spectralon, means_over_spectralon = segment_grains_from_hdr(
+                                                                                                     ~~~~~~~~~~~~~~~~~~~~~~~^
+        hdr_path,
+        ^^^^^^^^^
+    ...<6 lines>...
+        debug=debug,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/grain_hs/hdr_grains.py", line 105, in segment_grains_from_hdr
+    grains, labelled_cropped_spectralon, _, _ = watershed_segmentation(binary_img, area_range, solidity)
+                                                ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/grain_hs/segmentation.py", line 53, in watershed_segmentation
+    d = -cv.distanceTransform(binary_image.astype(np.uint8), cv.DIST_L2, 3)
+                              ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'astype'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/script_hyspex_to_rgb.py", line 247, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/script_hyspex_to_rgb.py", line 239, in main
+    img_name, grain_count = future.result()
+                            ~~~~~~~~~~~~~^^
+  File "/home/flandes/.local/share/uv/python/cpython-3.14.3-linux-x86_64-gnu/lib/python3.14/concurrent/futures/_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/home/flandes/.local/share/uv/python/cpython-3.14.3-linux-x86_64-gnu/lib/python3.14/concurrent/futures/_base.py", line 395, in __get_result
+    raise self._exception
+AttributeError: 'NoneType' object has no attribute 'astype'
+
+real    624m11,751s
+user    0m9,841s
+sys 0m8,929s
+/media/flandes/Expansion/GRAIN_CLASSIFICATION/perfomix_2020-2021_IE_HSI_mix-pasCopies
+Band 15 brightness: 2411.4259641728136
+Band 52 brightness: 12559.44018967334
+Band 80 brightness: 20843.482444678608
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [0.0..1.2262454016556688].
+Control plots saved, please inspect them and adjust the trimming parameters accordingly
+Processing 52 HDR files with 10 workers …
+Waiting for mix49_2020_x75y19_8000_us_2x_2022-04-12T142316_corr.hdr …
+    Using band 80 for segmentation (max_ref=20843.48)
+Band 15 brightness: 2411.4
+Band 52 brightness: 12559.4
+Band 80 brightness: 20843.5
+    Spectralon means [R,G,B]: [np.float64(2411.4), np.float64(12559.4), np.float64(20843.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 473.93 seconds
+        morpho.watershed() took 634.40 seconds
+    Watershed took 1108.76s, found 159 grains
+Processing grain 0 of 159
+Got 159 grains for mix49_2020_x75y19_8000_us_2x_2022-04-12T142316_corr in 1112.67 seconds
+Waiting for mix49_2020_x75y19_8000_us_2x_2022-04-12T142941_corr.hdr …
+    Using band 80 for segmentation (max_ref=20550.18)
+Band 15 brightness: 2380.1
+Band 52 brightness: 12372.3
+Band 80 brightness: 20550.2
+    Spectralon means [R,G,B]: [np.float64(2380.1), np.float64(12372.3), np.float64(20550.2)]
+    Using band 80 for segmentation (max_ref=20807.66)
+Band 15 brightness: 2403.6
+Band 52 brightness: 12541.9
+Band 80 brightness: 20807.7
+    Spectralon means [R,G,B]: [np.float64(2403.6), np.float64(12541.9), np.float64(20807.7)]
+    Using band 80 for segmentation (max_ref=20043.10)
+Band 15 brightness: 2330.5
+Band 52 brightness: 12072.2
+Band 80 brightness: 20043.1
+    Spectralon means [R,G,B]: [np.float64(2330.5), np.float64(12072.2), np.float64(20043.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20247.31)
+Band 15 brightness: 2350.3
+Band 52 brightness: 12192.7
+Band 80 brightness: 20247.3
+    Spectralon means [R,G,B]: [np.float64(2350.3), np.float64(12192.7), np.float64(20247.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19184.33)
+Band 15 brightness: 2209.2
+Band 52 brightness: 11534.6
+Band 80 brightness: 19184.3
+    Spectralon means [R,G,B]: [np.float64(2209.2), np.float64(11534.6), np.float64(19184.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19056.43)
+Band 15 brightness: 2205.5
+Band 52 brightness: 11465.9
+Band 80 brightness: 19056.4
+    Spectralon means [R,G,B]: [np.float64(2205.5), np.float64(11465.9), np.float64(19056.4)]
+    Using band 80 for segmentation (max_ref=19442.99)
+Band 15 brightness: 2240.6
+Band 52 brightness: 11682.0
+Band 80 brightness: 19443.0
+    Spectralon means [R,G,B]: [np.float64(2240.6), np.float64(11682.0), np.float64(19443.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18888.34)
+Band 15 brightness: 2168.9
+Band 52 brightness: 11352.9
+Band 80 brightness: 18888.3
+    Spectralon means [R,G,B]: [np.float64(2168.9), np.float64(11352.9), np.float64(18888.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20726.28)
+Band 15 brightness: 2385.6
+Band 52 brightness: 12493.5
+Band 80 brightness: 20726.3
+    Spectralon means [R,G,B]: [np.float64(2385.6), np.float64(12493.5), np.float64(20726.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19173.63)
+Band 15 brightness: 2227.1
+Band 52 brightness: 11622.8
+Band 80 brightness: 19173.6
+    Spectralon means [R,G,B]: [np.float64(2227.1), np.float64(11622.8), np.float64(19173.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 299.90 seconds
+        morpho.hminima() took 322.80 seconds
+        morpho.hminima() took 351.51 seconds
+        morpho.hminima() took 412.74 seconds
+        morpho.hminima() took 357.14 seconds
+        morpho.hminima() took 482.08 seconds
+        morpho.hminima() took 423.22 seconds
+        morpho.hminima() took 410.96 seconds
+        morpho.hminima() took 565.23 seconds
+        morpho.hminima() took 632.32 seconds
+        morpho.watershed() took 590.73 seconds
+    Watershed took 943.23s, found 167 grains
+Processing grain 0 of 167
+        morpho.watershed() took 689.54 seconds
+    Watershed took 1013.41s, found 215 grains
+Processing grain 0 of 215
+        morpho.watershed() took 711.56 seconds
+    Watershed took 1012.26s, found 166 grains
+Processing grain 0 of 166
+    Using band 80 for segmentation (max_ref=19380.95)
+Band 15 brightness: 2238.0
+Band 52 brightness: 11717.7
+Band 80 brightness: 19381.0
+    Spectralon means [R,G,B]: [np.float64(2238.0), np.float64(11717.7), np.float64(19381.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 581.27 seconds
+    Watershed took 939.34s, found 189 grains
+Processing grain 0 of 189
+        morpho.watershed() took 502.79 seconds
+    Watershed took 914.55s, found 156 grains
+Processing grain 0 of 156
+Got 156 grains for mix49_2020_x75y19_8000_us_2x_2022-04-12T142941_corr in 2929.38 seconds
+Waiting for mix4_2020_x76y11_8000_us_2x_2022-04-09T092634_corr.hdr …
+Got 189 grains for mix4_2020_x76y11_8000_us_2x_2022-04-09T092634_corr in 0.00 seconds
+Waiting for mix4_2020_x76y11_8000_us_2x_2022-04-09T093210_corr.hdr …
+        morpho.watershed() took 636.12 seconds
+    Watershed took 1049.73s, found 233 grains
+Processing grain 0 of 233
+        morpho.watershed() took 618.04 seconds
+    Watershed took 1042.03s, found 185 grains
+Processing grain 0 of 185
+Got 185 grains for mix4_2020_x76y11_8000_us_2x_2022-04-09T093210_corr in 102.25 seconds
+Waiting for mix4_2020_x76y11_8000_us_2x_2022-04-09T094117_corr.hdr …
+        morpho.watershed() took 697.51 seconds
+    Watershed took 1180.37s, found 173 grains
+Processing grain 0 of 173
+        morpho.watershed() took 585.68 seconds
+    Watershed took 1151.74s, found 194 grains
+Processing grain 0 of 194
+Got 194 grains for mix4_2020_x76y11_8000_us_2x_2022-04-09T094117_corr in 116.24 seconds
+Waiting for mix4_2020_x76y11_8000_us_2x_2022-04-09T094337_corr.hdr …
+Got 233 grains for mix4_2020_x76y11_8000_us_2x_2022-04-09T094337_corr in 0.00 seconds
+Waiting for mix4_2020_x78y18_8000_us_2x_2022-04-08T075114_corr.hdr …
+Got 215 grains for mix4_2020_x78y18_8000_us_2x_2022-04-08T075114_corr in 0.00 seconds
+Waiting for mix4_2020_x78y18_8000_us_2x_2022-04-08T075607_corr.hdr …
+Got 166 grains for mix4_2020_x78y18_8000_us_2x_2022-04-08T075607_corr in 0.00 seconds
+Waiting for mix4_2020_x78y18_8000_us_2x_2022-04-08T075925_corr.hdr …
+Got 167 grains for mix4_2020_x78y18_8000_us_2x_2022-04-08T075925_corr in 0.00 seconds
+Waiting for mix4_2020_x78y18_8000_us_2x_2022-04-08T080429_corr.hdr …
+Got 173 grains for mix4_2020_x78y18_8000_us_2x_2022-04-08T080429_corr in 0.00 seconds
+Waiting for mix50_2020_x80y19_8000_us_2x_2022-04-05T144148_corr.hdr …
+        morpho.watershed() took 571.46 seconds
+    Watershed took 1204.64s, found 187 grains
+Processing grain 0 of 187
+Got 187 grains for mix50_2020_x80y19_8000_us_2x_2022-04-05T144148_corr in 86.57 seconds
+Waiting for mix50_2020_x80y19_8000_us_2x_2022-04-05T144858_corr.hdr …
+    Using band 80 for segmentation (max_ref=20464.53)
+Band 15 brightness: 2381.3
+Band 52 brightness: 12392.3
+Band 80 brightness: 20464.5
+    Spectralon means [R,G,B]: [np.float64(2381.3), np.float64(12392.3), np.float64(20464.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 520.02 seconds
+    Using band 80 for segmentation (max_ref=16895.15)
+Band 15 brightness: 1923.8
+Band 52 brightness: 10219.8
+Band 80 brightness: 16895.1
+    Spectralon means [R,G,B]: [np.float64(1923.8), np.float64(10219.8), np.float64(16895.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 280.51 seconds
+        morpho.hminima() took 349.03 seconds
+        morpho.watershed() took 626.87 seconds
+    Watershed took 1147.70s, found 137 grains
+Processing grain 0 of 137
+Got 137 grains for mix50_2020_x80y19_8000_us_2x_2022-04-05T144858_corr in 826.30 seconds
+Waiting for mix50_2020_x80y19_8000_us_2x_2022-04-05T145432_corr.hdr …
+        morpho.watershed() took 442.89 seconds
+    Watershed took 724.26s, found 199 grains
+Processing grain 0 of 199
+Got 199 grains for mix50_2020_x80y19_8000_us_2x_2022-04-05T145432_corr in 80.64 seconds
+Waiting for mix50_2020_x80y19_8000_us_2x_2022-04-05T150238_corr.hdr …
+        morpho.watershed() took 508.48 seconds
+    Watershed took 858.45s, found 212 grains
+Processing grain 0 of 212
+Got 212 grains for mix50_2020_x80y19_8000_us_2x_2022-04-05T150238_corr in 157.59 seconds
+Waiting for mix50_2020_x82y15_8000_us_2x_2022-04-06T132213_corr.hdr …
+    Using band 80 for segmentation (max_ref=22669.92)
+Band 15 brightness: 2682.3
+Band 52 brightness: 13779.5
+Band 80 brightness: 22669.9
+    Spectralon means [R,G,B]: [np.float64(2682.3), np.float64(13779.5), np.float64(22669.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19396.10)
+Band 15 brightness: 2270.9
+Band 52 brightness: 11781.8
+Band 80 brightness: 19396.1
+    Spectralon means [R,G,B]: [np.float64(2270.9), np.float64(11781.8), np.float64(19396.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20443.57)
+Band 15 brightness: 2417.6
+Band 52 brightness: 12419.2
+Band 80 brightness: 20443.6
+    Spectralon means [R,G,B]: [np.float64(2417.6), np.float64(12419.2), np.float64(20443.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20231.03)
+Band 15 brightness: 2356.1
+Band 52 brightness: 12213.5
+Band 80 brightness: 20231.0
+    Spectralon means [R,G,B]: [np.float64(2356.1), np.float64(12213.5), np.float64(20231.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=21313.93)
+Band 15 brightness: 2498.0
+Band 52 brightness: 12943.8
+Band 80 brightness: 21313.9
+    Spectralon means [R,G,B]: [np.float64(2498.0), np.float64(12943.8), np.float64(21313.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19154.62)
+Band 15 brightness: 2209.5
+Band 52 brightness: 11547.1
+Band 80 brightness: 19154.6
+    Spectralon means [R,G,B]: [np.float64(2209.5), np.float64(11547.1), np.float64(19154.6)]
+        morpho.hminima() took 308.27 seconds
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20163.60)
+Band 15 brightness: 2321.4
+Band 52 brightness: 12158.1
+Band 80 brightness: 20163.6
+    Spectralon means [R,G,B]: [np.float64(2321.4), np.float64(12158.1), np.float64(20163.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19814.31)
+Band 15 brightness: 2322.7
+Band 52 brightness: 11986.9
+Band 80 brightness: 19814.3
+    Spectralon means [R,G,B]: [np.float64(2322.7), np.float64(11986.9), np.float64(19814.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=1218.87)
+Band 15 brightness: 114.7
+Band 52 brightness: 638.9
+Band 80 brightness: 1218.9
+    Spectralon means [R,G,B]: [np.float64(114.7), np.float64(638.9), np.float64(1218.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20469.77)
+Band 15 brightness: 2370.9
+Band 52 brightness: 12327.8
+Band 80 brightness: 20469.8
+    Spectralon means [R,G,B]: [np.float64(2370.9), np.float64(12327.8), np.float64(20469.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 371.41 seconds
+        morpho.hminima() took 393.89 seconds
+        morpho.hminima() took 386.98 seconds
+        morpho.hminima() took 372.15 seconds
+        morpho.hminima() took 390.40 seconds
+        morpho.hminima() took 356.05 seconds
+        morpho.hminima() took 431.96 seconds
+        morpho.hminima() took 441.45 seconds
+        morpho.watershed() took 652.85 seconds
+    Watershed took 962.33s, found 202 grains
+Processing grain 0 of 202
+    Using band 80 for segmentation (max_ref=19517.91)
+Band 15 brightness: 2281.4
+Band 52 brightness: 11796.8
+Band 80 brightness: 19517.9
+    Spectralon means [R,G,B]: [np.float64(2281.4), np.float64(11796.8), np.float64(19517.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 642.66 seconds
+    Watershed took 1014.95s, found 153 grains
+Processing grain 0 of 153
+    Using band 80 for segmentation (max_ref=19815.63)
+Band 15 brightness: 2321.4
+Band 52 brightness: 11982.4
+Band 80 brightness: 19815.6
+    Spectralon means [R,G,B]: [np.float64(2321.4), np.float64(11982.4), np.float64(19815.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 635.61 seconds
+    Watershed took 1008.83s, found 227 grains
+Processing grain 0 of 227
+Got 227 grains for mix50_2020_x82y15_8000_us_2x_2022-04-06T132213_corr in 2393.42 seconds
+Waiting for mix50_2020_x82y15_8000_us_2x_2022-04-06T132815_corr.hdr …
+Got 153 grains for mix50_2020_x82y15_8000_us_2x_2022-04-06T132815_corr in 0.00 seconds
+Waiting for mix50_2020_x82y15_8000_us_2x_2022-04-06T133448_corr.hdr …
+Got 202 grains for mix50_2020_x82y15_8000_us_2x_2022-04-06T133448_corr in 0.00 seconds
+Waiting for mix50_2020_x82y15_8000_us_2x_2022-04-06T134002_corr.hdr …
+        morpho.watershed() took 685.17 seconds
+    Watershed took 1073.31s, found 236 grains
+Processing grain 0 of 236
+        morpho.watershed() took 721.97 seconds
+    Watershed took 1117.01s, found 276 grains
+Processing grain 0 of 276
+Got 276 grains for mix50_2020_x82y15_8000_us_2x_2022-04-06T134002_corr in 11.02 seconds
+Waiting for mix51_2020_x78y14_8000_us_2x_2022-04-07T085021_corr.hdr …
+Got 236 grains for mix51_2020_x78y14_8000_us_2x_2022-04-07T085021_corr in 0.00 seconds
+Waiting for mix51_2020_x78y14_8000_us_2x_2022-04-07T085347_corr.hdr …
+        morpho.watershed() took 589.85 seconds
+    Watershed took 946.68s, found 173 grains
+Processing grain 0 of 173
+        morpho.watershed() took 630.55 seconds
+    Watershed took 1021.95s, found 212 grains
+Processing grain 0 of 212
+Got 212 grains for mix51_2020_x78y14_8000_us_2x_2022-04-07T085347_corr in 80.49 seconds
+Waiting for mix51_2020_x78y14_8000_us_2x_2022-04-07T085636_corr.hdr …
+Got 173 grains for mix51_2020_x78y14_8000_us_2x_2022-04-07T085636_corr in 0.00 seconds
+Waiting for mix51_2020_x78y14_8000_us_2x_2022-04-07T090908_corr.hdr …
+        morpho.hminima() took 476.60 seconds
+        morpho.watershed() took 594.67 seconds
+    Watershed took 1027.36s, found 157 grains
+Processing grain 0 of 157
+        morpho.watershed() took 579.71 seconds
+    Watershed took 1021.97s, found 192 grains
+Processing grain 0 of 192
+Got 192 grains for mix51_2020_x78y14_8000_us_2x_2022-04-07T090908_corr in 135.04 seconds
+Waiting for mix51_2020_x82y18_8000_us_2x_2022-04-05T092056_corr.hdr …
+        morpho.hminima() took 409.60 seconds
+        morpho.hminima() took 1148.51 seconds
+    Using band 80 for segmentation (max_ref=19022.11)
+Band 15 brightness: 2211.5
+Band 52 brightness: 11487.5
+Band 80 brightness: 19022.1
+    Spectralon means [R,G,B]: [np.float64(2211.5), np.float64(11487.5), np.float64(19022.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20021.41)
+Band 15 brightness: 2318.8
+Band 52 brightness: 12045.1
+Band 80 brightness: 20021.4
+    Spectralon means [R,G,B]: [np.float64(2318.8), np.float64(12045.1), np.float64(20021.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 539.08 seconds
+    Watershed took 1016.58s, found 202 grains
+Processing grain 0 of 202
+        morpho.hminima() took 333.40 seconds
+        morpho.watershed() took 553.10 seconds
+    Watershed took 963.48s, found 180 grains
+Processing grain 0 of 180
+        morpho.hminima() took 307.28 seconds
+    Using band 80 for segmentation (max_ref=19503.01)
+Band 15 brightness: 2246.7
+Band 52 brightness: 11725.7
+Band 80 brightness: 19503.0
+    Spectralon means [R,G,B]: [np.float64(2246.7), np.float64(11725.7), np.float64(19503.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19385.92)
+Band 15 brightness: 2230.2
+Band 52 brightness: 11647.5
+Band 80 brightness: 19385.9
+    Spectralon means [R,G,B]: [np.float64(2230.2), np.float64(11647.5), np.float64(19385.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20749.55)
+Band 15 brightness: 2421.1
+Band 52 brightness: 12525.5
+Band 80 brightness: 20749.5
+    Spectralon means [R,G,B]: [np.float64(2421.1), np.float64(12525.5), np.float64(20749.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+
+    Using band 80 for segmentation (max_ref=20608.36)
+Band 15 brightness: 2397.9
+Band 52 brightness: 12437.9
+Band 80 brightness: 20608.4
+    Spectralon means [R,G,B]: [np.float64(2397.9), np.float64(12437.9), np.float64(20608.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20356.72)
+Band 15 brightness: 2342.0
+Band 52 brightness: 12241.9
+Band 80 brightness: 20356.7
+    Spectralon means [R,G,B]: [np.float64(2342.0), np.float64(12241.9), np.float64(20356.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20662.16)
+Band 15 brightness: 2400.2
+Band 52 brightness: 12473.4
+Band 80 brightness: 20662.2
+    Spectralon means [R,G,B]: [np.float64(2400.2), np.float64(12473.4), np.float64(20662.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=21027.32)
+Band 15 brightness: 2450.5
+Band 52 brightness: 12696.8
+Band 80 brightness: 21027.3
+    Spectralon means [R,G,B]: [np.float64(2450.5), np.float64(12696.8), np.float64(21027.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 351.24 seconds
+        morpho.hminima() took 308.40 seconds
+        morpho.watershed() took 536.86 seconds
+    Watershed took 871.50s, found 209 grains
+Processing grain 0 of 209
+        morpho.watershed() took 531.27 seconds
+    Watershed took 839.58s, found 184 grains
+Processing grain 0 of 184
+        morpho.hminima() took 558.36 seconds
+        morpho.watershed() took 1139.10 seconds
+    Watershed took 2292.82s, found 109 grains
+Processing grain 0 of 109
+Got 109 grains for mix51_2020_x82y18_8000_us_2x_2022-04-05T092056_corr in 1265.91 seconds
+Waiting for mix51_2020_x82y18_8000_us_2x_2022-04-05T094737_corr.hdr …
+Got 157 grains for mix51_2020_x82y18_8000_us_2x_2022-04-05T094737_corr in 0.00 seconds
+Waiting for mix51_2020_x82y18_8000_us_2x_2022-04-05T095124_corr.hdr …
+Got 202 grains for mix51_2020_x82y18_8000_us_2x_2022-04-05T095124_corr in 0.00 seconds
+Waiting for mix51_2020_x82y18_8000_us_2x_2022-04-05T095454_corr.hdr …
+Got 180 grains for mix51_2020_x82y18_8000_us_2x_2022-04-05T095454_corr in 0.00 seconds
+Waiting for mix51_2020_x82y18_8000_us_2x_2022-04-05T095847_corr.hdr …
+Got 209 grains for mix51_2020_x82y18_8000_us_2x_2022-04-05T095847_corr in 0.00 seconds
+Waiting for mix52_2020_x77y12_8000_us_2x_2022-04-09T084009_corr.hdr …
+        morpho.hminima() took 372.58 seconds
+        morpho.hminima() took 380.50 seconds
+        morpho.hminima() took 392.16 seconds
+        morpho.hminima() took 423.51 seconds
+    Using band 80 for segmentation (max_ref=18684.81)
+Band 15 brightness: 2145.1
+Band 52 brightness: 11229.6
+Band 80 brightness: 18684.8
+    Spectralon means [R,G,B]: [np.float64(2145.1), np.float64(11229.6), np.float64(18684.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18911.71)
+Band 15 brightness: 2182.0
+Band 52 brightness: 11381.9
+Band 80 brightness: 18911.7
+    Spectralon means [R,G,B]: [np.float64(2182.0), np.float64(11381.9), np.float64(18911.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19203.72)
+Band 15 brightness: 2220.9
+Band 52 brightness: 11558.2
+Band 80 brightness: 19203.7
+    Spectralon means [R,G,B]: [np.float64(2220.9), np.float64(11558.2), np.float64(19203.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 621.80 seconds
+    Watershed took 973.79s, found 116 grains
+Processing grain 0 of 116
+        morpho.watershed() took 591.24 seconds
+    Watershed took 900.73s, found 215 grains
+Processing grain 0 of 215
+        morpho.watershed() took 536.38 seconds
+    Watershed took 909.99s, found 242 grains
+Processing grain 0 of 242
+        morpho.hminima() took 398.61 seconds
+        morpho.watershed() took 499.92 seconds
+    Watershed took 881.20s, found 170 grains
+Processing grain 0 of 170
+    Using band 80 for segmentation (max_ref=19577.63)
+Band 15 brightness: 2259.6
+Band 52 brightness: 11787.5
+Band 80 brightness: 19577.6
+    Spectralon means [R,G,B]: [np.float64(2259.6), np.float64(11787.5), np.float64(19577.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 447.01 seconds
+        morpho.watershed() took 723.12 seconds
+    Watershed took 1282.02s, found 90 grains
+Processing grain 0 of 90
+        morpho.watershed() took 600.28 seconds
+    Watershed took 993.04s, found 127 grains
+Processing grain 0 of 127
+    Using band 80 for segmentation (max_ref=19827.90)
+Band 15 brightness: 2286.8
+Band 52 brightness: 11942.1
+Band 80 brightness: 19827.9
+    Spectralon means [R,G,B]: [np.float64(2286.8), np.float64(11942.1), np.float64(19827.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 598.61 seconds
+    Watershed took 1023.09s, found 225 grains
+Processing grain 0 of 225
+        morpho.hminima() took 501.30 seconds
+Got 225 grains for mix52_2020_x77y12_8000_us_2x_2022-04-09T084009_corr in 742.21 seconds
+Waiting for mix52_2020_x77y12_8000_us_2x_2022-04-09T084417_corr.hdr …
+Got 184 grains for mix52_2020_x77y12_8000_us_2x_2022-04-09T084417_corr in 0.00 seconds
+Waiting for mix52_2020_x77y12_8000_us_2x_2022-04-09T084836_corr.hdr …
+Got 116 grains for mix52_2020_x77y12_8000_us_2x_2022-04-09T084836_corr in 0.00 seconds
+Waiting for mix52_2020_x77y12_8000_us_2x_2022-04-09T085224_corr.hdr …
+Got 90 grains for mix52_2020_x77y12_8000_us_2x_2022-04-09T085224_corr in 0.00 seconds
+Waiting for mix52_2020_x81y20_8000_us_2x_2022-04-08T100559_corr.hdr …
+Got 242 grains for mix52_2020_x81y20_8000_us_2x_2022-04-08T100559_corr in 0.00 seconds
+Waiting for mix52_2020_x81y20_8000_us_2x_2022-04-08T101451_corr.hdr …
+Got 215 grains for mix52_2020_x81y20_8000_us_2x_2022-04-08T101451_corr in 0.00 seconds
+Waiting for mix52_2020_x81y20_8000_us_2x_2022-04-08T101828_corr.hdr …
+Got 170 grains for mix52_2020_x81y20_8000_us_2x_2022-04-08T101828_corr in 0.00 seconds
+Waiting for mix52_2020_x81y20_8000_us_2x_2022-04-08T102225_corr.hdr …
+Got 127 grains for mix52_2020_x81y20_8000_us_2x_2022-04-08T102225_corr in 0.00 seconds
+Waiting for mix5_2020_x75y14_8000_us_2x_2022-04-09T095333_corr.hdr …
+    Using band 80 for segmentation (max_ref=19371.49)
+Band 15 brightness: 2239.5
+Band 52 brightness: 11667.5
+Band 80 brightness: 19371.5
+    Spectralon means [R,G,B]: [np.float64(2239.5), np.float64(11667.5), np.float64(19371.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 413.72 seconds
+    Using band 80 for segmentation (max_ref=20331.10)
+Band 15 brightness: 2361.0
+Band 52 brightness: 12272.4
+Band 80 brightness: 20331.1
+    Spectralon means [R,G,B]: [np.float64(2361.0), np.float64(12272.4), np.float64(20331.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 539.75 seconds
+    Watershed took 939.49s, found 224 grains
+Processing grain 0 of 224
+Got 224 grains for mix5_2020_x75y14_8000_us_2x_2022-04-09T095333_corr in 388.17 seconds
+Waiting for mix5_2020_x75y14_8000_us_2x_2022-04-09T095743_corr.hdr …
+        morpho.hminima() took 421.79 seconds
+    Using band 80 for segmentation (max_ref=21343.81)
+Band 15 brightness: 2466.8
+Band 52 brightness: 12885.1
+Band 80 brightness: 21343.8
+    Spectralon means [R,G,B]: [np.float64(2466.8), np.float64(12885.1), np.float64(21343.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=18784.16)
+Band 15 brightness: 2159.9
+Band 52 brightness: 11329.7
+Band 80 brightness: 18784.2
+    Spectralon means [R,G,B]: [np.float64(2159.9), np.float64(11329.7), np.float64(18784.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20299.98)
+Band 15 brightness: 2332.0
+Band 52 brightness: 12221.8
+Band 80 brightness: 20300.0
+    Spectralon means [R,G,B]: [np.float64(2332.0), np.float64(12221.8), np.float64(20300.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 528.78 seconds
+    Watershed took 976.64s, found 149 grains
+Processing grain 0 of 149
+    Using band 80 for segmentation (max_ref=20847.28)
+Band 15 brightness: 2409.7
+Band 52 brightness: 12573.1
+Band 80 brightness: 20847.3
+    Spectralon means [R,G,B]: [np.float64(2409.7), np.float64(12573.1), np.float64(20847.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 585.80 seconds
+    Watershed took 1088.08s, found 189 grains
+Processing grain 0 of 189
+Got 189 grains for mix5_2020_x75y14_8000_us_2x_2022-04-09T095743_corr in 200.14 seconds
+Waiting for mix5_2020_x75y14_8000_us_2x_2022-04-09T100050_corr.hdr …
+Got 149 grains for mix5_2020_x75y14_8000_us_2x_2022-04-09T100050_corr in 0.00 seconds
+Waiting for mix5_2020_x75y14_8000_us_2x_2022-04-09T100830_corr.hdr …
+        morpho.hminima() took 391.70 seconds
+    Using band 80 for segmentation (max_ref=20057.16)
+Band 15 brightness: 2331.4
+Band 52 brightness: 12091.7
+Band 80 brightness: 20057.2
+    Spectralon means [R,G,B]: [np.float64(2331.4), np.float64(12091.7), np.float64(20057.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 331.30 seconds
+    Using band 80 for segmentation (max_ref=21058.71)
+Band 15 brightness: 2450.2
+Band 52 brightness: 12697.0
+Band 80 brightness: 21058.7
+    Spectralon means [R,G,B]: [np.float64(2450.2), np.float64(12697.0), np.float64(21058.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 289.21 seconds
+        morpho.hminima() took 400.72 seconds
+        morpho.hminima() took 435.52 seconds
+        morpho.hminima() took 463.18 seconds
+        morpho.hminima() took 402.29 seconds
+        morpho.watershed() took 770.01 seconds
+    Watershed took 1184.73s, found 192 grains
+Processing grain 0 of 192
+Got 192 grains for mix5_2020_x75y14_8000_us_2x_2022-04-09T100830_corr in 510.40 seconds
+Waiting for mix5_2020_x78y16_8000_us_2x_2022-04-09T122809_corr.hdr …
+    Using band 80 for segmentation (max_ref=20168.21)
+Band 15 brightness: 2336.2
+Band 52 brightness: 12148.6
+Band 80 brightness: 20168.2
+    Spectralon means [R,G,B]: [np.float64(2336.2), np.float64(12148.6), np.float64(20168.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 808.09 seconds
+    Watershed took 1231.04s, found 257 grains
+Processing grain 0 of 257
+Got 257 grains for mix5_2020_x78y16_8000_us_2x_2022-04-09T122809_corr in 122.71 seconds
+Waiting for mix5_2020_x78y16_8000_us_2x_2022-04-09T123312_corr.hdr …
+    Using band 80 for segmentation (max_ref=20960.24)
+Band 15 brightness: 2438.7
+Band 52 brightness: 12648.9
+Band 80 brightness: 20960.2
+    Spectralon means [R,G,B]: [np.float64(2438.7), np.float64(12648.9), np.float64(20960.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 592.89 seconds
+        morpho.watershed() took 584.51 seconds
+    Watershed took 875.10s, found 302 grains
+Processing grain 0 of 302
+        morpho.watershed() took 701.25 seconds
+    Watershed took 1094.01s, found 187 grains
+Processing grain 0 of 187
+Got 187 grains for mix5_2020_x78y16_8000_us_2x_2022-04-09T123312_corr in 114.32 seconds
+Waiting for mix5_2020_x78y16_8000_us_2x_2022-04-09T123544_corr.hdr …
+        morpho.watershed() took 670.60 seconds
+    Watershed took 1002.66s, found 130 grains
+Processing grain 0 of 130
+Got 130 grains for mix5_2020_x78y16_8000_us_2x_2022-04-09T123544_corr in 19.70 seconds
+Waiting for mix6_2020_x73y15_8000_us_2x_2022-04-07T144212_corr.hdr …
+Got 302 grains for mix6_2020_x73y15_8000_us_2x_2022-04-07T144212_corr in 0.00 seconds
+Waiting for mix6_2020_x73y15_8000_us_2x_2022-04-07T145636_corr.hdr …
+    Using band 80 for segmentation (max_ref=18933.09)
+Band 15 brightness: 2196.4
+Band 52 brightness: 11409.2
+Band 80 brightness: 18933.1
+    Spectralon means [R,G,B]: [np.float64(2196.4), np.float64(11409.2), np.float64(18933.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 594.03 seconds
+    Watershed took 995.52s, found 140 grains
+Processing grain 0 of 140
+        morpho.watershed() took 628.69 seconds
+        morpho.hminima() took 375.63 seconds
+    Watershed took 1065.00s, found 179 grains
+Processing grain 0 of 179
+Got 179 grains for mix6_2020_x73y15_8000_us_2x_2022-04-07T145636_corr in 174.41 seconds
+Waiting for mix6_2020_x73y15_8000_us_2x_2022-04-07T150218_corr.hdr …
+Got 140 grains for mix6_2020_x73y15_8000_us_2x_2022-04-07T150218_corr in 0.00 seconds
+Waiting for mix6_2020_x73y15_8000_us_2x_2022-04-07T150549_corr.hdr …
+        morpho.watershed() took 530.45 seconds
+    Watershed took 994.39s, found 174 grains
+Processing grain 0 of 174
+Got 174 grains for mix6_2020_x73y15_8000_us_2x_2022-04-07T150549_corr in 39.98 seconds
+Waiting for mix6_2020_x77y16_8000_us_2x_2022-04-12T113348_corr.hdr …
+        morpho.watershed() took 592.36 seconds
+    Watershed took 995.54s, found 219 grains
+Processing grain 0 of 219
+Got 219 grains for mix6_2020_x77y16_8000_us_2x_2022-04-12T113348_corr in 85.17 seconds
+Waiting for mix6_2020_x77y16_8000_us_2x_2022-04-12T113632_corr.hdr …
+        morpho.hminima() took 387.98 seconds
+        morpho.hminima() took 318.74 seconds
+        morpho.watershed() took 597.16 seconds
+    Watershed took 1190.88s, found 201 grains
+Processing grain 0 of 201
+Got 201 grains for mix6_2020_x77y16_8000_us_2x_2022-04-12T113632_corr in 232.17 seconds
+Waiting for mix6_2020_x77y16_8000_us_2x_2022-04-12T114301_corr.hdr …
+        morpho.watershed() took 515.09 seconds
+    Watershed took 891.55s, found 186 grains
+Processing grain 0 of 186
+Got 186 grains for mix6_2020_x77y16_8000_us_2x_2022-04-12T114301_corr in 157.94 seconds
+Waiting for mix6_2020_x77y16_8000_us_2x_2022-04-12T114521_corr.hdr …
+        morpho.watershed() took 552.27 seconds
+    Watershed took 941.20s, found 252 grains
+Processing grain 0 of 252
+Got 252 grains for mix6_2020_x77y16_8000_us_2x_2022-04-12T114521_corr in 172.79 seconds
+Waiting for mix7_2020_x72y12_8000_us_2x_2022-04-08T144701_corr.hdr …
+        morpho.watershed() took 500.75 seconds
+    Watershed took 820.63s, found 260 grains
+Processing grain 0 of 260
+Got 260 grains for mix7_2020_x72y12_8000_us_2x_2022-04-08T144701_corr in 36.20 seconds
+Waiting for mix7_2020_x72y12_8000_us_2x_2022-04-08T145148_corr.hdr …
+concurrent.futures.process._RemoteTraceback:
+"""
+Traceback (most recent call last):
+  File "/home/flandes/.local/share/uv/python/cpython-3.14.3-linux-x86_64-gnu/lib/python3.14/concurrent/futures/process.py", line 254, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/script_hyspex_to_rgb.py", line 51, in _process_one_hdr_worker
+    process_one_hdr(
+    ~~~~~~~~~~~~~~~^
+        hdr,
+        ^^^^
+    ...<8 lines>...
+        output_jpg=output_jpg,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/grain_hs/rgb_pipeline.py", line 39, in process_one_hdr
+    img_name, grains, image_cropped_spectralon, labelled_cropped_spectralon, means_over_spectralon = segment_grains_from_hdr(
+                                                                                                     ~~~~~~~~~~~~~~~~~~~~~~~^
+        hdr_path,
+        ^^^^^^^^^
+    ...<6 lines>...
+        debug=debug,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/grain_hs/hdr_grains.py", line 69, in segment_grains_from_hdr
+    cube_image[:, :, i] = np.asarray(spy_image.read_band(b), dtype=np.int16).T
+                                     ~~~~~~~~~~~~~~~~~~~^^^
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/.venv/lib/python3.14/site-packages/spectral/io/bilfile.py", line 83, in read_band
+    vals.fromfile(f, self.ncols * self.sample_size)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+EOFError: read() didn't return enough bytes
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/script_hyspex_to_rgb.py", line 247, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/flandes/downloads/Cap paper - TMLR - RGB Grains Challenge/github-Phuoc-preprocessing/script_hyspex_to_rgb.py", line 239, in main
+    img_name, grain_count = future.result()
+                            ~~~~~~~~~~~~~^^
+  File "/home/flandes/.local/share/uv/python/cpython-3.14.3-linux-x86_64-gnu/lib/python3.14/concurrent/futures/_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/home/flandes/.local/share/uv/python/cpython-3.14.3-linux-x86_64-gnu/lib/python3.14/concurrent/futures/_base.py", line 395, in __get_result
+    raise self._exception
+EOFError: read() didn't return enough bytes
+
+real    205m54,431s
+user    0m9,662s
+sys 0m7,435s
+/media/flandes/Expansion/GRAIN_CLASSIFICATION/perfomix_2020-2021_IE_HSI_mix-onLabIA
+Band 15 brightness: 1781.275985247629
+Band 52 brightness: 9404.965890410958
+Band 80 brightness: 15710.81152792413
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [0.0..1.383278066064232].
+Control plots saved, please inspect them and adjust the trimming parameters accordingly
+Processing 32 HDR files with 10 workers …
+Waiting for mix44_2020_x83y20_8000_us_2x_2022-04-13T124200_corr.hdr …
+    Using band 80 for segmentation (max_ref=15710.81)
+Band 15 brightness: 1781.3
+Band 52 brightness: 9405.0
+Band 80 brightness: 15710.8
+    Spectralon means [R,G,B]: [np.float64(1781.3), np.float64(9405.0), np.float64(15710.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 466.48 seconds
+        morpho.watershed() took 606.65 seconds
+    Watershed took 1073.63s, found 154 grains
+Processing grain 0 of 154
+Got 154 grains for mix44_2020_x83y20_8000_us_2x_2022-04-13T124200_corr in 1077.31 seconds
+Waiting for mix45_2020_x74y11_8000_us_2x_2022-04-08T092410_corr.hdr …
+    Using band 80 for segmentation (max_ref=20434.59)
+Band 15 brightness: 2372.2
+Band 52 brightness: 12328.1
+Band 80 brightness: 20434.6
+    Spectralon means [R,G,B]: [np.float64(2372.2), np.float64(12328.1), np.float64(20434.6)]
+    Using band 80 for segmentation (max_ref=17703.04)
+Band 15 brightness: 2035.0
+Band 52 brightness: 10624.0
+Band 80 brightness: 17703.0
+    Spectralon means [R,G,B]: [np.float64(2035.0), np.float64(10624.0), np.float64(17703.0)]
+    Using band 80 for segmentation (max_ref=16761.50)
+Band 15 brightness: 1923.6
+Band 52 brightness: 10059.4
+Band 80 brightness: 16761.5
+    Spectralon means [R,G,B]: [np.float64(1923.6), np.float64(10059.4), np.float64(16761.5)]
+    Using band 80 for segmentation (max_ref=20585.81)
+Band 15 brightness: 2367.3
+Band 52 brightness: 12402.8
+Band 80 brightness: 20585.8
+    Spectralon means [R,G,B]: [np.float64(2367.3), np.float64(12402.8), np.float64(20585.8)]
+    Using band 80 for segmentation (max_ref=17150.40)
+Band 15 brightness: 1961.2
+Band 52 brightness: 10292.3
+Band 80 brightness: 17150.4
+    Spectralon means [R,G,B]: [np.float64(1961.2), np.float64(10292.3), np.float64(17150.4)]
+    Using band 80 for segmentation (max_ref=20683.41)
+Band 15 brightness: 2388.4
+Band 52 brightness: 12459.9
+Band 80 brightness: 20683.4
+    Spectralon means [R,G,B]: [np.float64(2388.4), np.float64(12459.9), np.float64(20683.4)]
+    Using band 80 for segmentation (max_ref=21341.84)
+Band 15 brightness: 2468.5
+Band 52 brightness: 12868.9
+Band 80 brightness: 21341.8
+    Spectralon means [R,G,B]: [np.float64(2468.5), np.float64(12868.9), np.float64(21341.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20810.90)
+Band 15 brightness: 2423.7
+Band 52 brightness: 12563.0
+Band 80 brightness: 20810.9
+    Spectralon means [R,G,B]: [np.float64(2423.7), np.float64(12563.0), np.float64(20810.9)]
+    Using band 80 for segmentation (max_ref=17161.43)
+Band 15 brightness: 1972.2
+Band 52 brightness: 10302.6
+Band 80 brightness: 17161.4
+    Spectralon means [R,G,B]: [np.float64(1972.2), np.float64(10302.6), np.float64(17161.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20663.56)
+Band 15 brightness: 2391.8
+Band 52 brightness: 12461.6
+Band 80 brightness: 20663.6
+    Spectralon means [R,G,B]: [np.float64(2391.8), np.float64(12461.6), np.float64(20663.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 381.88 seconds
+        morpho.hminima() took 367.73 seconds
+        morpho.hminima() took 409.22 seconds
+        morpho.hminima() took 438.24 seconds
+        morpho.hminima() took 467.17 seconds
+        morpho.hminima() took 443.30 seconds
+        morpho.hminima() took 464.01 seconds
+        morpho.hminima() took 470.42 seconds
+        morpho.hminima() took 524.48 seconds
+        morpho.hminima() took 600.44 seconds
+        morpho.watershed() took 556.08 seconds
+    Watershed took 1027.60s, found 206 grains
+Processing grain 0 of 206
+        morpho.watershed() took 659.11 seconds
+    Watershed took 1098.52s, found 256 grains
+Processing grain 0 of 256
+        morpho.watershed() took 635.01 seconds
+        morpho.watershed() took 713.05 seconds
+    Watershed took 1079.20s, found 202 grains
+Processing grain 0 of 202
+    Watershed took 1123.21s, found 175 grains
+Processing grain 0 of 175
+        morpho.watershed() took 729.37 seconds
+    Watershed took 1097.82s, found 158 grains
+Processing grain 0 of 158
+        morpho.watershed() took 679.96 seconds
+    Watershed took 1147.81s, found 139 grains
+Processing grain 0 of 139
+        morpho.watershed() took 664.39 seconds
+    Watershed took 1129.35s, found 241 grains
+Processing grain 0 of 241
+Got 241 grains for mix45_2020_x74y11_8000_us_2x_2022-04-08T092410_corr in 3173.08 seconds
+Waiting for mix45_2020_x74y11_8000_us_2x_2022-04-08T092654_corr.hdr …
+Got 175 grains for mix45_2020_x74y11_8000_us_2x_2022-04-08T092654_corr in 0.00 seconds
+Waiting for mix45_2020_x74y11_8000_us_2x_2022-04-08T093315_corr.hdr …
+Got 158 grains for mix45_2020_x74y11_8000_us_2x_2022-04-08T093315_corr in 0.00 seconds
+Waiting for mix45_2020_x74y11_8000_us_2x_2022-04-08T093626_corr.hdr …
+Got 139 grains for mix45_2020_x74y11_8000_us_2x_2022-04-08T093626_corr in 0.00 seconds
+Waiting for mix45_2020_x82y17_8000_us_2x_2022-04-08T120109_corr.hdr …
+Got 256 grains for mix45_2020_x82y17_8000_us_2x_2022-04-08T120109_corr in 0.00 seconds
+Waiting for mix45_2020_x82y17_8000_us_2x_2022-04-08T120542_corr.hdr …
+        morpho.watershed() took 811.42 seconds
+    Watershed took 1194.15s, found 199 grains
+Processing grain 0 of 199
+Got 199 grains for mix45_2020_x82y17_8000_us_2x_2022-04-08T120542_corr in 6.80 seconds
+Waiting for mix45_2020_x82y17_8000_us_2x_2022-04-08T120840_corr.hdr …
+        morpho.watershed() took 715.76 seconds
+    Watershed took 1240.82s, found 110 grains
+Processing grain 0 of 110
+Got 110 grains for mix45_2020_x82y17_8000_us_2x_2022-04-08T120840_corr in 93.21 seconds
+Waiting for mix45_2020_x82y17_8000_us_2x_2022-04-08T121259_corr.hdr …
+        morpho.watershed() took 628.14 seconds
+    Watershed took 1229.22s, found 110 grains
+Processing grain 0 of 110
+Got 110 grains for mix45_2020_x82y17_8000_us_2x_2022-04-08T121259_corr in 5.44 seconds
+Waiting for mix46_2020_x79y17_8000_us_2x_2022-04-08T094259_corr.hdr …
+Got 202 grains for mix46_2020_x79y17_8000_us_2x_2022-04-08T094259_corr in 0.00 seconds
+Waiting for mix46_2020_x79y17_8000_us_2x_2022-04-08T094701_corr.hdr …
+Got 206 grains for mix46_2020_x79y17_8000_us_2x_2022-04-08T094701_corr in 0.00 seconds
+Waiting for mix46_2020_x79y17_8000_us_2x_2022-04-08T095036_corr.hdr …
+    Using band 80 for segmentation (max_ref=21012.10)
+Band 15 brightness: 2426.6
+Band 52 brightness: 12667.5
+Band 80 brightness: 21012.1
+    Spectralon means [R,G,B]: [np.float64(2426.6), np.float64(12667.5), np.float64(21012.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 353.81 seconds
+        morpho.watershed() took 509.66 seconds
+    Watershed took 864.06s, found 144 grains
+Processing grain 0 of 144
+Got 144 grains for mix46_2020_x79y17_8000_us_2x_2022-04-08T095036_corr in 1224.83 seconds
+Waiting for mix46_2020_x79y17_8000_us_2x_2022-04-08T095532_corr.hdr …
+    Using band 80 for segmentation (max_ref=20826.93)
+Band 15 brightness: 2397.1
+Band 52 brightness: 12549.6
+Band 80 brightness: 20826.9
+    Spectralon means [R,G,B]: [np.float64(2397.1), np.float64(12549.6), np.float64(20826.9)]
+    Using band 80 for segmentation (max_ref=14764.69)
+Band 15 brightness: 1680.8
+Band 52 brightness: 8818.7
+Band 80 brightness: 14764.7
+    Spectralon means [R,G,B]: [np.float64(1680.8), np.float64(8818.7), np.float64(14764.7)]
+    Using band 80 for segmentation (max_ref=15658.84)
+Band 15 brightness: 1794.8
+Band 52 brightness: 9376.8
+Band 80 brightness: 15658.8
+    Spectralon means [R,G,B]: [np.float64(1794.8), np.float64(9376.8), np.float64(15658.8)]
+    Using band 80 for segmentation (max_ref=14797.65)
+Band 15 brightness: 1689.3
+Band 52 brightness: 8848.8
+Band 80 brightness: 14797.7
+    Spectralon means [R,G,B]: [np.float64(1689.3), np.float64(8848.8), np.float64(14797.7)]
+    Using band 80 for segmentation (max_ref=15936.67)
+Band 15 brightness: 1822.9
+Band 52 brightness: 9542.2
+Band 80 brightness: 15936.7
+    Spectralon means [R,G,B]: [np.float64(1822.9), np.float64(9542.2), np.float64(15936.7)]
+    Using band 80 for segmentation (max_ref=15341.72)
+Band 15 brightness: 1743.7
+Band 52 brightness: 9163.4
+Band 80 brightness: 15341.7
+    Spectralon means [R,G,B]: [np.float64(1743.7), np.float64(9163.4), np.float64(15341.7)]
+    Using band 80 for segmentation (max_ref=15210.51)
+Band 15 brightness: 1737.9
+Band 52 brightness: 9097.4
+Band 80 brightness: 15210.5
+    Spectralon means [R,G,B]: [np.float64(1737.9), np.float64(9097.4), np.float64(15210.5)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=14725.08)
+Band 15 brightness: 1668.8
+Band 52 brightness: 8787.7
+Band 80 brightness: 14725.1
+    Spectralon means [R,G,B]: [np.float64(1668.8), np.float64(8787.7), np.float64(14725.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=15255.69)
+Band 15 brightness: 1728.0
+Band 52 brightness: 9105.0
+Band 80 brightness: 15255.7
+    Spectralon means [R,G,B]: [np.float64(1728.0), np.float64(9105.0), np.float64(15255.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=14991.10)
+Band 15 brightness: 1692.9
+Band 52 brightness: 8939.0
+Band 80 brightness: 14991.1
+    Spectralon means [R,G,B]: [np.float64(1692.9), np.float64(8939.0), np.float64(14991.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 309.45 seconds
+        morpho.hminima() took 301.34 seconds
+        morpho.hminima() took 332.70 seconds
+        morpho.hminima() took 348.75 seconds
+        morpho.hminima() took 350.51 seconds
+        morpho.hminima() took 363.49 seconds
+        morpho.hminima() took 417.84 seconds
+        morpho.hminima() took 536.66 seconds
+        morpho.hminima() took 611.74 seconds
+        morpho.hminima() took 652.90 seconds
+        morpho.watershed() took 657.36 seconds
+    Watershed took 967.80s, found 170 grains
+Processing grain 0 of 170
+        morpho.watershed() took 636.30 seconds
+    Watershed took 938.60s, found 191 grains
+Processing grain 0 of 191
+        morpho.watershed() took 656.26 seconds
+    Watershed took 989.65s, found 156 grains
+Processing grain 0 of 156
+Got 156 grains for mix46_2020_x79y17_8000_us_2x_2022-04-08T095532_corr in 2640.05 seconds
+Waiting for mix47_2020_x79y14_8000_us_2x_2022-04-13T135055_corr.hdr …
+        morpho.watershed() took 596.74 seconds
+    Watershed took 961.04s, found 195 grains
+Processing grain 0 of 195
+        morpho.watershed() took 645.55 seconds
+    Watershed took 995.08s, found 170 grains
+Processing grain 0 of 170
+Got 170 grains for mix47_2020_x79y14_8000_us_2x_2022-04-13T135055_corr in 33.25 seconds
+Waiting for mix47_2020_x79y14_8000_us_2x_2022-04-13T135422_corr.hdr …
+Got 195 grains for mix47_2020_x79y14_8000_us_2x_2022-04-13T135422_corr in 0.00 seconds
+Waiting for mix47_2020_x79y14_8000_us_2x_2022-04-13T135800_corr.hdr …
+        morpho.watershed() took 567.57 seconds
+    Watershed took 986.17s, found 140 grains
+Processing grain 0 of 140
+        morpho.watershed() took 666.72 seconds
+    Watershed took 1018.02s, found 182 grains
+Processing grain 0 of 182
+Got 182 grains for mix47_2020_x79y14_8000_us_2x_2022-04-13T135800_corr in 37.21 seconds
+Waiting for mix47_2020_x79y14_8000_us_2x_2022-04-13T140238_corr.hdr …
+        morpho.watershed() took 589.24 seconds
+    Watershed took 1126.74s, found 234 grains
+Processing grain 0 of 234
+Got 234 grains for mix47_2020_x79y14_8000_us_2x_2022-04-13T140238_corr in 101.65 seconds
+Waiting for mix47_2020_x81y19_8000_us_2x_2022-04-13T114729_corr.hdr …
+Got 191 grains for mix47_2020_x81y19_8000_us_2x_2022-04-13T114729_corr in 0.00 seconds
+Waiting for mix47_2020_x81y19_8000_us_2x_2022-04-13T115130_corr.hdr …
+Got 170 grains for mix47_2020_x81y19_8000_us_2x_2022-04-13T115130_corr in 0.00 seconds
+Waiting for mix47_2020_x81y19_8000_us_2x_2022-04-13T115600_corr.hdr …
+        morpho.watershed() took 592.99 seconds
+    Watershed took 1246.69s, found 178 grains
+Processing grain 0 of 178
+Got 178 grains for mix47_2020_x81y19_8000_us_2x_2022-04-13T115600_corr in 152.02 seconds
+Waiting for mix47_2020_x81y19_8000_us_2x_2022-04-13T115936_corr.hdr …
+Got 140 grains for mix47_2020_x81y19_8000_us_2x_2022-04-13T115936_corr in 0.00 seconds
+Waiting for mix47_2020_x81y19_8000_us_2x_2022-04-13T120253_corr.hdr …
+        morpho.watershed() took 645.34 seconds
+    Watershed took 1257.76s, found 146 grains
+Processing grain 0 of 146
+Got 146 grains for mix47_2020_x81y19_8000_us_2x_2022-04-13T120253_corr in 34.50 seconds
+Waiting for mix48_2020_x74y14_8000_us_2x_2022-04-13T140941_corr.hdr …
+    Using band 80 for segmentation (max_ref=14686.31)
+Band 15 brightness: 1679.2
+Band 52 brightness: 8784.0
+Band 80 brightness: 14686.3
+    Spectralon means [R,G,B]: [np.float64(1679.2), np.float64(8784.0), np.float64(14686.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 345.01 seconds
+        morpho.watershed() took 478.79 seconds
+    Watershed took 824.38s, found 162 grains
+Processing grain 0 of 162
+Got 162 grains for mix48_2020_x74y14_8000_us_2x_2022-04-13T140941_corr in 1060.38 seconds
+Waiting for mix48_2020_x74y14_8000_us_2x_2022-04-13T141525_corr.hdr …
+    Using band 80 for segmentation (max_ref=21305.48)
+Band 15 brightness: 2462.0
+Band 52 brightness: 12845.2
+Band 80 brightness: 21305.5
+    Spectralon means [R,G,B]: [np.float64(2462.0), np.float64(12845.2), np.float64(21305.5)]
+    Using band 80 for segmentation (max_ref=20143.37)
+Band 15 brightness: 2331.3
+Band 52 brightness: 12149.0
+Band 80 brightness: 20143.4
+    Spectralon means [R,G,B]: [np.float64(2331.3), np.float64(12149.0), np.float64(20143.4)]
+    Using band 80 for segmentation (max_ref=15958.46)
+Band 15 brightness: 1822.5
+Band 52 brightness: 9557.3
+Band 80 brightness: 15958.5
+    Spectralon means [R,G,B]: [np.float64(1822.5), np.float64(9557.3), np.float64(15958.5)]
+    Using band 80 for segmentation (max_ref=20321.29)
+Band 15 brightness: 2355.4
+Band 52 brightness: 12249.8
+Band 80 brightness: 20321.3
+    Spectralon means [R,G,B]: [np.float64(2355.4), np.float64(12249.8), np.float64(20321.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=14702.05)
+    Starting watershed segmentation...
+        starting morpho.hminima
+Band 15 brightness: 1673.4
+    Using band 80 for segmentation (max_ref=15136.37)
+Band 52 brightness: 8795.3
+Band 80 brightness: 14702.1
+    Spectralon means [R,G,B]: [np.float64(1673.4), np.float64(8795.3), np.float64(14702.1)]
+Band 15 brightness: 1733.2
+Band 52 brightness: 9056.9
+Band 80 brightness: 15136.4
+    Spectralon means [R,G,B]: [np.float64(1733.2), np.float64(9056.9), np.float64(15136.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=21783.73)
+Band 15 brightness: 2513.2
+Band 52 brightness: 13140.6
+Band 80 brightness: 21783.7
+    Spectralon means [R,G,B]: [np.float64(2513.2), np.float64(13140.6), np.float64(21783.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20169.22)
+Band 15 brightness: 2319.9
+Band 52 brightness: 12144.0
+Band 80 brightness: 20169.2
+    Spectralon means [R,G,B]: [np.float64(2319.9), np.float64(12144.0), np.float64(20169.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=20142.24)
+Band 15 brightness: 2318.2
+Band 52 brightness: 12126.1
+Band 80 brightness: 20142.2
+    Spectralon means [R,G,B]: [np.float64(2318.2), np.float64(12126.1), np.float64(20142.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 285.72 seconds
+        morpho.hminima() took 365.58 seconds
+        morpho.hminima() took 372.87 seconds
+        morpho.hminima() took 345.33 seconds
+        morpho.hminima() took 444.27 seconds
+        morpho.hminima() took 415.24 seconds
+        morpho.hminima() took 375.61 seconds
+        morpho.hminima() took 566.35 seconds
+        morpho.watershed() took 604.34 seconds
+    Watershed took 891.34s, found 272 grains
+Processing grain 0 of 272
+        morpho.watershed() took 592.96 seconds
+    Watershed took 966.57s, found 181 grains
+Processing grain 0 of 181
+        morpho.watershed() took 544.64 seconds
+    Watershed took 890.69s, found 160 grains
+Processing grain 0 of 160
+        morpho.watershed() took 688.46 seconds
+    Watershed took 1054.89s, found 202 grains
+Processing grain 0 of 202
+        morpho.hminima() took 859.21 seconds
+        morpho.watershed() took 594.45 seconds
+    Watershed took 1010.44s, found 177 grains
+Processing grain 0 of 177
+Got 177 grains for mix48_2020_x74y14_8000_us_2x_2022-04-13T141525_corr in 2343.84 seconds
+Waiting for mix48_2020_x74y14_8000_us_2x_2022-04-13T141902_corr.hdr …
+Got 160 grains for mix48_2020_x74y14_8000_us_2x_2022-04-13T141902_corr in 0.00 seconds
+Waiting for mix48_2020_x74y14_8000_us_2x_2022-04-13T142440_corr.hdr …
+        morpho.watershed() took 658.04 seconds
+    Watershed took 1103.21s, found 217 grains
+Processing grain 0 of 217
+Got 217 grains for mix48_2020_x74y14_8000_us_2x_2022-04-13T142440_corr in 24.20 seconds
+Waiting for mix48_2020_x76y19_8000_us_2x_2022-04-09T142647_corr.hdr …
+Got 272 grains for mix48_2020_x76y19_8000_us_2x_2022-04-09T142647_corr in 0.00 seconds
+Waiting for mix48_2020_x76y19_8000_us_2x_2022-04-09T143336_corr.hdr …
+Got 202 grains for mix48_2020_x76y19_8000_us_2x_2022-04-09T143336_corr in 0.00 seconds
+Waiting for mix48_2020_x76y19_8000_us_2x_2022-04-09T143858_corr.hdr …
+Got 181 grains for mix48_2020_x76y19_8000_us_2x_2022-04-09T143858_corr in 0.00 seconds
+Waiting for mix48_2020_x76y19_8000_us_2x_2022-04-09T144231_corr.hdr …
+        morpho.watershed() took 612.91 seconds
+    Watershed took 989.32s, found 199 grains
+Processing grain 0 of 199
+        morpho.watershed() took 617.86 seconds
+    Watershed took 1185.11s, found 190 grains
+Processing grain 0 of 190
+        morpho.watershed() took 903.62 seconds
+    Watershed took 1763.48s, found 133 grains
+Processing grain 0 of 133
+Got 133 grains for mix48_2020_x76y19_8000_us_2x_2022-04-09T144231_corr in 812.74 seconds
+Waiting for mix49_2020_x75y19_8000_us_2x_2022-04-12T141806_corr.hdr …
+Got 199 grains for mix49_2020_x75y19_8000_us_2x_2022-04-12T141806_corr in 0.00 seconds
+Waiting for mix49_2020_x75y19_8000_us_2x_2022-04-12T142102_corr.hdr …
+Got 190 grains for mix49_2020_x75y19_8000_us_2x_2022-04-12T142102_corr in 0.00 seconds
+Done. Total grain NPZ files in output: 5749
+
+real    214m41,076s
+user    0m9,299s
+sys 0m7,756s
+/home/flandes/DATA/perfomix_2020-2021_IE_HSI_mix
+Band 15 brightness: 1766.223703898841
+Band 52 brightness: 9252.01172813488
+Band 80 brightness: 15455.290437302423
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [0.0..1.3599636301436324].
+Control plots saved, please inspect them and adjust the trimming parameters accordingly
+Processing 25 HDR files with 10 workers …
+Waiting for mix41_2020_x74y12_8000_us_2x_2022-04-13T144143_corr.hdr …
+    Using band 80 for segmentation (max_ref=15455.29)
+Band 15 brightness: 1766.2
+Band 52 brightness: 9252.0
+Band 80 brightness: 15455.3
+    Spectralon means [R,G,B]: [np.float64(1766.2), np.float64(9252.0), np.float64(15455.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=19809.02)
+    Using band 80 for segmentation (max_ref=19342.88)
+    Using band 80 for segmentation (max_ref=21713.27)
+Band 15 brightness: 2284.1
+Band 15 brightness: 2243.1
+    Using band 80 for segmentation (max_ref=16301.28)
+Band 52 brightness: 11923.8
+Band 15 brightness: 2520.2
+Band 52 brightness: 11654.9
+    Using band 80 for segmentation (max_ref=20323.93)
+Band 80 brightness: 19809.0
+    Spectralon means [R,G,B]: [np.float64(2284.1), np.float64(11923.8), np.float64(19809.0)]
+Band 80 brightness: 19342.9
+    Spectralon means [R,G,B]: [np.float64(2243.1), np.float64(11654.9), np.float64(19342.9)]
+Band 15 brightness: 1862.9
+Band 15 brightness: 2350.1
+Band 52 brightness: 13113.5
+Band 52 brightness: 9762.8
+Band 80 brightness: 21713.3
+    Spectralon means [R,G,B]: [np.float64(2520.2), np.float64(13113.5), np.float64(21713.3)]
+Band 52 brightness: 12261.2
+    Using band 80 for segmentation (max_ref=20934.82)
+Band 80 brightness: 16301.3
+    Spectralon means [R,G,B]: [np.float64(1862.9), np.float64(9762.8), np.float64(16301.3)]
+Band 80 brightness: 20323.9
+    Spectralon means [R,G,B]: [np.float64(2350.1), np.float64(12261.2), np.float64(20323.9)]
+Band 15 brightness: 2433.5
+Band 52 brightness: 12640.0
+Band 80 brightness: 20934.8
+    Spectralon means [R,G,B]: [np.float64(2433.5), np.float64(12640.0), np.float64(20934.8)]
+    Using band 80 for segmentation (max_ref=21098.26)
+    Using band 80 for segmentation (max_ref=20253.36)
+Band 15 brightness: 2454.3
+Band 15 brightness: 2356.0
+Band 52 brightness: 12740.2
+Band 52 brightness: 12212.8
+    Using band 80 for segmentation (max_ref=21408.81)
+Band 80 brightness: 20253.4
+    Spectralon means [R,G,B]: [np.float64(2356.0), np.float64(12212.8), np.float64(20253.4)]
+Band 80 brightness: 21098.3
+    Spectralon means [R,G,B]: [np.float64(2454.3), np.float64(12740.2), np.float64(21098.3)]
+Band 15 brightness: 2489.8
+Band 52 brightness: 12928.7
+Band 80 brightness: 21408.8
+    Spectralon means [R,G,B]: [np.float64(2489.8), np.float64(12928.7), np.float64(21408.8)]
+    Starting watershed segmentation...
+    Starting watershed segmentation...
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+        starting morpho.hminima
+        starting morpho.hminima
+    Starting watershed segmentation...
+        starting morpho.hminima
+        starting morpho.hminima
+        starting morpho.hminima
+        morpho.hminima() took 217.92 seconds
+        morpho.hminima() took 318.46 seconds
+        morpho.hminima() took 395.24 seconds
+        morpho.hminima() took 407.74 seconds
+        morpho.hminima() took 404.58 seconds
+        morpho.hminima() took 418.38 seconds
+        morpho.hminima() took 428.79 seconds
+        morpho.hminima() took 567.64 seconds
+        morpho.hminima() took 567.83 seconds
+        morpho.hminima() took 685.25 seconds
+        morpho.watershed() took 564.99 seconds
+    Watershed took 784.07s, found 138 grains
+Processing grain 0 of 138
+    Using band 80 for segmentation (max_ref=19232.03)
+Band 15 brightness: 2247.4
+Band 52 brightness: 11624.4
+Band 80 brightness: 19232.0
+    Spectralon means [R,G,B]: [np.float64(2247.4), np.float64(11624.4), np.float64(19232.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 595.07 seconds
+    Watershed took 914.65s, found 212 grains
+Processing grain 0 of 212
+    Using band 80 for segmentation (max_ref=19137.81)
+Band 15 brightness: 2222.2
+Band 52 brightness: 11554.1
+Band 80 brightness: 19137.8
+    Spectralon means [R,G,B]: [np.float64(2222.2), np.float64(11554.1), np.float64(19137.8)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 527.74 seconds
+    Watershed took 947.36s, found 234 grains
+Processing grain 0 of 234
+    Using band 80 for segmentation (max_ref=19875.11)
+Band 15 brightness: 2325.7
+Band 52 brightness: 12014.0
+Band 80 brightness: 19875.1
+    Spectralon means [R,G,B]: [np.float64(2325.7), np.float64(12014.0), np.float64(19875.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 622.90 seconds
+    Watershed took 1031.46s, found 182 grains
+Processing grain 0 of 182
+Got 182 grains for mix41_2020_x74y12_8000_us_2x_2022-04-13T144143_corr in 1034.55 seconds
+Waiting for mix41_2020_x74y12_8000_us_2x_2022-04-13T144417_corr.hdr …
+    Using band 80 for segmentation (max_ref=19506.43)
+Band 15 brightness: 2278.5
+Band 52 brightness: 11781.5
+Band 80 brightness: 19506.4
+    Spectralon means [R,G,B]: [np.float64(2278.5), np.float64(11781.5), np.float64(19506.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 681.24 seconds
+    Watershed took 1111.14s, found 219 grains
+Processing grain 0 of 219
+    Using band 80 for segmentation (max_ref=14662.16)
+Band 15 brightness: 1666.0
+Band 52 brightness: 8750.1
+Band 80 brightness: 14662.2
+    Spectralon means [R,G,B]: [np.float64(1666.0), np.float64(8750.1), np.float64(14662.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 370.96 seconds
+        morpho.watershed() took 806.57 seconds
+    Watershed took 1202.95s, found 184 grains
+Processing grain 0 of 184
+Got 184 grains for mix41_2020_x74y12_8000_us_2x_2022-04-13T144417_corr in 180.92 seconds
+Waiting for mix41_2020_x75y18_8000_us_2x_2022-04-12T124751_corr.hdr …
+        morpho.watershed() took 801.18 seconds
+    Watershed took 1206.89s, found 202 grains
+Processing grain 0 of 202
+    Using band 80 for segmentation (max_ref=15275.19)
+Band 15 brightness: 1732.7
+Band 52 brightness: 9114.3
+Band 80 brightness: 15275.2
+    Spectralon means [R,G,B]: [np.float64(1732.7), np.float64(9114.3), np.float64(15275.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=15037.18)
+Band 15 brightness: 1707.0
+Band 52 brightness: 8974.7
+Band 80 brightness: 15037.2
+    Spectralon means [R,G,B]: [np.float64(1707.0), np.float64(8974.7), np.float64(15037.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 707.26 seconds
+    Watershed took 1276.08s, found 187 grains
+Processing grain 0 of 187
+Got 187 grains for mix41_2020_x75y18_8000_us_2x_2022-04-12T124751_corr in 73.58 seconds
+Waiting for mix41_2020_x75y18_8000_us_2x_2022-04-12T125447_corr.hdr …
+Got 202 grains for mix41_2020_x75y18_8000_us_2x_2022-04-12T125447_corr in 0.00 seconds
+Waiting for mix41_2020_x75y18_8000_us_2x_2022-04-12T125717_corr.hdr …
+Got 138 grains for mix41_2020_x75y18_8000_us_2x_2022-04-12T125717_corr in 0.00 seconds
+Waiting for mix41_2020_x75y18_8000_us_2x_2022-04-12T130001_corr.hdr …
+    Using band 80 for segmentation (max_ref=16072.38)
+Band 15 brightness: 1813.8
+Band 52 brightness: 9593.8
+Band 80 brightness: 16072.4
+    Spectralon means [R,G,B]: [np.float64(1813.8), np.float64(9593.8), np.float64(16072.4)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 771.16 seconds
+    Watershed took 1339.89s, found 101 grains
+Processing grain 0 of 101
+Got 101 grains for mix41_2020_x75y18_8000_us_2x_2022-04-12T130001_corr in 63.21 seconds
+Waiting for mix42_2020_x76y17_8000_us_2x_2022-04-12T135215_corr.hdr …
+Got 234 grains for mix42_2020_x76y17_8000_us_2x_2022-04-12T135215_corr in 0.00 seconds
+Waiting for mix42_2020_x76y17_8000_us_2x_2022-04-12T140227_corr.hdr …
+Got 219 grains for mix42_2020_x76y17_8000_us_2x_2022-04-12T140227_corr in 0.00 seconds
+Waiting for mix42_2020_x76y17_8000_us_2x_2022-04-12T140534_corr.hdr …
+    Using band 80 for segmentation (max_ref=20972.62)
+Band 15 brightness: 2435.0
+Band 52 brightness: 12662.6
+Band 80 brightness: 20972.6
+    Spectralon means [R,G,B]: [np.float64(2435.0), np.float64(12662.6), np.float64(20972.6)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 449.66 seconds
+        morpho.hminima() took 447.78 seconds
+        morpho.watershed() took 737.60 seconds
+    Watershed took 1423.95s, found 152 grains
+Processing grain 0 of 152
+Got 152 grains for mix42_2020_x76y17_8000_us_2x_2022-04-12T140534_corr in 84.47 seconds
+Waiting for mix42_2020_x76y17_8000_us_2x_2022-04-12T140820_corr.hdr …
+Got 212 grains for mix42_2020_x76y17_8000_us_2x_2022-04-12T140820_corr in 0.00 seconds
+Waiting for mix42_2020_x81y13_8000_us_2x_2022-04-05T103903_corr.hdr …
+    Using band 80 for segmentation (max_ref=21256.12)
+Band 15 brightness: 2471.7
+Band 52 brightness: 12832.8
+Band 80 brightness: 21256.1
+    Spectralon means [R,G,B]: [np.float64(2471.7), np.float64(12832.8), np.float64(21256.1)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 408.04 seconds
+        morpho.hminima() took 411.70 seconds
+        morpho.hminima() took 448.82 seconds
+        morpho.hminima() took 515.24 seconds
+        morpho.hminima() took 392.04 seconds
+        morpho.watershed() took 594.93 seconds
+    Watershed took 966.98s, found 205 grains
+Processing grain 0 of 205
+Got 205 grains for mix42_2020_x81y13_8000_us_2x_2022-04-05T103903_corr in 340.80 seconds
+Waiting for mix42_2020_x81y13_8000_us_2x_2022-04-05T104250_corr.hdr …
+    Using band 80 for segmentation (max_ref=21443.17)
+Band 15 brightness: 2490.8
+Band 52 brightness: 12944.2
+Band 80 brightness: 21443.2
+    Spectralon means [R,G,B]: [np.float64(2490.8), np.float64(12944.2), np.float64(21443.2)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 596.28 seconds
+        morpho.hminima() took 540.56 seconds
+        morpho.watershed() took 693.03 seconds
+    Watershed took 1143.67s, found 167 grains
+Processing grain 0 of 167
+Got 167 grains for mix42_2020_x81y13_8000_us_2x_2022-04-05T104250_corr in 306.35 seconds
+Waiting for mix42_2020_x81y13_8000_us_2x_2022-04-05T104545_corr.hdr …
+    Using band 80 for segmentation (max_ref=20899.04)
+Band 15 brightness: 2410.2
+Band 52 brightness: 12597.0
+Band 80 brightness: 20899.0
+    Spectralon means [R,G,B]: [np.float64(2410.2), np.float64(12597.0), np.float64(20899.0)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 676.84 seconds
+    Watershed took 1085.92s, found 160 grains
+Processing grain 0 of 160
+        morpho.watershed() took 596.10 seconds
+    Watershed took 1008.81s, found 203 grains
+Processing grain 0 of 203
+    Using band 80 for segmentation (max_ref=14410.91)
+Band 15 brightness: 1628.7
+Band 52 brightness: 8593.8
+Band 80 brightness: 14410.9
+    Spectralon means [R,G,B]: [np.float64(1628.7), np.float64(8593.8), np.float64(14410.9)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+    Using band 80 for segmentation (max_ref=15417.32)
+Band 15 brightness: 1751.3
+Band 52 brightness: 9203.2
+Band 80 brightness: 15417.3
+    Spectralon means [R,G,B]: [np.float64(1751.3), np.float64(9203.2), np.float64(15417.3)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.watershed() took 769.06 seconds
+    Watershed took 1217.82s, found 161 grains
+Processing grain 0 of 161
+Got 161 grains for mix42_2020_x81y13_8000_us_2x_2022-04-05T104545_corr in 106.42 seconds
+Waiting for mix42_2020_x81y13_8000_us_2x_2022-04-05T104914_corr.hdr …
+Got 160 grains for mix42_2020_x81y13_8000_us_2x_2022-04-05T104914_corr in 0.00 seconds
+Waiting for mix43_2020_x78y15_8000_us_2x_2022-04-13T105711_corr.hdr …
+Got 203 grains for mix43_2020_x78y15_8000_us_2x_2022-04-13T105711_corr in 0.00 seconds
+Waiting for mix43_2020_x78y15_8000_us_2x_2022-04-13T110316_corr.hdr …
+    Using band 80 for segmentation (max_ref=15477.75)
+Band 15 brightness: 1773.9
+Band 52 brightness: 9257.1
+Band 80 brightness: 15477.7
+    Spectralon means [R,G,B]: [np.float64(1773.9), np.float64(9257.1), np.float64(15477.7)]
+    Starting watershed segmentation...
+        starting morpho.hminima
+        morpho.hminima() took 482.18 seconds
+        morpho.watershed() took 676.39 seconds
+    Watershed took 1126.26s, found 207 grains
+Processing grain 0 of 207
+Got 207 grains for mix43_2020_x78y15_8000_us_2x_2022-04-13T110316_corr in 164.45 seconds
+Waiting for mix43_2020_x78y15_8000_us_2x_2022-04-13T111207_corr.hdr …
+        morpho.watershed() took 604.40 seconds
+    Watershed took 997.58s, found 235 grains
+Processing grain 0 of 235
+        morpho.hminima() took 222.17 seconds
+        morpho.watershed() took 718.77 seconds
+    Watershed took 1234.76s, found 137 grains
+Processing grain 0 of 137
+Got 137 grains for mix43_2020_x78y15_8000_us_2x_2022-04-13T111207_corr in 113.41 seconds
+Waiting for mix43_2020_x78y15_8000_us_2x_2022-04-13T111553_corr.hdr …
+        morpho.hminima() took 458.49 seconds
+        morpho.watershed() took 698.40 seconds
+    Watershed took 1295.44s, found 168 grains
+Processing grain 0 of 168
+Got 168 grains for mix43_2020_x78y15_8000_us_2x_2022-04-13T111553_corr in 128.70 seconds
+Waiting for mix44_2020_x76y15_8000_us_2x_2022-04-12T101413_corr.hdr …
+Got 235 grains for mix44_2020_x76y15_8000_us_2x_2022-04-12T101413_corr in 0.00 seconds
+Waiting for mix44_2020_x76y15_8000_us_2x_2022-04-12T101742_corr.hdr …
+        morpho.watershed() took 615.71 seconds
+    Watershed took 1157.32s, found 245 grains
+Processing grain 0 of 245
+Got 245 grains for mix44_2020_x76y15_8000_us_2x_2022-04-12T101742_corr in 10.33 seconds
+Waiting for mix44_2020_x76y15_8000_us_2x_2022-04-12T102515_corr.hdr …
+        morpho.watershed() took 333.84 seconds
+    Watershed took 556.76s, found 195 grains
+Processing grain 0 of 195
+        morpho.watershed() took 565.36 seconds
+    Watershed took 1048.42s, found 172 grains
+Processing grain 0 of 172
+Got 172 grains for mix44_2020_x76y15_8000_us_2x_2022-04-12T102515_corr in 231.66 seconds
+Waiting for mix44_2020_x76y15_8000_us_2x_2022-04-12T103115_corr.hdr …
+        morpho.hminima() took 696.30 seconds
+        morpho.hminima() took 953.17 seconds
+        morpho.watershed() took 600.91 seconds
+    Watershed took 1060.41s, found 177 grains
+Processing grain 0 of 177
+Got 177 grains for mix44_2020_x76y15_8000_us_2x_2022-04-12T103115_corr in 317.72 seconds
+Waiting for mix44_2020_x83y20_8000_us_2x_2022-04-13T121518_corr.hdr …
+        morpho.watershed() took 897.27 seconds
+    Watershed took 1594.34s, found 176 grains
+Processing grain 0 of 176
+        morpho.watershed() took 1036.87 seconds
+    Watershed took 1990.88s, found 185 grains
+Processing grain 0 of 185
+Got 185 grains for mix44_2020_x83y20_8000_us_2x_2022-04-13T121518_corr in 982.25 seconds
+Waiting for mix44_2020_x83y20_8000_us_2x_2022-04-13T121923_corr.hdr …
+Got 195 grains for mix44_2020_x83y20_8000_us_2x_2022-04-13T121923_corr in 0.00 seconds
+Waiting for mix44_2020_x83y20_8000_us_2x_2022-04-13T122559_corr.hdr …
+Got 176 grains for mix44_2020_x83y20_8000_us_2x_2022-04-13T122559_corr in 0.00 seconds
+Done. Total grain NPZ files in output: 4604
+
+real    69m20,318s
+user    0m9,240s
+sys 0m6,269s
+(github-Phuoc-preprocessing) flandes@ptb-11200876:~/downloads/Cap paper - TMLR - RGB Grains Challeng

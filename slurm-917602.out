@@ -1,0 +1,235 @@
+Base Directory: .
+Dataset Directory: data
+Experiment name: equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3
+Output directory for this experiment: expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3
+Config saved to: expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/config.json
+[*] Log file: expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training.log
+Experiment short name: equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3
+Using perfomix dataset
+Found 26164 total NPZ files (Pure Stand).
+Found 60091 total NPZ files (Mixed Stand).
+[*] Splitting : muPlot-3muTrain-1muTest:  by microplot, 3muTrain-1muTest, using a single microplot of Y2 as test, 3 microplots of as train (Y1,Y1,Y2)
+[*] Warning: fold number 3 is too large for microplot names ['x28y22' 'x72y18' 'x78y11'] for class 4. Skipping this class for test (This is because of the cursed microplot).
+  Class 0: 2589 train samples, from microplots                 ['x30y21' 'x33y24' 'x73y14'], and from years:                 [2020 2021]
+           879  test samples, from microplots                 ['x75y20'], and from years:                 [2021]
+  Class 1: 2982 train samples, from microplots                 ['x31y24' 'x35y19' 'x73y16'], and from years:                 [2020 2021]
+           952  test samples, from microplots                 ['x76y12'], and from years:                 [2021]
+  Class 2: 2575 train samples, from microplots                 ['x43y22' 'x44y21' 'x77y15'], and from years:                 [2020 2021]
+           858  test samples, from microplots                 ['x81y18'], and from years:                 [2021]
+  Class 3: 2421 train samples, from microplots                 ['x42y22' 'x45y19' 'x80y16'], and from years:                 [2020 2021]
+           789  test samples, from microplots                 ['x82y12'], and from years:                 [2021]
+  Class 4: 2311 train samples, from microplots                 ['x28y22' 'x72y18' 'x78y11'], and from years:                 [2020 2021]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 5: 2464 train samples, from microplots                 ['x40y20' 'x41y23' 'x79y13'], and from years:                 [2020 2021]
+           720  test samples, from microplots                 ['x80y20'], and from years:                 [2021]
+  Class 6: 2276 train samples, from microplots                 ['x28y21' 'x45y24' 'x72y15'], and from years:                 [2020 2021]
+           826  test samples, from microplots                 ['x82y19'], and from years:                 [2021]
+  Class 7: 2617 train samples, from microplots                 ['x32y23' 'x34y21' 'x74y17'], and from years:                 [2020 2021]
+           905  test samples, from microplots                 ['x75y12'], and from years:                 [2021]
+
+Training data:
+  Class 0: 23765 train samples, from microplots                 ['x28y19' 'x29y19' 'x29y24' 'x30y19' 'x30y21' 'x30y23' 'x30y24' 'x31y22'
+ 'x31y23' 'x32y20' 'x32y24' 'x33y20' 'x33y22' 'x33y24' 'x34y20' 'x35y20'
+ 'x36y23' 'x37y19' 'x37y21' 'x37y22' 'x37y24' 'x38y19' 'x38y20' 'x38y21'
+ 'x39y22' 'x39y23' 'x40y19' 'x40y23' 'x41y22' 'x42y19' 'x42y21' 'x43y20'
+ 'x44y19' 'x44y24' 'x45y23' 'x46y20' 'x46y22' 'x47y23' 'x73y14' 'x73y15'
+ 'x74y12' 'x75y14' 'x75y18' 'x77y16' 'x78y14' 'x78y15' 'x78y16' 'x80y19'
+ 'x82y15' 'x82y18'], and from years:                 [2020 2021 2026]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 1: 12986 train samples, from microplots                 ['x28y20' 'x29y20' 'x31y20' 'x31y24' 'x32y20' 'x33y19' 'x33y21' 'x33y23'
+ 'x35y19' 'x35y23' 'x39y24' 'x42y20' 'x43y23' 'x44y22' 'x45y22' 'x46y24'
+ 'x47y24' 'x72y12' 'x73y16' 'x74y11' 'x75y19' 'x79y14' 'x81y19' 'x82y17'], and from years:                 [2020 2021 2026]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 2: 9045 train samples, from microplots                 ['x29y23' 'x32y21' 'x34y24' 'x35y21' 'x36y22' 'x37y23' 'x40y21' 'x41y24'
+ 'x42y24' 'x43y22' 'x44y21' 'x45y20' 'x45y21' 'x47y20' 'x77y15'], and from years:                 [2020 2021 2026]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 3: 10483 train samples, from microplots                 ['x28y24' 'x34y19' 'x37y20' 'x38y23' 'x39y19' 'x40y22' 'x41y21' 'x42y22'
+ 'x43y21' 'x43y24' 'x45y19' 'x46y23' 'x76y15' 'x77y12' 'x79y17' 'x80y16'
+ 'x81y20' 'x83y20'], and from years:                 [2020 2021 2026]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 4: 9241 train samples, from microplots                 ['x28y22' 'x30y20' 'x30y22' 'x31y21' 'x35y22' 'x36y20' 'x36y21' 'x36y24'
+ 'x38y22' 'x38y24' 'x43y19' 'x44y20' 'x47y22' 'x72y18' 'x76y11' 'x76y17'
+ 'x78y11' 'x78y18' 'x81y13'], and from years:                 [2020 2021 2026]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 5: 6813 train samples, from microplots                 ['x28y23' 'x29y22' 'x32y22' 'x34y22' 'x34y23' 'x36y19' 'x39y21' 'x40y20'
+ 'x41y20' 'x41y23' 'x44y23' 'x46y19' 'x47y19' 'x47y21' 'x79y13'], and from years:                 [2020 2021 2026]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 6: 5376 train samples, from microplots                 ['x28y21' 'x31y19' 'x35y24' 'x40y24' 'x41y19' 'x42y23' 'x45y24' 'x46y21'
+ 'x72y15' 'x74y14' 'x76y19'], and from years:                 [2020 2021 2026]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 7: 2617 train samples, from microplots                 ['x32y23' 'x34y21' 'x74y17'], and from years:                 [2020 2021]
+           0  test samples, from microplots                 [], and from years:                 []
+
+Test data:
+  Class 0: 21176 train samples, from microplots                 ['x28y19' 'x29y19' 'x29y24' 'x30y19' 'x30y23' 'x30y24' 'x31y22' 'x31y23'
+ 'x32y20' 'x32y24' 'x33y20' 'x33y22' 'x34y20' 'x35y20' 'x36y23' 'x37y19'
+ 'x37y21' 'x37y22' 'x37y24' 'x38y19' 'x38y20' 'x38y21' 'x39y22' 'x39y23'
+ 'x40y19' 'x40y23' 'x41y22' 'x42y19' 'x42y21' 'x43y20' 'x44y19' 'x44y24'
+ 'x45y23' 'x46y20' 'x46y22' 'x47y23' 'x73y15' 'x74y12' 'x75y14' 'x75y18'
+ 'x77y16' 'x78y14' 'x78y15' 'x78y16' 'x80y19' 'x82y15' 'x82y18'], and from years:                 [2026]
+           879  test samples, from microplots                 ['x75y20'], and from years:                 [2021]
+  Class 1: 10004 train samples, from microplots                 ['x28y20' 'x29y20' 'x31y20' 'x32y20' 'x33y19' 'x33y21' 'x33y23' 'x35y23'
+ 'x39y24' 'x42y20' 'x43y23' 'x44y22' 'x45y22' 'x46y24' 'x47y24' 'x72y12'
+ 'x74y11' 'x75y19' 'x79y14' 'x81y19' 'x82y17'], and from years:                 [2026]
+           952  test samples, from microplots                 ['x76y12'], and from years:                 [2021]
+  Class 2: 6470 train samples, from microplots                 ['x29y23' 'x32y21' 'x34y24' 'x35y21' 'x36y22' 'x37y23' 'x40y21' 'x41y24'
+ 'x42y24' 'x45y20' 'x45y21' 'x47y20'], and from years:                 [2026]
+           858  test samples, from microplots                 ['x81y18'], and from years:                 [2021]
+  Class 3: 8062 train samples, from microplots                 ['x28y24' 'x34y19' 'x37y20' 'x38y23' 'x39y19' 'x40y22' 'x41y21' 'x43y21'
+ 'x43y24' 'x46y23' 'x76y15' 'x77y12' 'x79y17' 'x81y20' 'x83y20'], and from years:                 [2026]
+           789  test samples, from microplots                 ['x82y12'], and from years:                 [2021]
+  Class 4: 6930 train samples, from microplots                 ['x30y20' 'x30y22' 'x31y21' 'x35y22' 'x36y20' 'x36y21' 'x36y24' 'x38y22'
+ 'x38y24' 'x43y19' 'x44y20' 'x47y22' 'x76y11' 'x76y17' 'x78y18' 'x81y13'], and from years:                 [2026]
+           0  test samples, from microplots                 [], and from years:                 []
+  Class 5: 4349 train samples, from microplots                 ['x28y23' 'x29y22' 'x32y22' 'x34y22' 'x34y23' 'x36y19' 'x39y21' 'x41y20'
+ 'x44y23' 'x46y19' 'x47y19' 'x47y21'], and from years:                 [2026]
+           720  test samples, from microplots                 ['x80y20'], and from years:                 [2021]
+  Class 6: 3100 train samples, from microplots                 ['x31y19' 'x35y24' 'x40y24' 'x41y19' 'x42y23' 'x46y21' 'x74y14' 'x76y19'], and from years:                 [2026]
+           826  test samples, from microplots                 ['x82y19'], and from years:                 [2021]
+  Class 7: 0 train samples, from microplots                 [], and from years:                 []
+           905  test samples, from microplots                 ['x75y12'], and from years:                 [2021]
+  Saved 80326 rows → expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/splits/train.csv
+  Saved 66020 rows → expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/splits/test.csv
+Loaded Train data... shape: X=(80326, 252, 252, 3), y=(80326, 8)
+Loading Test data... shape: X=(66020, 252, 252, 3), y=(66020, 8)
+Equalize-classes: 1: we are balancing classes
+class 2: adding 13868 samples to the data, class counts is now: [1515.27    0.   6945.3   989.75 1531.27 1849.      0.   1037.75]
+class 3: adding 10088 samples to the data, class counts is now: [1515.27  702.5  6945.3  6945.02 1531.27 2881.15  523.5  2912.44]
+class 4: adding 9291 samples to the data, class counts is now: [2700.02 1489.75 6945.3  6945.02 6945.27 3383.9  1653.   3185.19]
+class 6: adding 8518 samples to the data, class counts is now: [3651.52 2424.5  6945.3  6945.02 7034.52 3888.65 6945.   3930.94]
+class 1: adding 6243 samples to the data, class counts is now: [4507.02 6945.   6945.3  6945.02 7041.02 4171.15 6945.   4508.94]
+class 0: adding 2438 samples to the data, class counts is now: [6945.02 6945.   6945.3  6945.02 7041.02 4171.15 6945.   4508.94]
+class 5: adding 3102 samples to the data, class counts is now: [7049.85 6945.   6945.3  6945.02 7041.02 6944.98 6945.   4732.28]
+class 7: adding 2213 samples to the data, class counts is now: [7049.85 6945.   6945.3  6945.02 7041.02 6944.98 6945.   6945.28]
+Classes are not balanced, removing 104 samples (from class 0)
+Classes are now more balanced (hopefully): [6945.862  6945.     6945.3    6945.0723 7041.021  6944.929  6945.
+ 6945.2153] with min 6944.92919921875 and max 7041.02099609375
+Classes are not balanced, removing 96 samples (from class 4)
+Classes are now more balanced (hopefully): [6945.862  6945.     6945.3    6945.0723 6945.021  6944.929  6945.
+ 6945.2153] with min 6944.92919921875 and max 6945.86181640625
+Balance of classes: train: [6945.862  6945.     6945.3    6945.0723 6945.021  6944.929  6945.
+ 6945.2153]
+Balance of classes: test: [ 9287.518   7632.5     5228.2515  6623.46    7046.5146 10521.388
+  8020.5    11659.416 ]
+Shapes: (55561, 252, 252, 3), (55561, 8), (66020, 252, 252, 3), (66020, 8)
+[*] Output directory: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3
+[*] Log file: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training.log
+[*] Restricted classes (0-indexed): [0 1 2 3 4 5 6 7]
+[*] Device: cuda
+[*] ConvNeXt-Tiny | pretrained | single-phase | 50 ep | SWA
+[*] Weights (cached): ./models/convnext_tiny_imagenet.pt
+Automatic Mixed Precision (amp): True
+
+======================================================================
+
+--- Training (fine-tuning) ConvNeXt-Tiny on Year 1 (Source Domain) ---
+[*] Data  n=55561  shape=(252, 252, 3)  y.shape=(55561, 8)
+[*] Train=51116  Val=4445
+y.shape=(55561, 8)
+[*] Class distribution in train/val split:
+    Class 0: train=6397.3 (13%), val=548.7 (12%)
+    Class 1: train=6400.0 (13%), val=545.0 (12%)
+    Class 2: train=6368.1 (12%), val=577.0 (13%)
+    Class 3: train=6395.8 (13%), val=549.2 (12%)
+    Class 4: train=6379.6 (12%), val=565.5 (13%)
+    Class 5: train=6383.7 (12%), val=561.3 (13%)
+    Class 6: train=6383.0 (12%), val=562.0 (13%)
+    Class 7: train=6409.0 (13%), val=536.3 (12%)
+[*] Class weights for weighted loss: [0.99879164 0.9983634  1.0033661  0.9990205  1.0015571  1.0009114
+ 1.0010223  0.9969675 ]
+[*] Backbone loaded  miss=2  unex=0
+[*] 27.8M params  pretrained=True
+Training on device: Tesla V100-PCIE-32GB
+  E01 loss=2.0080 tr=0.3711 val_bal=0.6414 lr_bb=1.67e-04 t=264.2s G=285s swa=0
+  E02 loss=1.8803 tr=0.5144 val_bal=0.7261 lr_bb=3.33e-04 t=261.7s G=547s swa=0
+  E03 loss=1.8458 tr=0.5506 val_bal=0.7266 lr_bb=5.00e-04 t=268.0s G=815s swa=0
+  E04 loss=1.8331 tr=0.5629 val_bal=0.7793 lr_bb=4.99e-04 t=252.6s G=1068s swa=0
+  E05 loss=1.7930 tr=0.6026 val_bal=0.7763 lr_bb=4.98e-04 t=272.3s G=1340s swa=1
+  E06 loss=1.7933 tr=0.6012 val_bal=0.8128 lr_bb=4.95e-04 t=256.6s G=1597s swa=2
+  E07 loss=1.7450 tr=0.6294 val_bal=0.8500 lr_bb=4.91e-04 t=256.1s G=1853s swa=3
+  E08 loss=1.7381 tr=0.6273 val_bal=0.8200 lr_bb=4.86e-04 t=258.6s G=2112s swa=4
+  E09 loss=1.7239 tr=0.6468 val_bal=0.8618 lr_bb=4.80e-04 t=257.7s G=2369s swa=5
+  E10 loss=1.7283 tr=0.6358 val_bal=0.8606 lr_bb=4.73e-04 t=271.0s G=2641s swa=6
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_curve_equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3.jpg (+pdf+svg)
+[*] Training curve saved.
+  E11 loss=1.6959 tr=0.6624 val_bal=0.8614 lr_bb=4.65e-04 t=261.5s G=2906s swa=7
+  E12 loss=1.6828 tr=0.6738 val_bal=0.8840 lr_bb=4.56e-04 t=263.4s G=3170s swa=8
+  E13 loss=1.6885 tr=0.6540 val_bal=0.8722 lr_bb=4.46e-04 t=267.7s G=3438s swa=9
+  E14 loss=1.6875 tr=0.6671 val_bal=0.8820 lr_bb=4.35e-04 t=262.1s G=3700s swa=10
+  E15 loss=1.6584 tr=0.6897 val_bal=0.8885 lr_bb=4.24e-04 t=247.5s G=3947s swa=10
+  E16 loss=1.6543 tr=0.6887 val_bal=0.8928 lr_bb=4.11e-04 t=256.0s G=4203s swa=10
+  E17 loss=1.6533 tr=0.6764 val_bal=0.9095 lr_bb=3.98e-04 t=246.1s G=4450s swa=10
+  E18 loss=1.6556 tr=0.6876 val_bal=0.9052 lr_bb=3.85e-04 t=246.1s G=4696s swa=10
+  E19 loss=1.6332 tr=0.6996 val_bal=0.9052 lr_bb=3.70e-04 t=246.6s G=4943s swa=10
+  E20 loss=1.6376 tr=0.6917 val_bal=0.9082 lr_bb=3.55e-04 t=245.6s G=5188s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_curve_equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3.jpg (+pdf+svg)
+[*] Training curve saved.
+  E21 loss=1.6392 tr=0.6908 val_bal=0.9115 lr_bb=3.40e-04 t=246.0s G=5437s swa=10
+  E22 loss=1.6048 tr=0.7209 val_bal=0.9150 lr_bb=3.24e-04 t=245.7s G=5683s swa=10
+  E23 loss=1.5970 tr=0.7345 val_bal=0.9080 lr_bb=3.08e-04 t=244.9s G=5928s swa=10
+  E24 loss=1.6026 tr=0.7113 val_bal=0.9219 lr_bb=2.92e-04 t=246.0s G=6174s swa=10
+  E25 loss=1.5914 tr=0.7180 val_bal=0.9340 lr_bb=2.75e-04 t=249.1s G=6423s swa=10
+  E26 loss=1.5967 tr=0.7165 val_bal=0.9233 lr_bb=2.58e-04 t=245.9s G=6669s swa=10
+  E27 loss=1.5793 tr=0.7246 val_bal=0.9274 lr_bb=2.42e-04 t=248.7s G=6918s swa=10
+  E28 loss=1.5790 tr=0.7130 val_bal=0.9333 lr_bb=2.25e-04 t=245.1s G=7163s swa=10
+  E29 loss=1.5807 tr=0.7100 val_bal=0.9237 lr_bb=2.08e-04 t=242.7s G=7406s swa=10
+  E30 loss=1.5692 tr=0.7367 val_bal=0.9352 lr_bb=1.92e-04 t=247.6s G=7654s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_curve_equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3.jpg (+pdf+svg)
+[*] Training curve saved.
+  E31 loss=1.5669 tr=0.7331 val_bal=0.9308 lr_bb=1.76e-04 t=240.5s G=7897s swa=10
+  E32 loss=1.5446 tr=0.7443 val_bal=0.9364 lr_bb=1.60e-04 t=241.6s G=8139s swa=10
+  E33 loss=1.5554 tr=0.7341 val_bal=0.9378 lr_bb=1.45e-04 t=241.2s G=8380s swa=10
+  E34 loss=1.5329 tr=0.7561 val_bal=0.9323 lr_bb=1.30e-04 t=240.1s G=8620s swa=10
+  E35 loss=1.5438 tr=0.7343 val_bal=0.9357 lr_bb=1.15e-04 t=241.8s G=8862s swa=10
+  E36 loss=1.5452 tr=0.7190 val_bal=0.9411 lr_bb=1.02e-04 t=259.1s G=9121s swa=10
+  E37 loss=1.5448 tr=0.7337 val_bal=0.9409 lr_bb=8.86e-05 t=249.6s G=9371s swa=10
+  E38 loss=1.5161 tr=0.7556 val_bal=0.9404 lr_bb=7.62e-05 t=241.8s G=9613s swa=10
+  E39 loss=1.5181 tr=0.7450 val_bal=0.9405 lr_bb=6.46e-05 t=241.2s G=9854s swa=10
+  E40 loss=1.5204 tr=0.7467 val_bal=0.9412 lr_bb=5.38e-05 t=244.4s G=10099s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_curve_equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3.jpg (+pdf+svg)
+[*] Training curve saved.
+  E41 loss=1.5161 tr=0.7307 val_bal=0.9431 lr_bb=4.39e-05 t=254.7s G=10356s swa=10
+  E42 loss=1.5275 tr=0.7393 val_bal=0.9434 lr_bb=3.49e-05 t=246.0s G=10602s swa=10
+  E43 loss=1.5103 tr=0.7647 val_bal=0.9455 lr_bb=2.69e-05 t=250.4s G=10853s swa=10
+  E44 loss=1.5099 tr=0.7720 val_bal=0.9444 lr_bb=1.98e-05 t=246.4s G=11099s swa=10
+  E45 loss=1.4955 tr=0.7687 val_bal=0.9461 lr_bb=1.38e-05 t=255.4s G=11355s swa=10
+  E46 loss=1.5019 tr=0.7496 val_bal=0.9451 lr_bb=8.88e-06 t=248.1s G=11603s swa=10
+  E47 loss=1.5028 tr=0.7552 val_bal=0.9443 lr_bb=5.01e-06 t=244.7s G=11848s swa=10
+  E48 loss=1.5057 tr=0.7598 val_bal=0.9469 lr_bb=5.00e-06 t=242.3s G=12090s swa=10
+  E49 loss=1.5172 tr=0.7368 val_bal=0.9448 lr_bb=5.00e-06 t=242.1s G=12333s swa=10
+  E50 loss=1.5054 tr=0.7471 val_bal=0.9453 lr_bb=5.00e-06 t=244.8s G=12577s swa=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_metrics.npz
+[*] Training curve saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_curve_equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3.jpg (+pdf+svg)
+[*] Training curve saved.
+[*] SWA val=0.9457  best=0.9469  snaps=10
+[*] Training metrics saved to: /mnt/beegfs/projects/grainClassif/src/../expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/training_metrics.npz
+[*] Fit done  states=1  time=12587s
+saving model.all_models parameters
+Model weights saved to models.
+[*] Computing predictions for ConvNeXt-Tiny
+[ConvNeXt-Tiny] Testing Model (by default, In-Domain, Upper Bound)...
+[*] Predict probabilities  n=66020  models=1  crops=[160, 172, 184, 196]  D4(8)
+  cn_swa done
+Predictions saved to: expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/ConvNeXt-Tiny_predictions_equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3.npz
+
+
+Ça c'était avant la correction du code de mesure d'accuracy.
+Ceci dit, la balanced acc est encourageante :)
+
+--- Balanced Accuracy for ConvNeXt-Tiny ---
+Val acc (balanced) (Native): 0.5211
+Performance dict: {'experiment_short_name': 'equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3', 'split_number': 3, 'num_epochs': 50, 'limit_per_year': None, 'year': 'all', 'num_classes': 8, 'test_acc': 0.44085125719478946, 'val_acc': 0.5210577066291411, 'train_acc': 0.747062969924812, 'per_class_recall': [0.3440943096803446, 0.41593647316538884, 0.5292030567685589, 0.5976725793695628, 0.331024531024531, 0.5277174985204183, 0.5078960774325013, 0.9149171270718232], 'per_class_precision': [0.9271838729383017, 0.7091503267973857, 0.5638266938063391, 0.47842995387537307, 0.3372041746288402, 0.28330862105486126, 0.24418319862845947, 0.0913604766633565], 'restricted_classes': None}
+Performance summary saved to: overall_perf_summary.json
+Recall per class: [0.34409431 0.41593647 0.52920306 0.59767258 0.33102453 0.5277175
+ 0.50789608 0.91491713]
+Precision per class: [0.92718387 0.70915033 0.56382669 0.47842995 0.33720417 0.28330862
+ 0.2441832  0.09136048]
+Config saved to: expe/equalizeToggle-ep50-_muPlot-3muTrain-1muTest_year=all_restrClass=0_trainMixedPure=1_fold3/config_end_check.json
+
+real	248m59.863s
+user	839m9.192s
+sys	53m31.357s

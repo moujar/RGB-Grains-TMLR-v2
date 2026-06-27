@@ -1,0 +1,977 @@
+{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=1_fold2",
+  "split_number": 2,
+  "num_epochs": 50,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.78,
+  "val_acc": 0.782051282051282,
+  "train_acc": 0.859375,
+  "per_class_recall": [
+    0.8333333333333334,
+    0.7307692307692307
+  ],
+  "per_class_precision": [
+    0.7407407407407407,
+    0.8260869565217391
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}
+{
+  "experiment_short_name": "std50_muPlot_year1only_year=2020_restrClass=0_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.925888904755105,
+  "val_acc": 0.9219691712685625,
+  "train_acc": 0.7405252659574468,
+  "per_class_recall": [
+    0.9383938393839384,
+    0.9510548523206751,
+    0.937636761487965,
+    0.9261430246189918,
+    0.8167613636363636,
+    0.9548458149779736,
+    0.943089430894309,
+    0.9078282828282829
+  ],
+  "per_class_precision": [
+    0.8997890295358649,
+    0.9766031195840554,
+    0.9136460554371002,
+    0.8866442199775533,
+    0.9012539184952978,
+    0.9383116883116883,
+    0.9182058047493403,
+    0.9561170212765957
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=0_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9381693559902898,
+  "val_acc": 0.9344845824474951,
+  "train_acc": 0.723206426056338,
+  "per_class_recall": [
+    0.944994499449945,
+    0.9687763713080169,
+    0.9529540481400438,
+    0.9378663540445487,
+    0.8607954545454546,
+    0.9526431718061674,
+    0.9336043360433605,
+    0.9242424242424242
+  ],
+  "per_class_precision": [
+    0.927645788336933,
+    0.9712351945854484,
+    0.9345493562231759,
+    0.9205983889528193,
+    0.8872620790629575,
+    0.9547461368653422,
+    0.9542936288088643,
+    0.9348659003831418
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_random_year1only_year=2020_restrClass=0_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9363516095840071,
+  "val_acc": 0.9342676345595112,
+  "train_acc": 0.79296875,
+  "per_class_recall": [
+    0.9176201372997712,
+    0.9696969696969697,
+    0.9369266055045872,
+    0.9411764705882353,
+    0.8722222222222222,
+    0.9591346153846154,
+    0.935687263556116,
+    0.9416767922235723
+  ],
+  "per_class_precision": [
+    0.9457547169811321,
+    0.9715370018975332,
+    0.9434180138568129,
+    0.8990825688073395,
+    0.8933143669985776,
+    0.9556886227544911,
+    0.9263420724094882,
+    0.9405339805825242
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot_year1only_year=2021_restrClass=0_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9272001228689909,
+  "val_acc": 0.9265772704223529,
+  "train_acc": 0.7893880208333334,
+  "per_class_recall": [
+    0.9713945172824792,
+    0.9325714285714286,
+    0.960431654676259,
+    0.9316688567674113,
+    0.9071729957805907,
+    0.9097560975609756,
+    0.8942172073342737,
+    0.9054054054054054
+  ],
+  "per_class_precision": [
+    0.9521028037383178,
+    0.9466357308584686,
+    0.9697336561743342,
+    0.9219765929778934,
+    0.899581589958159,
+    0.8977135980746089,
+    0.9031339031339032,
+    0.9187763713080169
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_random_year1only_year=2021_restrClass=0_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9422671088332831,
+  "val_acc": 0.9420812529208923,
+  "train_acc": 0.7496675531914894,
+  "per_class_recall": [
+    0.969626168224299,
+    0.9593406593406594,
+    0.9585798816568047,
+    0.9661898569570871,
+    0.9169811320754717,
+    0.9296875,
+    0.9214659685863874,
+    0.9147788565264293
+  ],
+  "per_class_precision": [
+    0.9730363423212193,
+    0.9458288190682557,
+    0.9723889555822329,
+    0.9599483204134367,
+    0.8922888616891065,
+    0.937007874015748,
+    0.9202614379084967,
+    0.9349503858875413
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=0_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9169188861985472,
+  "val_acc": 0.9132297376517131,
+  "train_acc": 0.7502693965517241,
+  "per_class_recall": [
+    0.9035714285714286,
+    0.9827586206896551,
+    0.9216867469879518,
+    0.957002457002457,
+    0.7377717391304348,
+    0.9088507265521797,
+    0.9339622641509434,
+    0.960233918128655
+  ],
+  "per_class_precision": [
+    0.9693486590038314,
+    0.9691817215727949,
+    0.9363525091799265,
+    0.9121779859484778,
+    0.8497652582159625,
+    0.9662921348314607,
+    0.8443496801705757,
+    0.8885281385281385
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9345123575551281,
+  "val_acc": 0.9329352657873518,
+  "train_acc": 0.7220052083333334,
+  "per_class_recall": [
+    0.959954233409611,
+    0.954368932038835,
+    0.9433638443935927,
+    0.9399008674101611,
+    0.8869257950530035,
+    0.9351851851851852,
+    0.9315825846579129,
+    0.9122006841505131
+  ],
+  "per_class_precision": [
+    0.9301552106430155,
+    0.9571567672833495,
+    0.9504322766570605,
+    0.9216281895504252,
+    0.8919687277896233,
+    0.9368115942028985,
+    0.9264604810996564,
+    0.9478672985781991
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot_year1only_year=2020_restrClass=1_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9388235294117647,
+  "val_acc": 0.9376501802162596,
+  "train_acc": 0.7947443181818182,
+  "per_class_recall": [
+    0.9548458149779736,
+    0.9204545454545454
+  ],
+  "per_class_precision": [
+    0.932258064516129,
+    0.9467532467532468
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_random_year1only_year=2020_restrClass=1_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9540785498489426,
+  "val_acc": 0.9540969074212543,
+  "train_acc": 0.8096590909090909,
+  "per_class_recall": [
+    0.9507211538461539,
+    0.9574726609963548
+  ],
+  "per_class_precision": [
+    0.9576271186440678,
+    0.9505428226779252
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot_year1only_year=2021_restrClass=1_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9444444444444444,
+  "val_acc": 0.9447644642766594,
+  "train_acc": 0.8025568181818182,
+  "per_class_recall": [
+    0.948780487804878,
+    0.9407484407484408
+  ],
+  "per_class_precision": [
+    0.9317365269461078,
+    0.955649419218585
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_random_year1only_year=2021_restrClass=1_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9504424778761061,
+  "val_acc": 0.9486625202265373,
+  "train_acc": 0.8040364583333334,
+  "per_class_recall": [
+    0.9296875,
+    0.9676375404530745
+  ],
+  "per_class_precision": [
+    0.9596774193548387,
+    0.943217665615142
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=0_fold2",
+  "split_number": 2,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9345722623252957,
+  "val_acc": 0.9342769214768953,
+  "train_acc": 0.7413313356164384,
+  "per_class_recall": [
+    0.966626936829559,
+    0.9371428571428572,
+    0.9508393285371702,
+    0.9434954007884363,
+    0.9226441631504922,
+    0.9121951219512195,
+    0.918194640338505,
+    0.9230769230769231
+  ],
+  "per_class_precision": [
+    0.9643281807372176,
+    0.9436133486766398,
+    0.9718137254901961,
+    0.9300518134715026,
+    0.9111111111111111,
+    0.9144254278728606,
+    0.8966942148760331,
+    0.9357218124341412
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9523262492820218,
+  "val_acc": 0.9524222412264032,
+  "train_acc": 0.8036684782608695,
+  "per_class_recall": [
+    0.9652777777777778,
+    0.9395667046750285
+  ],
+  "per_class_precision": [
+    0.9402480270574972,
+    0.9648711943793911
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=0_fold3",
+  "split_number": 3,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9418639053254438,
+  "val_acc": 0.9420936689150459,
+  "train_acc": 0.7505425347222222,
+  "per_class_recall": [
+    0.9565217391304348,
+    0.9629629629629629,
+    0.9614485981308412,
+    0.9742599742599742,
+    0.8988636363636363,
+    0.946927374301676,
+    0.9097560975609756,
+    0.9260089686098655
+  ],
+  "per_class_precision": [
+    0.9881796690307328,
+    0.9691160809371672,
+    0.9751184834123223,
+    0.9098557692307693,
+    0.9294947121034077,
+    0.9088471849865952,
+    0.9267080745341615,
+    0.9208472686733556
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=1_fold0",
+  "split_number": 0,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9588235294117647,
+  "val_acc": 0.9588728696658212,
+  "train_acc": 0.896875,
+  "per_class_recall": [
+    0.9581497797356828,
+    0.9595959595959596
+  ],
+  "per_class_precision": [
+    0.9645232815964523,
+    0.9523809523809523
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=1_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9509925558312655,
+  "val_acc": 0.9494101833182693,
+  "train_acc": 0.8394097222222222,
+  "per_class_recall": [
+    0.9233817701453104,
+    0.9754385964912281
+  ],
+  "per_class_precision": [
+    0.9708333333333333,
+    0.9349775784753364
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=1_fold2",
+  "split_number": 2,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9629629629629629,
+  "val_acc": 0.9626362760509102,
+  "train_acc": 0.8953125,
+  "per_class_recall": [
+    0.9585365853658536,
+    0.9667359667359667
+  ],
+  "per_class_precision": [
+    0.960880195599022,
+    0.9647302904564315
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot-3muTrain-1muTest_year=all_restrClass=1_fold3",
+  "split_number": 3,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.970771144278607,
+  "val_acc": 0.971036776310845,
+  "train_acc": 0.8272569444444444,
+  "per_class_recall": [
+    0.973463687150838,
+    0.968609865470852
+  ],
+  "per_class_precision": [
+    0.9613793103448276,
+    0.9784824462061155
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_random_year1only_year=2020_restrClass=0_fold2",
+  "split_number": 2,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9292958988681465,
+  "val_acc": 0.9254852190282263,
+  "train_acc": 0.7967122395833334,
+  "per_class_recall": [
+    0.9416475972540046,
+    0.9829545454545454,
+    0.9277522935779816,
+    0.9351740696278511,
+    0.8111111111111111,
+    0.9242788461538461,
+    0.9344262295081968,
+    0.9465370595382746
+  ],
+  "per_class_precision": [
+    0.9362912400455062,
+    0.9682835820895522,
+    0.9450934579439252,
+    0.8872437357630979,
+    0.9240506329113924,
+    0.9564676616915423,
+    0.9274092615769712,
+    0.8822197055492639
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot_year1only_year=2020_restrClass=0_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.8707627118644068,
+  "val_acc": 0.862724367846021,
+  "train_acc": 0.74421875,
+  "per_class_recall": [
+    0.8857142857142857,
+    0.9838362068965517,
+    0.9108433734939759,
+    0.9398034398034398,
+    0.45108695652173914,
+    0.8586525759577279,
+    0.9198113207547169,
+    0.952046783625731
+  ],
+  "per_class_precision": [
+    0.9637305699481865,
+    0.9661375661375662,
+    0.9533417402269861,
+    0.8885017421602788,
+    0.8058252427184466,
+    0.9433962264150944,
+    0.6927175843694494,
+    0.805940594059406
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_random_year1only_year=2020_restrClass=0_fold3",
+  "split_number": 3,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.93620461561076,
+  "val_acc": 0.933705080838729,
+  "train_acc": 0.7892252604166666,
+  "per_class_recall": [
+    0.9267734553775744,
+    0.9791666666666666,
+    0.948394495412844,
+    0.936374549819928,
+    0.8763888888888889,
+    0.9447115384615384,
+    0.9331651954602774,
+    0.9246658566221142
+  ],
+  "per_class_precision": [
+    0.9473684210526315,
+    0.9754716981132076,
+    0.9440639269406392,
+    0.9187279151943463,
+    0.9027181688125894,
+    0.9424460431654677,
+    0.9079754601226994,
+    0.9337423312883436
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_random_year1only_year=2021_restrClass=0_fold2",
+  "split_number": 2,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9386493819716611,
+  "val_acc": 0.9382867029903286,
+  "train_acc": 0.7465093085106383,
+  "per_class_recall": [
+    0.9754672897196262,
+    0.9483516483516483,
+    0.9644970414201184,
+    0.9479843953185956,
+    0.9169811320754717,
+    0.94140625,
+    0.8979057591623036,
+    0.9137001078748651
+  ],
+  "per_class_precision": [
+    0.9743290548424738,
+    0.9620958751393534,
+    0.966785290628707,
+    0.9370179948586118,
+    0.9192938209331651,
+    0.8936959208899876,
+    0.9146666666666666,
+    0.9338478500551268
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_random_year1only_year=2020_restrClass=0_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9354696457445245,
+  "val_acc": 0.9332416655937096,
+  "train_acc": 0.7937825520833334,
+  "per_class_recall": [
+    0.9187643020594966,
+    0.9839015151515151,
+    0.9243119266055045,
+    0.9387755102040817,
+    0.8888888888888888,
+    0.9266826923076923,
+    0.9344262295081968,
+    0.9501822600243013
+  ],
+  "per_class_precision": [
+    0.9502958579881656,
+    0.9683131407269339,
+    0.9482352941176471,
+    0.8988505747126436,
+    0.9116809116809117,
+    0.956575682382134,
+    0.9379746835443038,
+    0.9019607843137255
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_random_year1only_year=2021_restrClass=0_fold3",
+  "split_number": 3,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9384986433524269,
+  "val_acc": 0.9383259974450278,
+  "train_acc": 0.75,
+  "per_class_recall": [
+    0.9672897196261683,
+    0.9461538461538461,
+    0.9633136094674556,
+    0.9609882964889467,
+    0.9069182389937107,
+    0.94140625,
+    0.9057591623036649,
+    0.9147788565264293
+  ],
+  "per_class_precision": [
+    0.9798816568047337,
+    0.9587973273942093,
+    0.972520908004779,
+    0.9634941329856584,
+    0.9196428571428571,
+    0.9082914572864321,
+    0.9153439153439153,
+    0.8916929547844374
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_random_year1only_year=2020_restrClass=1_fold2",
+  "split_number": 2,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9589123867069487,
+  "val_acc": 0.9589703184877092,
+  "train_acc": 0.7933238636363636,
+  "per_class_recall": [
+    0.9483173076923077,
+    0.9696233292831106
+  ],
+  "per_class_precision": [
+    0.9692874692874693,
+    0.9488703923900119
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_random_year1only_year=2020_restrClass=1_fold3",
+  "split_number": 3,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9462235649546827,
+  "val_acc": 0.9462844074212543,
+  "train_acc": 0.7954545454545454,
+  "per_class_recall": [
+    0.9350961538461539,
+    0.9574726609963548
+  ],
+  "per_class_precision": [
+    0.956949569495695,
+    0.9358669833729216
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_random_year1only_year=2021_restrClass=1_fold2",
+  "split_number": 2,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.952212389380531,
+  "val_acc": 0.9512856492718447,
+  "train_acc": 0.806640625,
+  "per_class_recall": [
+    0.94140625,
+    0.9611650485436893
+  ],
+  "per_class_precision": [
+    0.9525691699604744,
+    0.9519230769230769
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_random_year1only_year=2021_restrClass=1_fold3",
+  "split_number": 3,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9581120943952802,
+  "val_acc": 0.9584660699838188,
+  "train_acc": 0.806640625,
+  "per_class_recall": [
+    0.9622395833333334,
+    0.9546925566343042
+  ],
+  "per_class_precision": [
+    0.9462227912932138,
+    0.9682713347921226
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot_year1only_year=2021_restrClass=0_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9252958579881657,
+  "val_acc": 0.9247059671322286,
+  "train_acc": 0.7197690217391305,
+  "per_class_recall": [
+    0.9405034324942791,
+    0.9650793650793651,
+    0.9649532710280374,
+    0.9510939510939511,
+    0.8863636363636364,
+    0.914804469273743,
+    0.8634146341463415,
+    0.9114349775784754
+  ],
+  "per_class_precision": [
+    0.982078853046595,
+    0.9559748427672956,
+    0.9461626575028637,
+    0.9191542288557214,
+    0.8863636363636364,
+    0.923836389280677,
+    0.9230769230769231,
+    0.8685897435897436
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_random_year1only_year=2021_restrClass=0_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9345794392523364,
+  "val_acc": 0.9341820750235966,
+  "train_acc": 0.7518284574468085,
+  "per_class_recall": [
+    0.9626168224299065,
+    0.9505494505494505,
+    0.9668639053254438,
+    0.953185955786736,
+    0.9207547169811321,
+    0.9466145833333334,
+    0.8678010471204188,
+    0.9050701186623517
+  ],
+  "per_class_precision": [
+    0.9660023446658851,
+    0.958980044345898,
+    0.9544392523364486,
+    0.9594240837696335,
+    0.8621908127208481,
+    0.8997524752475248,
+    0.9364406779661016,
+    0.9384787472035794
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot-2muTrain-2muTest_year=all_restrClass=0_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9227259126271694,
+  "val_acc": 0.9211541748360804,
+  "train_acc": 0.7480670103092784,
+  "per_class_recall": [
+    0.9311551925320887,
+    0.9738387613454351,
+    0.9478054567022538,
+    0.9453174104336896,
+    0.806930693069307,
+    0.9069925322471147,
+    0.9052757793764988,
+    0.9519175729822553
+  ],
+  "per_class_precision": [
+    0.9791411042944785,
+    0.9650793650793651,
+    0.947243627741553,
+    0.9382407985028073,
+    0.8913192071086808,
+    0.9455060155697098,
+    0.8708189158016147,
+    0.8536960985626283
+  ],
+  "restricted_classes": null
+}{
+  "experiment_short_name": "std50_muPlot_year1only_year=2020_restrClass=1_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9361042183622829,
+  "val_acc": 0.9340123757213377,
+  "train_acc": 0.8196614583333334,
+  "per_class_recall": [
+    0.8996036988110965,
+    0.968421052631579
+  ],
+  "per_class_precision": [
+    0.961864406779661,
+    0.915929203539823
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_random_year1only_year=2020_restrClass=1_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2020",
+  "num_classes": 8,
+  "test_acc": 0.9577039274924471,
+  "val_acc": 0.957742107907281,
+  "train_acc": 0.7848011363636364,
+  "per_class_recall": [
+    0.9507211538461539,
+    0.9647630619684082
+  ],
+  "per_class_precision": [
+    0.9646341463414634,
+    0.9508982035928144
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot_year1only_year=2021_restrClass=1_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9502487562189055,
+  "val_acc": 0.9481298694791693,
+  "train_acc": 0.8111979166666666,
+  "per_class_recall": [
+    0.9287709497206704,
+    0.9674887892376681
+  ],
+  "per_class_precision": [
+    0.9582132564841499,
+    0.9442013129102844
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_random_year1only_year=2021_restrClass=1_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "2021",
+  "num_classes": 8,
+  "test_acc": 0.9551622418879055,
+  "val_acc": 0.9535358515372168,
+  "train_acc": 0.8001302083333334,
+  "per_class_recall": [
+    0.9361979166666666,
+    0.970873786407767
+  ],
+  "per_class_precision": [
+    0.9638069705093834,
+    0.9483667017913593
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}{
+  "experiment_short_name": "std50_muPlot-2muTrain-2muTest_year=all_restrClass=1_fold1",
+  "split_number": 1,
+  "num_epochs": 50,
+  "limit_per_year": null,
+  "year": "all",
+  "num_classes": 8,
+  "test_acc": 0.9583850931677018,
+  "val_acc": 0.9569635620135926,
+  "train_acc": 0.854375,
+  "per_class_recall": [
+    0.9402579769178547,
+    0.9736691471093303
+  ],
+  "per_class_precision": [
+    0.9678546470999301,
+    0.9508105086640581
+  ],
+  "restricted_classes": [
+    5,
+    7
+  ]
+}

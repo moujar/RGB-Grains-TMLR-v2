@@ -1,0 +1,23 @@
+{
+    "seed": 42,
+    "nc": 8,
+    "label_off": 1,
+    "crop": 176,
+    "val_ratio": 0.08,
+    "time_budget": 86400,
+    "predict_t": 120,
+    "wd": 0.01,
+    "warmup_ep": 3,
+    "alpha": 0.4,
+    "dp": 0.1,
+    "head_drop": 0.2,
+    "swa_start": 5,
+    "swa_keep": 10,
+    "trainAugmentations": 1,
+    "cutMix_mixUp": 1,
+    "lr_bb": 0.0005,
+    "lr_hd": 0.002,
+    "bs": 128,
+    "max_ep": 50,
+    "expe": "newBds-50-quickTry"
+}
