@@ -621,7 +621,10 @@ def load_datasets_microplot_split(
             df.loc[indices_to_add, "split"] = "train"
             ## display the max size of that sub-sample:
             # _log_fn(f"[*] Max size of sub-sample for class {c} and microplot {mutrain}: {df.loc[(df["label"] == c) & (df["microplot"] == mutrain), "split"].count()}")
-            _log_fn(f"[*] Max size of sub-sample for class {c}, for the other year, and microplot {mutrain}: {df.loc[(df["label"] == c) & (df["microplot"] == mutrain), "filepath"].count()}")
+            max_subsample_size = df.loc[
+                (df["label"] == c) & (df["microplot"] == mutrain), "filepath"
+            ].count()
+            _log_fn(f"[*] Max size of sub-sample for class {c}, for the other year, and microplot {mutrain}: {max_subsample_size}")
             # df.loc[(df["label"] == c) & (df["microplot"] == mutrain) & (~df.sample(n=NsamplesYear2, replace=False)).index, "split"] = "none"
             mutest = microplot_names[1-fold_number]
             df.loc[(df["label"] == c) & (df["microplot"] == mutest), "split"] = "test"
