@@ -1,9 +1,11 @@
+import os
+
+os.environ.setdefault("MPLBACKEND", "Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import torch
 from sklearn.metrics import confusion_matrix
-import os
 from pathlib import Path
 
 

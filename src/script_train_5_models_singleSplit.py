@@ -11,6 +11,7 @@ import torch.nn.functional as F
 import pandas as pd
 
 # import seaborn as sns
+os.environ.setdefault("MPLBACKEND", "Agg")
 import matplotlib.pyplot as plt
 from sklearn.metrics import (
     confusion_matrix,
@@ -67,6 +68,8 @@ def get_experiment_short_name(args, config, reload=False):
     # testOnWholePureOnly=args.testOnWholePureOnly,
     # combineMixedAndPureInTest=args.combineMixedAndPureInTest,
     experiment_name =  base_name + f"_{args.splitting_choice}"
+    if args.dataset_choice != "perfomix":
+        experiment_name += f"_{args.dataset_choice}"
     experiment_name += f"_cmbMxPur={args.combineMixedAndPureInTest}"
     if args.yearChosen != "all": 
         experiment_name += f"_year={args.yearChosen}"
@@ -178,8 +181,16 @@ argparser.add_argument(
         "inferenceMode_4muTrain-0muTest",
         "trainOnMixedOnly",
         "muPlots_mvblNY2",
+        "bacs_2train_1test",
     ],
     help="Dataset splitting strategy",
+)
+argparser.add_argument(
+    "--dataset-choice",
+    type=str,
+    default="perfomix",
+    choices=["perfomix", "SCOOP"],
+    help="Dataset to use: perfomix or SCOOP/BACS.",
 )
 argparser.add_argument(
     "--fold",
@@ -294,8 +305,13 @@ if args.NsamplesYear2 > 0 :
 ## load config file + create experiment dir. + backup the config file there
 with open(config_path, "r") as f:
     config = json.load(f)
+if args.dataset_choice == "SCOOP":
+    config["nc"] = 4
 # experiment_name = config.get("expe", "expe/")
-if "year1only" not in args.splitting_choice and args.splitting_choice != "muPlots_mvblNY2":
+if (
+    "year1only" not in args.splitting_choice
+    and args.splitting_choice not in ["muPlots_mvblNY2", "bacs_2train_1test"]
+):
     args.yearChosen = "all"
 # experiment_name = (
 #     experiment_name
@@ -354,6 +370,7 @@ if args.npz_path is None:
         restricted_classes=RESTRICTED_CLASSES,
         yearChosen=args.yearChosen,
         splitting_choice=args.splitting_choice,
+        NUM_CLASSES=num_classes,
         fold_number=fold_number,
         testOnMixedOnly=args.testOnMixedOnly,
         trainOnMixedAndPure=args.trainOnMixedAndPure,
@@ -361,6 +378,7 @@ if args.npz_path is None:
         NsamplesYear2=args.NsamplesYear2,
         testOnWholePureOnly=args.testOnWholePureOnly,
         combineMixedAndPureInTest=args.combineMixedAndPureInTest,
+        dataset_choice=args.dataset_choice,
     )
     true_y_test = np.asarray(test_data["y"]) ## one-hot or BOW vectors, of shape: (Ntest, nc)
     augmentation_plot_path = plot_augmentation_examples(

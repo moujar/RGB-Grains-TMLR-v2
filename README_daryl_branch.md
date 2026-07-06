@@ -99,6 +99,31 @@ pretrained=0
 
 This feature was added but not fully benchmarked yet.
 
+### SCOOP/BACS Dataset Mode
+
+- Added:
+
+```powershell
+--dataset-choice SCOOP
+```
+
+- Added a bac-based split:
+
+```powershell
+--splitting-choice bacs_2train_1test
+```
+
+- The SCOOP/BACS mode uses 4 classes:
+  - `EL4X-199`
+  - `EL4X-35`
+  - `EL4X-482`
+  - `GQ4X-83`
+
+- Each fold trains on 2 bacs per class and tests on 1 bac per class.
+- Folds `0`, `1`, and `2` select the held-out bac.
+- There is no mixed data in this dataset, so mixed-test evaluation is skipped.
+- The current local data is missing `bac14` for `EL4X-199`; the code logs a warning and uses the available bacs for that class.
+
 ### Windows And JSON Robustness
 
 - Log files now use UTF-8 encoding.
@@ -143,6 +168,21 @@ python src\script_train_5_models_singleSplit.py `
   --pretrained 0
 ```
 
+Run a SCOOP/BACS debug smoke test:
+
+```powershell
+python src\script_train_5_models_singleSplit.py `
+  --config "config (debug).json" `
+  --debugMode 2 `
+  --splitting-choice bacs_2train_1test `
+  --dataset-choice SCOOP `
+  --fold 0 `
+  --tag smoke_bacs `
+  --pretrained 0
+```
+
+Repeat with `--fold 1` and `--fold 2` to check all BACS folds.
+
 ## Notes On Artifacts
 
 The following directories/files should generally not be committed:
@@ -173,6 +213,7 @@ confusion matrix plots generated
 32-view metric helper: OK
 exact-fit robust class sampling: OK
 frozen-feature grid search: OK
+SCOOP/BACS folds 0, 1, and 2 smoke-tested with --debugMode 2
 ```
 
 The frozen-feature smoke run completed successfully on CPU with `--debugMode 100`.
@@ -181,7 +222,6 @@ The frozen-feature smoke run completed successfully on CPU with `--debugMode 100
 
 - Fully benchmark `--pretrained 0` scratch training.
 - Add Mengtsu et al. dataset support.
-- Add SCOOP/BACS dataset mode with bac-based splitting.
 - Add image downsampling experiments.
 - Optional: refactor code structure.
 - Optional: data cleaning and artifact filtering.

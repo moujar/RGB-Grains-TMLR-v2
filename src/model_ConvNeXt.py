@@ -1167,7 +1167,7 @@ class Model_ConvNeXt:
             shuffle=True,
             num_workers=NUM_WORKERS,
             pin_memory=PIN_MEMORY,
-            drop_last=True,
+            drop_last=len(tds) >= self.bs,
         )
         validset_loader = DataLoader(
             vds,
