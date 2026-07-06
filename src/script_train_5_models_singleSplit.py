@@ -513,7 +513,14 @@ if keep_pure.sum() > 0:
     _log_fn(f"\n[*] Evaluating on pure stand data")
     test_acc = accuracy_score(y_true, y_pred_test[keep_pure])
     test_bal_acc = balanced_accuracy_score(y_true, y_pred_test[keep_pure])
-    precision, recall, f1, _ = precision_recall_fscore_support(y_true, y_pred_test[keep_pure], average=None, zero_division=0 )
+    metric_labels = np.arange(num_classes)
+    precision, recall, f1, _ = precision_recall_fscore_support(
+        y_true,
+        y_pred_test[keep_pure],
+        labels=metric_labels,
+        average=None,
+        zero_division=0,
+    )
     _log_fn(f"\n--- Balanced Accuracy for {model_name} ---")
     _log_fn(f"Test (un-balanced) acc (Native, pure samples): {test_acc:.4f}")
     _log_fn(f"Test (balanced) acc (Native, pure samples): {test_bal_acc:.4f}")
@@ -523,6 +530,7 @@ if keep_pure.sum() > 0:
         f"{model_name}\nTest Y1 (Native)\n{experiment_short_name}",
         "test_pure",
         OUTPUT_DIR,
+        labels=metric_labels,
     )
 
     # same logic as for the mixed, fbut for the pure data, using soft logits:
@@ -530,8 +538,8 @@ if keep_pure.sum() > 0:
     _log_fn(f"Balanced accuracy (pure, home-made): {test_bal_acc_pure:.4f}") ## there can be some nasty zeros lowering this one.
     _log_fn(f"Per-class precision (pure): {precision_per_class_pure}")
     _log_fn(f"Per-class recall (pure): {recall_per_class_pure}")
-    assert (precision_per_class_pure-precision).sum() == 0, "Inconsistent precision values"
-    assert (recall_per_class_pure-recall).sum() == 0, "Inconsistent recall values"
+    assert np.allclose(precision_per_class_pure, precision), "Inconsistent precision values"
+    assert np.allclose(recall_per_class_pure, recall), "Inconsistent recall values"
 
     cm_pure = soft_confusion_matrix(y_pred_test[keep_pure], true_y_test[keep_pure])
     plot_soft_confusion_matrix(cm_pure,       "softCM_pure",   OUTPUT_DIR, title="pure samples: soft conf. mat. (unif PLL prior)")

@@ -465,8 +465,8 @@ def _plot_confusion_panel(
     return precision, recall
 
 
-def plot_cm(y_true, y_pred, title, suffix, OUTPUT_DIR):
-    cm = confusion_matrix(y_true, y_pred)
+def plot_cm(y_true, y_pred, title, suffix, OUTPUT_DIR, labels=None):
+    cm = confusion_matrix(y_true, y_pred, labels=labels)
     class_names = [str(i) for i in range(cm.shape[0])]
     fig = plt.figure(figsize=(7, 7))
     outer_grid = fig.add_gridspec(1, 1)
