@@ -1,9 +1,160 @@
+import os
+
+os.environ.setdefault("MPLBACKEND", "Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+import torch
 from sklearn.metrics import confusion_matrix
-import os
 from pathlib import Path
+
+
+def plot_augmentation_examples(
+    train_data,
+    output_dir,
+    crop_size=176,
+    n_grains=5,
+    n_augmentations=9,
+    seed=42,
+):
+    """Plot original center crops and independent random augmentations."""
+    from dataset import GrainDataset_ConvNeXt, IMGNET_MEAN, IMGNET_STD
+
+    X = train_data["X"]
+    y = np.asarray(train_data["y"])
+    if len(X) == 0:
+        raise ValueError("Cannot plot augmentations from an empty training set")
+
+    rng = np.random.RandomState(seed)
+    pure_indices = np.where((y > 0).sum(axis=1) == 1)[0]
+    selected = []
+    if len(pure_indices) > 0:
+        pure_classes = y[pure_indices].argmax(axis=1)
+        for class_id in rng.permutation(np.unique(pure_classes)):
+            candidates = pure_indices[pure_classes == class_id]
+            selected.append(int(rng.choice(candidates)))
+            if len(selected) == n_grains:
+                break
+
+    remaining = np.setdiff1d(np.arange(len(X)), np.asarray(selected, dtype=int))
+    if len(selected) < n_grains and len(remaining) > 0:
+        extra_count = min(n_grains - len(selected), len(remaining))
+        selected.extend(rng.choice(remaining, size=extra_count, replace=False).tolist())
+
+    n_grains = len(selected)
+    X_selected = X[selected]
+    y_selected = y[selected]
+    original_ds = GrainDataset_ConvNeXt(
+        X_selected, y=None, augment=False, crop_size=crop_size
+    )
+    augmented_ds = GrainDataset_ConvNeXt(
+        X_selected, y=None, augment=True, crop_size=crop_size
+    )
+    mean = np.asarray(IMGNET_MEAN, dtype=np.float32).reshape(3, 1, 1)
+    std = np.asarray(IMGNET_STD, dtype=np.float32).reshape(3, 1, 1)
+
+    def display_image(tensor):
+        image = tensor.detach().cpu().numpy() * std + mean
+        return np.clip(image.transpose(1, 2, 0), 0.0, 1.0)
+
+    rows = n_augmentations + 1
+    fig, axes = plt.subplots(
+        rows, n_grains, figsize=(2.1 * n_grains, 2.1 * rows), squeeze=False
+    )
+    with torch.random.fork_rng():
+        torch.manual_seed(seed)
+        for col, class_targets in enumerate(y_selected):
+            class_text = ",".join(map(str, np.where(class_targets > 0)[0]))
+            axes[0, col].imshow(display_image(original_ds[col]))
+            axes[0, col].set_title(f"Original\nclass {class_text}", fontsize=9)
+            for row in range(1, rows):
+                axes[row, col].imshow(display_image(augmented_ds[col]))
+
+    for row in range(rows):
+        axes[row, 0].set_ylabel(
+            "Original" if row == 0 else f"Augmentation {row}", fontsize=8
+        )
+        for col in range(n_grains):
+            axes[row, col].set_xticks([])
+            axes[row, col].set_yticks([])
+
+    fig.suptitle("Training Data Augmentation Examples", fontsize=14)
+    fig.tight_layout(rect=(0, 0, 1, 0.99))
+    output_dir = Path(output_dir)
+    jpg_path = output_dir / "augmentation_examples.jpg"
+    pdf_path = output_dir / "augmentation_examples.pdf"
+    fig.savefig(jpg_path, dpi=200, bbox_inches="tight")
+    fig.savefig(pdf_path, bbox_inches="tight")
+    plt.close(fig)
+    return jpg_path
+
+
+def plot_failed_predictions(
+    test_data,
+    prediction_scores,
+    output_dir,
+    max_examples=25,
+    columns=5,
+):
+    """Plot the most confident incorrect predictions using original grains."""
+    from dataset import CH_SCALE
+
+    X = test_data["X"]
+    true_y = np.asarray(test_data["y"])
+    ids = np.asarray(test_data.get("ids", [""] * len(X)))
+    scores = np.asarray(prediction_scores)
+    predicted = scores.argmax(axis=1)
+    confidence = scores.max(axis=1)
+
+    if not (len(X) == len(true_y) == len(scores)):
+        raise ValueError("Test images, labels, and predictions must have equal lengths")
+
+    support = true_y > 0
+    correct = support[np.arange(len(predicted)), predicted]
+    failed_indices = np.where(~correct)[0]
+    if len(failed_indices) == 0:
+        return None
+
+    failed_indices = failed_indices[
+        np.argsort(confidence[failed_indices])[::-1]
+    ][:max_examples]
+    rows = int(np.ceil(len(failed_indices) / columns))
+    fig, axes = plt.subplots(
+        rows, columns, figsize=(3.2 * columns, 3.5 * rows), squeeze=False
+    )
+    channel_scale = np.asarray(CH_SCALE, dtype=np.float32).reshape(1, 1, 3)
+
+    for ax, index in zip(axes.flat, failed_indices):
+        image = np.asarray(X[index], dtype=np.float32)
+        image = np.clip(image / channel_scale, 0.0, 1.0)
+        allowed = ",".join(map(str, np.where(support[index])[0]))
+        sample_name = Path(str(ids[index])).stem if index < len(ids) else ""
+        if len(sample_name) > 28:
+            sample_name = sample_name[:25] + "..."
+        ax.imshow(image)
+        ax.set_title(
+            f"true: {allowed} | pred: {predicted[index]}\n"
+            f"confidence: {confidence[index]:.3f}\n{sample_name}",
+            fontsize=8,
+        )
+        ax.set_xticks([])
+        ax.set_yticks([])
+
+    for ax in axes.flat[len(failed_indices):]:
+        ax.axis("off")
+
+    fig.suptitle(
+        f"Most Confident Failed Predictions ({len(failed_indices)} shown)",
+        fontsize=14,
+    )
+    fig.tight_layout(rect=(0, 0, 1, 0.96), h_pad=3.0)
+    output_dir = Path(output_dir)
+    jpg_path = output_dir / "failed_predictions.jpg"
+    pdf_path = output_dir / "failed_predictions.pdf"
+    fig.savefig(jpg_path, dpi=200, bbox_inches="tight")
+    fig.savefig(pdf_path, bbox_inches="tight")
+    plt.close(fig)
+    return jpg_path
 
 
 def calibration_plot(logits_test_data, true_y_test, OUTPUT_DIR, experiment_short_name=""):
@@ -85,15 +236,8 @@ def calibration_plot(logits_test_data, true_y_test, OUTPUT_DIR, experiment_short
     ax.grid(alpha=0.4)
     ax.set_axisbelow(True)
     fig1.tight_layout()
-    fig1.savefig(
-        OUTPUT_DIR / f"calibration_reliability_{experiment_short_name}.png",
-        dpi=300,
-        bbox_inches="tight",
-    )
-    fig1.savefig(
-        OUTPUT_DIR / f"calibration_reliability_{experiment_short_name}.pdf",
-        bbox_inches="tight",
-    )
+    fig1.savefig(OUTPUT_DIR / "calibration_reliability.png", dpi=300, bbox_inches="tight")
+    fig1.savefig(OUTPUT_DIR / "calibration_reliability.pdf", bbox_inches="tight")
     # plt.show()
     plt.close()
     print(f"[*] Saved calibration_reliability.png + .pdf  (main text figure)")
@@ -108,15 +252,8 @@ def calibration_plot(logits_test_data, true_y_test, OUTPUT_DIR, experiment_short
     ax2.set_axisbelow(True)
     # fig2.suptitle('ConvNeXt-Tiny Calibration  |  Year 1 → Year 1',                fontsize=11, fontweight='bold')
     fig2.tight_layout()
-    fig2.savefig(
-        OUTPUT_DIR / f"calibration_histogram_{experiment_short_name}.png",
-        dpi=300,
-        bbox_inches="tight",
-    )
-    fig2.savefig(
-        OUTPUT_DIR / f"calibration_histogram_{experiment_short_name}.pdf",
-        bbox_inches="tight",
-    )
+    fig2.savefig(OUTPUT_DIR / "calibration_histogram.png", dpi=300, bbox_inches="tight")
+    fig2.savefig(OUTPUT_DIR / "calibration_histogram.pdf", bbox_inches="tight")
     # plt.show()
     plt.close()
     print(f"[*] Saved calibration_histogram.png + .pdf  (appendix figure)")
@@ -269,31 +406,81 @@ def plot_transfer_learning_learningCurve(
 
 
 ### Confusion Matrices Viewer
-def plot_cm(y_true, y_pred, title, suffix, OUTPUT_DIR):
-    plt.figure(figsize=(5, 5))
-    ax = plt.gca()
-    cm = confusion_matrix(y_true, y_pred)
-    ## also print the per-class recall
-    recall = np.diag(cm) / np.sum(cm, axis=1)
+def _confusion_metrics(cm):
+    diagonal = np.diag(cm)
+    recall = np.divide(
+        diagonal, cm.sum(axis=1), out=np.zeros_like(diagonal, dtype=float),
+        where=cm.sum(axis=1) > 0,
+    )
+    precision = np.divide(
+        diagonal, cm.sum(axis=0), out=np.zeros_like(diagonal, dtype=float),
+        where=cm.sum(axis=0) > 0,
+    )
+    return precision, recall
+
+
+def _plot_confusion_panel(
+    fig,
+    subplot_spec,
+    matrix,
+    metrics_matrix,
+    class_names,
+    title,
+    value_format,
+    true_label="True label",
+):
+    """Draw a confusion matrix with recall on the right and precision below."""
+    precision, recall = _confusion_metrics(metrics_matrix)
+    grid = subplot_spec.subgridspec(
+        2, 2, width_ratios=(8, 1.25), height_ratios=(8, 1.25),
+        wspace=0.05, hspace=0.05,
+    )
+    ax_main = fig.add_subplot(grid[0, 0])
+    ax_recall = fig.add_subplot(grid[0, 1])
+    ax_precision = fig.add_subplot(grid[1, 0])
+    ax_empty = fig.add_subplot(grid[1, 1])
+    ax_empty.axis("off")
+
+    sns.heatmap(
+        matrix, annot=True, fmt=value_format, cmap="Blues", cbar=False,
+        xticklabels=False, yticklabels=class_names, ax=ax_main,
+    )
+    ax_main.set_title(title, fontsize=11, pad=10)
+    ax_main.set_ylabel(true_label)
+    ax_main.set_xlabel("")
+
+    sns.heatmap(
+        recall[:, None], annot=True, fmt=".2f", cmap="Greens", cbar=False,
+        vmin=0.0, vmax=1.0, xticklabels=False, yticklabels=False,
+        ax=ax_recall,
+    )
+    ax_recall.set_title("Recall", fontsize=10, pad=10)
+    ax_recall.set_ylabel("")
+
+    sns.heatmap(
+        precision[None, :], annot=True, fmt=".2f", cmap="Greens", cbar=False,
+        vmin=0.0, vmax=1.0, xticklabels=class_names,
+        yticklabels=["Precision"], ax=ax_precision,
+    )
+    ax_precision.set_xlabel("Predicted label")
+    ax_precision.tick_params(axis="y", rotation=0)
+    return precision, recall
+
+
+def plot_cm(y_true, y_pred, title, suffix, OUTPUT_DIR, labels=None):
+    cm = confusion_matrix(y_true, y_pred, labels=labels)
+    class_names = [str(i) for i in range(cm.shape[0])]
+    fig = plt.figure(figsize=(7, 7))
+    outer_grid = fig.add_gridspec(1, 1)
+    precision, recall = _plot_confusion_panel(
+        fig, outer_grid[0], cm, cm, class_names, title, "g"
+    )
     print(f"Recall per class: {recall}")
-    ## also print the per-class precision
-    precision = np.diag(cm) / np.sum(cm, axis=0)
     print(f"Precision per class: {precision}")
 
-    sns.heatmap(cm, annot=True, fmt="g", cmap="Blues", ax=ax, cbar=False)
-    ax.set_title(title, fontsize=12, pad=10)
-    ax.set_ylabel("True Label")
-    ax.set_xlabel("Predicted Label")
-
-    # Models rows, 3 Evaluation Columns
-    # fig, axes = plt.subplots(len(models_y1), 3, figsize=(18, 5 * len(models_y1)))
-    # if len(models_y1) == 1: axes = [axes]
-
-    plt.tight_layout()
-    plt.savefig(OUTPUT_DIR / f"Confusion_Matrices_{suffix}.png", dpi=300)
-    plt.savefig(OUTPUT_DIR / f"Confusion_Matrices_{suffix}.pdf")
-    # plt.show()
-    plt.close()
+    fig.savefig(OUTPUT_DIR / f"Confusion_Matrices_{suffix}.png", dpi=300, bbox_inches="tight")
+    fig.savefig(OUTPUT_DIR / f"Confusion_Matrices_{suffix}.pdf", bbox_inches="tight")
+    plt.close(fig)
 
 
 
@@ -307,36 +494,31 @@ def plot_soft_confusion_matrix(C_soft, suffix, OUTPUT_DIR, class_names=None, tit
         class_names = [str(i) for i in range(n)]
 
     row_sums = C_soft.sum(axis=1, keepdims=True)
-    C_norm = np.where(row_sums > 0, C_soft / row_sums, 0.0)   # row-normalised
+    C_norm = np.divide(
+        C_soft, row_sums, out=np.zeros_like(C_soft, dtype=float), where=row_sums > 0
+    )
 
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5.5))
+    fig = plt.figure(figsize=(16, 7))
+    outer_grid = fig.add_gridspec(1, 2, wspace=0.25)
 
-    for ax, data, fmt, label in zip(
-        axes,
+    for subplot_spec, data, fmt, label in zip(
+        outer_grid,
         [C_soft,  C_norm],
-        [".1f",   ".2f"],
+        [".1f", ".2f"],
         ["Raw soft counts\n(expected #instances)", "Row-normalised\n(soft recall per class)"]
     ):
-        im = ax.imshow(data, cmap="Blues", aspect="equal")
-        plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-        ax.set_xticks(range(n)); ax.set_xticklabels(class_names, fontsize=9)
-        ax.set_yticks(range(n)); ax.set_yticklabels(class_names, fontsize=9)
-        ax.set_xlabel("Predicted label", fontsize=10)
-        ax.set_ylabel("(Soft) true label", fontsize=10)
-        ax.set_title(f"{title}\n{label}", fontsize=10)
+        _plot_confusion_panel(
+            fig,
+            subplot_spec,
+            data,
+            C_soft,
+            class_names,
+            f"{title}\n{label}",
+            fmt,
+            true_label="(Soft) true label",
+        )
 
-        thresh = data.max() / 2.0
-        for r in range(n):
-            for c in range(n):
-                val = data[r, c]
-                if val > 0:
-                    ax.text(c, r, f"{val:{fmt}}", ha="center", va="center",
-                            fontsize=7, color="white" if val > thresh else "black")
-
-    plt.tight_layout()
-    plt.savefig(OUTPUT_DIR / f"Confusion_Matrices_{suffix}.png", dpi=300)
-    plt.savefig(OUTPUT_DIR / f"Confusion_Matrices_{suffix}.pdf")
-    # plt.show()
-    plt.close()
-    # return fig
+    fig.savefig(OUTPUT_DIR / f"Confusion_Matrices_{suffix}.png", dpi=300, bbox_inches="tight")
+    fig.savefig(OUTPUT_DIR / f"Confusion_Matrices_{suffix}.pdf", bbox_inches="tight")
+    plt.close(fig)
 

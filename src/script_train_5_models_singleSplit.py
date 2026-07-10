@@ -11,6 +11,7 @@ import torch.nn.functional as F
 import pandas as pd
 
 # import seaborn as sns
+os.environ.setdefault("MPLBACKEND", "Agg")
 import matplotlib.pyplot as plt
 from sklearn.metrics import (
     confusion_matrix,
@@ -67,6 +68,8 @@ def get_experiment_short_name(args, config, reload=False):
     # testOnWholePureOnly=args.testOnWholePureOnly,
     # combineMixedAndPureInTest=args.combineMixedAndPureInTest,
     experiment_name =  base_name + f"_{args.splitting_choice}"
+    if args.dataset_choice != "perfomix":
+        experiment_name += f"_{args.dataset_choice}"
     experiment_name += f"_cmbMxPur={args.combineMixedAndPureInTest}"
     if args.yearChosen != "all": 
         experiment_name += f"_year={args.yearChosen}"
@@ -82,6 +85,8 @@ def get_experiment_short_name(args, config, reload=False):
         experiment_name += f"_ststPurNly={args.testOnWholePureOnly}"
     if args.kickstart != 0:
         experiment_name += f"_kickstart={args.kickstart}"
+    if args.pretrained == 0:
+        experiment_name += "_pretrained=0"
     if args.NsamplesYear2!=0:
         experiment_name += f"_NsamplesYear2={args.NsamplesYear2}"
     experiment_name += f"_fold={args.fold}"
@@ -91,7 +96,7 @@ def get_experiment_short_name(args, config, reload=False):
 def setup_logging(OUTPUT_DIR):
     """Setup logging to file, similar to model_ConvNeXt.py"""
     log_path = OUTPUT_DIR / "training.log"
-    log_file = open(log_path, "a")
+    log_file = open(log_path, "a", encoding="utf-8")
     print(f"[*] Log file: {log_path}")
 
     def _log(msg):
@@ -176,8 +181,16 @@ argparser.add_argument(
         "inferenceMode_4muTrain-0muTest",
         "trainOnMixedOnly",
         "muPlots_mvblNY2",
+        "bacs_2train_1test",
     ],
     help="Dataset splitting strategy",
+)
+argparser.add_argument(
+    "--dataset-choice",
+    type=str,
+    default="perfomix",
+    choices=["perfomix", "SCOOP"],
+    help="Dataset to use: perfomix or SCOOP/BACS.",
 )
 argparser.add_argument(
     "--fold",
@@ -232,6 +245,12 @@ argparser.add_argument(
          "b_raw) as the initial weights of the model's classifier head.",
 )
 argparser.add_argument(
+    "--pretrained",
+    type=int,
+    default=1,
+    help="Use ImageNet pretrained ConvNeXt-Tiny backbone weights (1) or train from random initialization (0).",
+)
+argparser.add_argument(
     "--kickstart_path",
     type=str,
     default=None,
@@ -245,6 +264,19 @@ argparser.add_argument(
     type=int,
     default=0,
     help="If 1, ignore the cache at --kickstart_path and recompute (then overwrite).",
+)
+argparser.add_argument(
+    "--run-frozen-features",
+    type=int,
+    default=0,
+    help="Run the additional frozen-feature logistic-regression learning curve.",
+)
+argparser.add_argument(
+    "--frozen-feature-c-grid",
+    type=float,
+    nargs="+",
+    default=[0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0],
+    help="C values for frozen-feature logistic-regression grid search.",
 )
 args = argparser.parse_args()
 
@@ -273,8 +305,13 @@ if args.NsamplesYear2 > 0 :
 ## load config file + create experiment dir. + backup the config file there
 with open(config_path, "r") as f:
     config = json.load(f)
+if args.dataset_choice == "SCOOP":
+    config["nc"] = 4
 # experiment_name = config.get("expe", "expe/")
-if "year1only" not in args.splitting_choice and args.splitting_choice != "muPlots_mvblNY2":
+if (
+    "year1only" not in args.splitting_choice
+    and args.splitting_choice not in ["muPlots_mvblNY2", "bacs_2train_1test"]
+):
     args.yearChosen = "all"
 # experiment_name = (
 #     experiment_name
@@ -283,6 +320,7 @@ if "year1only" not in args.splitting_choice and args.splitting_choice != "muPlot
 
 experiment_short_name = get_experiment_short_name(args, config, reload=reload)
 config["expe"] = experiment_short_name
+config["pretrained"] = bool(args.pretrained)
 print(f"Experiment name: {experiment_short_name}")
 
 
@@ -302,7 +340,7 @@ if reload == False:
     os.makedirs(MODELS_DIR, exist_ok=True)
     # Save config file to output directory, for reproducibility
     config_save_path = OUTPUT_DIR / "config.json"
-    with open(config_save_path, "a") as f:
+    with open(config_save_path, "w", encoding="utf-8") as f:
         json.dump(config, f, indent=2)
     print(f"Config saved to: {config_save_path}")
 
@@ -332,6 +370,7 @@ if args.npz_path is None:
         restricted_classes=RESTRICTED_CLASSES,
         yearChosen=args.yearChosen,
         splitting_choice=args.splitting_choice,
+        NUM_CLASSES=num_classes,
         fold_number=fold_number,
         testOnMixedOnly=args.testOnMixedOnly,
         trainOnMixedAndPure=args.trainOnMixedAndPure,
@@ -339,8 +378,16 @@ if args.npz_path is None:
         NsamplesYear2=args.NsamplesYear2,
         testOnWholePureOnly=args.testOnWholePureOnly,
         combineMixedAndPureInTest=args.combineMixedAndPureInTest,
+        dataset_choice=args.dataset_choice,
     )
     true_y_test = np.asarray(test_data["y"]) ## one-hot or BOW vectors, of shape: (Ntest, nc)
+    augmentation_plot_path = plot_augmentation_examples(
+        train_data,
+        OUTPUT_DIR,
+        crop_size=config.get("crop", 176),
+        seed=config.get("seed", 42),
+    )
+    _log_fn(f"Augmentation examples saved to: {augmentation_plot_path}")
 
     if reload:  
         _log_fn("\n\n## LOADING ALREADY FINE-TUNED MODEL\n\n")
@@ -354,15 +401,14 @@ if args.npz_path is None:
             model_path = Path(args.modelPath)
         if model_path.exists():
             if hasattr(modelSingle, "net"):
-                modelSingle.net.load_state_dict(
-                    torch.load(model_path, map_location="cpu")
+                modelSingle.set_selected_model(
+                    "loaded_best_model",
+                    torch.load(model_path, map_location="cpu"),
                 )
                 modelSingle.net.eval()
-            # if hasattr(modelSingle, "all_models"):
-            #     modelSingle.all_models = [
-            #         ("loaded", torch.load(model_path, map_location="cpu"))
-            #     ]
-            modelSingle.is_fitted = True
+                _log_fn(f"Selected model loaded from: {model_path}")
+        else:
+            raise FileNotFoundError(f"Model weights not found: {model_path}")
 
 
     elif reload == 0:  ## FINE-TUNING THE MODEL:
@@ -393,34 +439,51 @@ if args.npz_path is None:
         # Export Weights to /models/ directory with experiment short name suffix
         os.makedirs(MODELS_DIR, exist_ok=True)
         model_filename_best = f"{safe_name}_Y1_model_{experiment_short_name}_bestmodel.pth"
-        model_filename_net = f"{safe_name}_Y1_model_{experiment_short_name}_net.pth"
-        if (
-            hasattr(modelSingle, "all_models")
-            and len(modelSingle.all_models) > 0
-        ):
-            _log_fn("saving model.all_models parameters")
-            _, lw = modelSingle.all_models[-1]
-            torch.save(lw, str(MODELS_DIR / model_filename_best))
-        elif hasattr(modelSingle, "net"):
-            _log_fn("saving model.net parameters")
-            torch.save(modelSingle.net.cpu().state_dict(), str(MODELS_DIR / model_filename_net))
-        _log_fn(f"Model weights saved to {MODELS_DIR}.")
+        if modelSingle.selected_state_dict is None:
+            raise RuntimeError("Training finished without a selected model to save")
+        model_path = MODELS_DIR / model_filename_best
+        torch.save(modelSingle.selected_state_dict, str(model_path))
+        _log_fn(
+            f"Selected model '{modelSingle.selected_model_name}' saved to {model_path}"
+        )
 
         ### END OF MODEL FINE TUNING
         #############################
 
+    train_bal_acc_32views, train_recall_per_class_32views, train_probabilities_32views = (
+        modelSingle.evaluate_balanced_accuracy_32views(train_data, dataset_name="train")
+    )
+    modelSingle.train_bal_acc_32views = train_bal_acc_32views
+    modelSingle.train_recall_per_class_32views = train_recall_per_class_32views
+    if modelSingle.selected_val_bal_acc is not None:
+        _log_fn(
+            "Selected-model train-validation balanced accuracy gap: "
+            f"{train_bal_acc_32views - modelSingle.selected_val_bal_acc:.4f}"
+        )
+    np.savez(
+        OUTPUT_DIR / "train_selected_model_32view_predictions.npz",
+        probabilities=train_probabilities_32views,
+        true_y_train=np.asarray(train_data["y"]),
+        ids=train_data["ids"],
+    )
+    _log_fn(
+        "Selected-model train 32-view predictions saved to: "
+        f"{OUTPUT_DIR / 'train_selected_model_32view_predictions.npz'}"
+    )
 
 
 safe_name = model_name.replace("/", "-").replace(" ", "_")
 if args.npz_path is None:
     ## savving predictions that have just been computed
-    npz_path = OUTPUT_DIR / f"{safe_name}_predictions_{experiment_short_name}.npz"
+    npz_path = OUTPUT_DIR / "predictions.npz"
 else:
     ## loading predictions that are already sitting on the disk
     npz_path = Path(args.npz_path)
     OUTPUT_DIR = npz_path.parent
 
-if npz_path.exists():  ## reloading predictions from saved file
+if args.npz_path is not None:  ## explicitly loading predictions from a saved file
+    if not npz_path.exists():
+        raise FileNotFoundError(f"Prediction archive not found: {npz_path}")
     _log_fn(f"[*] Loading predictions from {npz_path}")
     pred_flow = np.load(npz_path, allow_pickle=True)
     # NpzFile 'expe/try2/ConvNeXt-Tiny_Y2=False_predictions.npz' with keys: logits_test_data, true_y_test, logits_y1_on_y2, true_y2_test
@@ -429,7 +492,7 @@ if npz_path.exists():  ## reloading predictions from saved file
     ids = pred_flow["ids"]
     y_pred_test = logits_test_data.argmax(1)
 
-else:  ## computing predictions using the models
+else:  ## computing fresh predictions using the selected model
     _log_fn(f"[*] Computing predictions for {model_name}")
     _log_fn(f"[{model_name}] Testing Model (by default, In-Domain, Upper Bound)...")
     
@@ -444,6 +507,16 @@ else:  ## computing predictions using the models
     )
     _log_fn(f"Predictions saved to: {npz_path}")
 
+if args.npz_path is None:
+    failed_plot_path = plot_failed_predictions(
+        test_data, logits_test_data, OUTPUT_DIR
+    )
+    if failed_plot_path is None:
+        _log_fn("No failed predictions to plot.")
+    else:
+        _log_fn(f"Failed prediction examples saved to: {failed_plot_path}")
+else:
+    _log_fn("Skipping failed-prediction plot: original test images are unavailable.")
 
 
 ## divide the score measures in 2: the pure data, first, then the mixed data:
@@ -458,7 +531,14 @@ if keep_pure.sum() > 0:
     _log_fn(f"\n[*] Evaluating on pure stand data")
     test_acc = accuracy_score(y_true, y_pred_test[keep_pure])
     test_bal_acc = balanced_accuracy_score(y_true, y_pred_test[keep_pure])
-    precision, recall, f1, _ = precision_recall_fscore_support(y_true, y_pred_test[keep_pure], average=None, zero_division=0 )
+    metric_labels = np.arange(num_classes)
+    precision, recall, f1, _ = precision_recall_fscore_support(
+        y_true,
+        y_pred_test[keep_pure],
+        labels=metric_labels,
+        average=None,
+        zero_division=0,
+    )
     _log_fn(f"\n--- Balanced Accuracy for {model_name} ---")
     _log_fn(f"Test (un-balanced) acc (Native, pure samples): {test_acc:.4f}")
     _log_fn(f"Test (balanced) acc (Native, pure samples): {test_bal_acc:.4f}")
@@ -466,8 +546,9 @@ if keep_pure.sum() > 0:
         y_true , # true_y_test.argmax(1),
         y_pred_test[keep_pure], # y_pred_test, # preds_dict["standard"],
         f"{model_name}\nTest Y1 (Native)\n{experiment_short_name}",
-        f"Y1-Y1_{experiment_short_name}",
+        "test_pure",
         OUTPUT_DIR,
+        labels=metric_labels,
     )
 
     # same logic as for the mixed, fbut for the pure data, using soft logits:
@@ -475,11 +556,11 @@ if keep_pure.sum() > 0:
     _log_fn(f"Balanced accuracy (pure, home-made): {test_bal_acc_pure:.4f}") ## there can be some nasty zeros lowering this one.
     _log_fn(f"Per-class precision (pure): {precision_per_class_pure}")
     _log_fn(f"Per-class recall (pure): {recall_per_class_pure}")
-    assert (precision_per_class_pure-precision).sum() == 0, "Inconsistent precision values"
-    assert (recall_per_class_pure-recall).sum() == 0, "Inconsistent recall values"
+    assert np.allclose(precision_per_class_pure, precision), "Inconsistent precision values"
+    assert np.allclose(recall_per_class_pure, recall), "Inconsistent recall values"
 
     cm_pure = soft_confusion_matrix(y_pred_test[keep_pure], true_y_test[keep_pure])
-    plot_soft_confusion_matrix(cm_pure,       f"Y1-Y1_{experiment_short_name}_softCM_pure",   OUTPUT_DIR, title="pure samples: soft conf. mat. (unif PLL prior)")
+    plot_soft_confusion_matrix(cm_pure,       "softCM_pure",   OUTPUT_DIR, title="pure samples: soft conf. mat. (unif PLL prior)")
     ## not very intersting, in the end, but can be computed: soft recall, precision, f1:
     # precision_pure_soft, recall_pure_soft, f1_pure_soft  = soft_class_metrics(logits_test_data[keep_pure], true_y_test[keep_pure])
     # _log_fn(f"Soft precision (pure): {precision_pure_soft}")
@@ -500,7 +581,7 @@ if keep_mixed.sum() > 0:
     _log_fn(f"Per-class precision (mixed): {precision_per_class_mixed}")
     _log_fn(f"Per-class recall (mixed): {recall_per_class_mixed}")
     cm_mixed = soft_confusion_matrix(y_pred_test[keep_mixed], true_y_test[keep_mixed])
-    plot_soft_confusion_matrix(cm_mixed,       f"Y1-Y1_{experiment_short_name}_softCM_mixed",   OUTPUT_DIR, title="Mixed samples: soft conf. mat. (unif PLL prior)")
+    plot_soft_confusion_matrix(cm_mixed,       "softCM_mixed",   OUTPUT_DIR, title="Mixed samples: soft conf. mat. (unif PLL prior)")
     ## not very intersting, in the end, but can be computed: soft recall, precision, f1:
     # precision_mixed_soft, recall_mixed_soft, f1_mixed_soft  = soft_class_metrics(logits_test_data[keep_mixed], true_y_test[keep_mixed])
     # _log_fn(f"Soft precision (mixed): {precision_mixed_soft}")
@@ -513,12 +594,13 @@ else:
 
 
 
-_log_fn(f"\n[*] Global metrics: saving")
+_log_fn(f"\n[*] Global metrics: collecting")
 split_number = args.fold
 num_epochs = config.get("max_ep", 20)
 year = args.yearChosen
 num_classes = config.get("nc", 8)
 restricted_classes = RESTRICTED_CLASSES if args.restrict_classes else None
+frozen_feature_result = None
 ## TODO [optionnal]: add the other toggles to the perf dict entries.
 # try: 
 perf_dict = {
@@ -528,6 +610,28 @@ perf_dict = {
     "limit_per_year": limit_per_year,
     "year": str(year),
     "num_classes": num_classes,
+    "selected_model": modelSingle.selected_model_name,
+    "selected_val_bal_acc": (
+        float(modelSingle.selected_val_bal_acc)
+        if modelSingle.selected_val_bal_acc is not None
+        else None
+    ),
+    "train_bal_acc_32views": (
+        float(modelSingle.train_bal_acc_32views)
+        if modelSingle.train_bal_acc_32views is not None
+        else None
+    ),
+    "train_recall_per_class_32views": (
+        [float(r) for r in modelSingle.train_recall_per_class_32views]
+        if modelSingle.train_recall_per_class_32views is not None
+        else None
+    ),
+    "train_val_bal_acc_gap": (
+        float(modelSingle.train_bal_acc_32views - modelSingle.selected_val_bal_acc)
+        if modelSingle.train_bal_acc_32views is not None
+        and modelSingle.selected_val_bal_acc is not None
+        else None
+    ),
     "train_acc": float(
         modelSingle.train_acc[-1]
         if modelSingle.is_fitted
@@ -551,37 +655,87 @@ perf_dict = {
 # pp = pprint.PrettyPrinter(indent=4)
 # pp.pprint(perf_dict)
 
-summary_json_path = BASE_DIR / "overall_perf_summary.json"
-with open(summary_json_path, "a") as f:
-    f.write((f"{perf_dict}\n".replace("'", '"')).replace("None", "null" )) ## 1 line per dict, to allow easy read and parsing
-_log_fn(f"Performance summary saved to: {summary_json_path}")
-
-
-
-
 ## TODO: revive this, with the the new one-hot thing(simplest is to just never use the mixed data in this):
 calibration_plot(logits_test_data, true_y_test, OUTPUT_DIR, experiment_short_name)
 
 
 
-_log_fn("transfer learning")
-model = modelSingle.net
-# X_train_lr, y_train_lr_aug , X_test_lr, y_test_lr, X_test_lr_aug \
-#     = extract_features_from_dataset(model, train_y2, test_y2, )
-X_train_lr, y_train_lr_aug , X_test_lr, y_test_lr, X_test_lr_aug \
-    = extract_features_from_dataset(model, train_data, test_data )
-     
-Ncaps, acc_lr_train_list, acc_lr_test_list, acc_lr_test_views_list, W_raw, b_raw  \
-    = learning_curve_exactFit(X_train_lr, y_train_lr_aug , X_test_lr, y_test_lr, X_test_lr_aug, OUTPUT_DIR)
-# flow = np.load("expe/transferlearning10/transfer_learning.npz")
-# Ncaps = flow['Ncaps']
-# acc_lr_train_list = flow['acc_lr_train_list']
-# acc_lr_test_list = flow['acc_lr_test_list']
-# acc_lr_test_views_list = flow['acc_lr_test_views_list']
-# plot_transfer_learning_learningCurve(Ncaps, acc_lr_train_list, acc_lr_test_list, acc_lr_test_views_list, OUTPUT_DIR)
+if bool(args.run_frozen_features):
+    _log_fn("Running frozen-feature logistic-regression analysis")
+    model = modelSingle.net
+    X_train_lr, y_train_lr_aug, X_test_lr, y_test_lr, X_test_lr_aug = (
+        extract_features_from_dataset(model, train_data, test_data)
+    )
+    frozen_features_path = OUTPUT_DIR / "frozen_features_32views.npz"
+    np.savez_compressed(
+        frozen_features_path,
+        X_train_lr=X_train_lr,
+        y_train_lr_aug=y_train_lr_aug,
+        X_test_lr=X_test_lr,
+        y_test_lr=y_test_lr,
+        X_test_lr_aug=X_test_lr_aug,
+        train_ids=train_data["ids"],
+        test_ids=test_data["ids"],
+    )
+    _log_fn(f"Frozen features saved to: {frozen_features_path}")
+
+    frozen_feature_result = frozen_feature_logreg_grid_search(
+        X_train_lr,
+        y_train_lr_aug,
+        X_test_lr,
+        y_test_lr,
+        X_test_lr_aug,
+        OUTPUT_DIR,
+        c_grid=np.asarray(args.frozen_feature_c_grid, dtype=float),
+    )
+    _log_fn(
+        "Frozen-feature LR grid search: "
+        f"best_C={frozen_feature_result['best_C']} "
+        f"test_bal={frozen_feature_result['test_bal_acc_avg_features']:.4f} "
+        f"test_bal_viewavg={frozen_feature_result['test_bal_acc_view_average']:.4f}"
+    )
+    Ncaps, acc_lr_train_list, acc_lr_test_list, acc_lr_test_views_list, W_raw, b_raw = (
+        learning_curve_exactFit(
+            X_train_lr,
+            y_train_lr_aug,
+            X_test_lr,
+            y_test_lr,
+            X_test_lr_aug,
+            OUTPUT_DIR,
+        )
+    )
+else:
+    _log_fn("Skipping frozen-feature experiment; enable with --run-frozen-features 1")
+
+if frozen_feature_result is not None:
+    perf_dict.update(
+        {
+            "frozen_feature_best_C": float(frozen_feature_result["best_C"]),
+            "frozen_feature_cv_mean_scores": [
+                float(x) for x in frozen_feature_result["cv_mean_scores"]
+            ],
+            "frozen_feature_cv_std_scores": [
+                float(x) for x in frozen_feature_result["cv_std_scores"]
+            ],
+            "frozen_feature_test_bal_acc": float(
+                frozen_feature_result["test_bal_acc_avg_features"]
+            ),
+            "frozen_feature_test_bal_acc_viewavg": float(
+                frozen_feature_result["test_bal_acc_view_average"]
+            ),
+            "frozen_feature_test_recall": [
+                float(x) for x in frozen_feature_result["test_recall_avg_features"]
+            ],
+        }
+    )
+
+summary_json_path = BASE_DIR / "overall_perf_summary.json"
+with open(summary_json_path, "a", encoding="utf-8") as f:
+    f.write(json.dumps(perf_dict, allow_nan=True) + "\n")
+_log_fn(f"Performance summary saved to: {summary_json_path}")
 
 if config and reload == False:
     config_save_path = OUTPUT_DIR / "config_end_check.json"
-    with open(config_save_path, "a") as f:
+    with open(config_save_path, "w", encoding="utf-8") as f:
         json.dump(config, f, indent=2)
     _log_fn(f"Config saved to: {config_save_path}")

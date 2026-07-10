@@ -9,6 +9,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pandas as pd
+os.environ.setdefault("MPLBACKEND", "Agg")
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import (
@@ -138,6 +139,18 @@ def mixed_criterion(crit, logits, ya, yb, lam):
 _variety_to_num = {
     'ACCROC': 0, 'AUBUSSON': 1, 'BAGOU': 2, 'BELEPI': 3,
     'BERGAMO': 4, 'BOREGAR': 5, 'EXPERT': 6, 'KALAHARI': 7
+}
+
+_scoop_bacs_by_class = {
+    0: [14, 18, 43],  # EL4X-199
+    1: [17, 71, 74],  # EL4X-35
+    2: [41, 42, 50],  # EL4X-482
+    3: [7, 57, 92],   # GQ4X-83
+}
+_scoop_class_by_bac = {
+    bac: class_idx
+    for class_idx, bacs in _scoop_bacs_by_class.items()
+    for bac in bacs
 }
 
 # Load CSV and build mix dictionary
@@ -277,7 +290,23 @@ def _equalize_classes(X, y, filenames, restricted_classes, _log_fn):
     return X_out, y_out, files_out
 
 
-def _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_one_hot=True):
+def _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_one_hot=True, dataset_choice="perfomix"):
+    if "SCOOP" in dataset_choice:
+        bac_match = re.search(r"bac(\d+)", filename)
+        if not bac_match:
+            _log_fn(f"Warning: Could not extract bac from {filename}")
+            assert False
+        bac_number = int(bac_match.group(1))
+        if bac_number not in _scoop_class_by_bac:
+            _log_fn(f"Warning: Bac {bac_number} not found in SCOOP class mapping")
+            assert False
+        label_from_filename = _scoop_class_by_bac[bac_number]
+        if force_one_hot:
+            label_from_filename = F.one_hot(
+                torch.tensor(label_from_filename), num_classes=NUM_CLASSES
+            ).float()
+        return label_from_filename, False
+
     label_match = re.search(r"var\d{1,2}", filename)
     mix_match = re.search(r"mix\d{1,2}", filename)
     if label_match:
@@ -381,6 +410,16 @@ def load_datasets_microplot_split(
     elif "SCOOP" in dataset_choice :
         _log_fn("Using SCOOP dataset")
         files = glob.glob(f"{dataset_path}/SCOOP-R2022-bacs_processed/*.npz")
+        if limit_per_year is not None:
+            files_by_bac = {}
+            for f in files:
+                bac_match = re.search(r"bac(\d+)", os.path.basename(f))
+                if bac_match:
+                    files_by_bac.setdefault(bac_match.group(0), []).append(f)
+            files = []
+            for bac_files in files_by_bac.values():
+                np.random.shuffle(bac_files)
+                files.extend(bac_files[:limit_per_year])
         _log_fn(f"Found {len(files)} total NPZ files (Pure Stand, SCOOP).")
     else:
         _log_fn("\n\nDataset must be iether perfomix or SCOOP.\n\n")
@@ -398,7 +437,10 @@ def load_datasets_microplot_split(
     for f in files:
         filename = os.path.splitext(os.path.basename(f))[0]
         # extract the microplot name (eg. _x40y20-var) from the filename grain7820_x40y20-var6_8000_us_2x_2020-12-02T134036_corr.npz:
-        microplotsearch = re.search(r"x\d{2}y\d{2}", filename)
+        if "SCOOP" in dataset_choice:
+            microplotsearch = re.search(r"bac\d+", filename)
+        else:
+            microplotsearch = re.search(r"x\d{2}y\d{2}", filename)
         if microplotsearch:
             microplotname = microplotsearch.group(0)
         else:
@@ -407,7 +449,14 @@ def load_datasets_microplot_split(
             # assert False
 
 
-        label_from_filename, mixed = _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_one_hot=False)
+        label_from_filename, mixed = _label_from_filename_func(
+            filename,
+            NUM_CLASSES,
+            mix_dict,
+            _log_fn,
+            force_one_hot=False,
+            dataset_choice=dataset_choice,
+        )
 
         if mixed == False:
             # Corrected regex to capture the year from filenames like _YYYY-MM-DDT...
@@ -415,7 +464,7 @@ def load_datasets_microplot_split(
             if year_match:
                 year_str = year_match.group(1)
                 # Assign to y1_files (2020) or y2_files (2021) based on year_str
-                if not ((year_str == "2020") or (year_str == "2021")):
+                if not ((year_str == "2020") or (year_str == "2021") or ("SCOOP" in dataset_choice and year_str == "2022")):
                     _log_fn(f"Warning: year not matching in {f}")
                     year_str = "unknown"
             else:
@@ -621,7 +670,10 @@ def load_datasets_microplot_split(
             df.loc[indices_to_add, "split"] = "train"
             ## display the max size of that sub-sample:
             # _log_fn(f"[*] Max size of sub-sample for class {c} and microplot {mutrain}: {df.loc[(df["label"] == c) & (df["microplot"] == mutrain), "split"].count()}")
-            _log_fn(f"[*] Max size of sub-sample for class {c}, for the other year, and microplot {mutrain}: {df.loc[(df["label"] == c) & (df["microplot"] == mutrain), "filepath"].count()}")
+            max_subsample_size = df.loc[
+                (df["label"] == c) & (df["microplot"] == mutrain), "filepath"
+            ].count()
+            _log_fn(f"[*] Max size of sub-sample for class {c}, for the other year, and microplot {mutrain}: {max_subsample_size}")
             # df.loc[(df["label"] == c) & (df["microplot"] == mutrain) & (~df.sample(n=NsamplesYear2, replace=False)).index, "split"] = "none"
             mutest = microplot_names[1-fold_number]
             df.loc[(df["label"] == c) & (df["microplot"] == mutest), "split"] = "test"
@@ -649,6 +701,29 @@ def load_datasets_microplot_split(
             df.loc[
                 (df["label"] == c) & (df["microplot"] == microplot_names[fold_number]), "split"
             ] = "test"
+        _log_fn_split_stats(df, restricted_classes)
+
+    if splitting_choice == "bacs_2train_1test":
+        _log_fn(
+            f"[*] Splitting : {splitting_choice}: SCOOP/BACS, 2 bacs train and 1 bac test per class, fold={fold_number}"
+        )
+        assert "SCOOP" in dataset_choice, "bacs_2train_1test is only valid with dataset_choice='SCOOP'"
+        assert 0 <= fold_number < 3, "SCOOP/BACS has exactly 3 folds: 0, 1, 2"
+        df = pd.DataFrame(rows)
+        for c in restricted_classes:
+            df_c = df[df["label"] == c]
+            bac_names = np.sort(df_c["microplot"].unique())
+            expected_bacs = [f"bac{bac}" for bac in _scoop_bacs_by_class[int(c)]]
+            missing_bacs = sorted(set(expected_bacs) - set(bac_names))
+            if missing_bacs:
+                _log_fn(f"  Warning: class {c} is missing expected bacs: {missing_bacs}")
+            assert len(bac_names) >= 2, f"Expected at least 2 bacs for class {c}, got {bac_names}"
+            for bac_name in bac_names:
+                df.loc[(df["label"] == c) & (df["microplot"] == bac_name), "split"] = "train"
+            test_bac = bac_names[fold_number % len(bac_names)]
+            df.loc[(df["label"] == c) & (df["microplot"] == test_bac), "split"] = "test"
+            train_bacs = [str(bac_name) for bac_name in bac_names[bac_names != test_bac]]
+            _log_fn(f"  Class {c}: test bac={test_bac}, train bacs={train_bacs}")
         _log_fn_split_stats(df, restricted_classes)
 
     # 92% test bal acc:
@@ -812,7 +887,14 @@ def load_datasets_microplot_split(
             filename = os.path.splitext(os.path.basename(f))[0] ## avoid to read the folder name, which contains tags like mix* or var*
             data = np.load(f)
             X[idx] = data["x"]
-            Y[idx], _ = _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_one_hot=True)
+            Y[idx], _ = _label_from_filename_func(
+                filename,
+                NUM_CLASSES,
+                mix_dict,
+                _log_fn,
+                force_one_hot=True,
+                dataset_choice=dataset_choice,
+            )
         return X, Y
 
     X_y1_tr, Y_y1_tr = load_bunch(train_files)
@@ -823,7 +905,7 @@ def load_datasets_microplot_split(
 
 
     # Apply limit_per_year for fast debugging
-    if limit_per_year is not None and limit_per_year > 0:
+    if limit_per_year is not None and limit_per_year > 0 and "SCOOP" not in dataset_choice:
         _log_fn(f"[*] Limiting total samples to {limit_per_year} (for debugging)")
         n_train = min(limit_per_year, len(X_y1_tr))
         n_test  = min(limit_per_year, len(X_y1_te))  # Keep decent size for test set

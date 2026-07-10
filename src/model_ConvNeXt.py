@@ -476,10 +476,10 @@ def extract_features_from_dataset(model, train_y2, test_y2):
                 all_views.append(np.concatenate(feats_v, axis=0))
         if augment_train == 1:
             ## for training: augment data, get more "samples" (32 views per sample)
-            # return np.concatenate(all_views, axis=0), \
-                        # np.tile(y, N_VIEWS) ## y is an array of labels (not one-hot)
-            y = np.repeat(y, N_VIEWS, axis=0)
-            return np.concatenate(all_views, axis=0), y # y is one hot
+            # Features are view-major: [view0_all_samples, view1_all_samples, ...].
+            # Labels must use the same ordering.
+            y_aug = np.tile(y, (N_VIEWS, 1))
+            return np.concatenate(all_views, axis=0), y_aug
             
         elif augment_train == 2:
             ## testing: average the input features, although we are before the logits.
@@ -686,7 +686,7 @@ class Model_ConvNeXt:
 
         # Setup logging to file
         log_path = os.path.join(self.expe, "training.log")
-        self.log_file = open(log_path, "a")
+        self.log_file = open(log_path, "a", encoding="utf-8")
         print(f"[*] Log file: {log_path}")
 
         # Helper method for logging to both stdout and file
@@ -744,17 +744,27 @@ class Model_ConvNeXt:
             )
         self.cutMix_mixUp = bool(config.get("cutMix_mixUp", True))
 
+        self.use_pretrained = bool(config.get("pretrained", True))
+        init_mode = "pretrained" if self.use_pretrained else "random-init"
         self._log_fn(
-            "[*] ConvNeXt-Tiny | pretrained | single-phase | %d ep | SWA" % self.max_ep
+            "[*] ConvNeXt-Tiny | %s | single-phase | %d ep | SWA"
+            % (init_mode, self.max_ep)
         )
         seed_everything(self.seed)
 
-        self.pt_state = _load_pretrained()
+        self.pt_state = _load_pretrained() if self.use_pretrained else None
         self.pretrained = self.pt_state is not None
+        if not self.use_pretrained:
+            self._log_fn("[*] Pretrained weights disabled; training from random initialization.")
         self.use_amp = self.device.type == "cuda"
         self.device_type = "cuda" if self.use_amp else "cpu"
         self._log_fn(f"Automatic Mixed Precision (amp): {self.use_amp}")
         self.all_models = []
+        self.selected_model_name = None
+        self.selected_state_dict = None
+        self.selected_val_bal_acc = None
+        self.train_bal_acc_32views = None
+        self.train_recall_per_class_32views = None
         self.is_fitted = False
 
         self.net = ConvNeXtTiny(self.nc, self.dp, self.head_drop).to(self.device)
@@ -883,6 +893,19 @@ class Model_ConvNeXt:
             net.head.bias.copy_(b.to(net.head.bias.device))
         self._log_fn("[*] kickstart: head initialized from W_raw/b_raw (LP-FT)")
 
+    def set_selected_model(self, name, state_dict, val_bal_acc=None):
+        """Set the single model state used by saving and inference."""
+        self.selected_model_name = name
+        self.selected_state_dict = {
+            key: value.detach().cpu().clone() for key, value in state_dict.items()
+        }
+        self.selected_val_bal_acc = val_bal_acc
+        # Retained for compatibility with older reporting code.
+        self.all_models = [(name, self.selected_state_dict)]
+        self.net.load_state_dict(self.selected_state_dict)
+        self.net.to(self.device)
+        self.is_fitted = True
+
     def _train(self, net, trainset_loader, validset_loader, t0):
         self.train_loss = []
         self.train_acc = []
@@ -914,6 +937,7 @@ class Model_ConvNeXt:
 
         best_acc = -1.0
         best_sd = None
+        best_epoch = None
         swa_snaps = []
         last_ept = 65.0
         arch_t0 = time.time()
@@ -977,6 +1001,7 @@ class Model_ConvNeXt:
 
             if vbal_acc > best_acc:
                 best_acc = vbal_acc
+                best_epoch = ep
                 best_sd = {k: v.cpu().clone() for k, v in net.state_dict().items()}
 
             if ep >= self.swa_start:
@@ -1020,7 +1045,7 @@ class Model_ConvNeXt:
                 )
                 self._log_fn(f"[*] Training metrics saved to: {npz_path}")
                 plot_training_curve(
-                    npz_path, experiment_short_name=os.path.basename(self.expe)
+                    npz_path, experiment_short_name="training"
                 )
                 self._log_fn(f"[*] Training curve saved.")
 
@@ -1033,6 +1058,9 @@ class Model_ConvNeXt:
 
         # SWA
         swa_sd = None
+        selected_name = f"best_val_epoch_{best_epoch}"
+        selected_sd = best_sd
+        selected_acc = best_acc
         if len(swa_snaps) >= 2:
             swa_sd = avg_states(swa_snaps)
             net.load_state_dict(swa_sd)
@@ -1046,10 +1074,16 @@ class Model_ConvNeXt:
                 "[*] SWA val=%.4f  best=%.4f  snaps=%d" % (sv, best_acc, len(swa_snaps))
             )
             if sv > best_acc:
-                best_acc = sv
-                best_sd = {k: v.clone() for k, v in swa_sd.items()}
+                selected_name = "swa"
+                selected_sd = swa_sd
+                selected_acc = sv
 
-        return best_sd, swa_sd
+        if selected_sd is None:
+            raise RuntimeError("Training completed without producing a model checkpoint")
+        self._log_fn(
+            f"[*] Selected model: {selected_name}  val_bal={selected_acc:.4f}"
+        )
+        return selected_name, selected_sd, selected_acc
 
 
     def fit(self, train_data):
@@ -1133,7 +1167,7 @@ class Model_ConvNeXt:
             shuffle=True,
             num_workers=NUM_WORKERS,
             pin_memory=PIN_MEMORY,
-            drop_last=True,
+            drop_last=len(tds) >= self.bs,
         )
         validset_loader = DataLoader(
             vds,
@@ -1161,17 +1195,10 @@ class Model_ConvNeXt:
 
 
         ## actual training is launched here: !!
-        best_sd, swa_sd = self._train(net, trainset_loader, validset_loader, t0)
-
-
-
-        if swa_sd:
-            self.all_models.append(("cn_swa", swa_sd))
-        else:
-            self.all_models.append(("cn", best_sd))
-        # if best_sd: self.all_models.append(("cn",     best_sd))
-        # if swa_sd:  self.all_models.append(("cn_swa", swa_sd))
-        # del net; torch.cuda.empty_cache()
+        selected_name, selected_sd, selected_acc = self._train(
+            net, trainset_loader, validset_loader, t0
+        )
+        self.set_selected_model(selected_name, selected_sd, selected_acc)
 
         ## plot the training curves: train loss etc as function of epochs:
         fig, ax1 = plt.subplots(figsize=(10, 5))
@@ -1196,19 +1223,8 @@ class Model_ConvNeXt:
         lines2, labels2 = ax2.get_legend_handles_labels()
         ax1.legend(lines1 + lines2, labels1 + labels2, loc="center right")
         # plt.show()
-        expe_short = os.path.basename(self.expe)
-        plt.savefig(
-            os.path.join(
-                self.expe,
-                f"fine_tuning_monitoring_model=ConvNeXt_epochs={self.max_ep}_{expe_short}.jpg",
-            )
-        )
-        plt.savefig(
-            os.path.join(
-                self.expe,
-                f"fine_tuning_monitoring_model=ConvNeXt_epochs={self.max_ep}_{expe_short}.pdf",
-            )
-        )
+        plt.savefig(os.path.join(self.expe, "fine_tuning_monitoring.jpg"))
+        plt.savefig(os.path.join(self.expe, "fine_tuning_monitoring.pdf"))
         plt.close()
 
         # Save training metrics to NPZ
@@ -1223,14 +1239,13 @@ class Model_ConvNeXt:
         )
         self._log_fn(f"[*] Training metrics saved to: {npz_path}")
 
-        self.is_fitted = True
         self._log_fn(
-            "[*] Fit done  states=%d  time=%.0fs"
-            % (len(self.all_models), time.time() - t0)
+            "[*] Fit done  selected=%s  time=%.0fs"
+            % (self.selected_model_name, time.time() - t0)
         )
 
     def predict_logits(self, test_data):
-        """Return logits (before argmax) for varietal proportion estimation."""
+        """Return probabilities averaged over four crops and eight D4 views."""
         if not self.is_fitted:
             raise RuntimeError("fit() first")
         X = test_data["X"]
@@ -1238,18 +1253,15 @@ class Model_ConvNeXt:
         crops = [160, 172, 184, 196]
 
         self._log_fn(
-            "[*] Predict probabilities  n=%d  models=%d  crops=%s  D4(8)"
-            % (n, len(self.all_models), crops)
+            "[*] Predict probabilities  n=%d  selected=%s  crops=%s  D4(8)"
+            % (n, self.selected_model_name, crops)
         )
 
         probs = torch.zeros(n, self.nc)
-        ##  replace this loop over cn and cn_swa (when the second exists) by just picking one of them, i.e. swa if it exists, otherwise the other one.
-        ## DONE : or simply have swa overwrite the model weights, up there, and use only that one.
-        ## Right now, this averages over the 2 models... it is nonseniscal, IMHO.
-        # for mname, mstate in self.all_models:
-        mname, mstate = self.all_models[-1]
-        net = self.net  ### DEBUG TODO: this was not correct , but, to be checked: ConvNeXtTiny(self.nc, drop_path=0.0, head_drop=0.0).to(self.device)
-        net.load_state_dict(mstate)
+        if self.selected_state_dict is None:
+            raise RuntimeError("No selected model state is available for inference")
+        net = self.net
+        net.load_state_dict(self.selected_state_dict)
         net.eval()
         for cs in crops:
             ds = GrainDataset_ConvNeXt(X, y=None, augment=False, crop_size=cs)
@@ -1275,14 +1287,30 @@ class Model_ConvNeXt:
                                 acc += F.softmax(net(xa), dim=1)
                     probs[off : off + bs_] += acc.cpu()
                     off += bs_
-        self._log_fn("  %s done" % mname)
+        self._log_fn("  %s done" % self.selected_model_name)
         del net
         if self.device.type == "cuda":
             torch.cuda.empty_cache()
         ## end of for loop
-        # probs = probs / (len(self.all_models) * len(crops) * self.nc)
-        probs = probs / (len(crops) * self.nc)
+        probs = probs / (len(crops) * 8)
         return probs.numpy()
+
+    def evaluate_balanced_accuracy_32views(self, data, dataset_name="data"):
+        """Evaluate the selected model with the deterministic 32-view protocol."""
+        probabilities = self.predict_logits(data)
+        predictions = probabilities.argmax(axis=1)
+        balanced_accuracy, _, recall_per_class = val_bal_acc_per_class_offline(
+            predictions, np.asarray(data["y"]), self.nc, strict=False
+        )
+        self._log_fn(
+            f"[*] Selected-model {dataset_name} balanced accuracy "
+            f"(32 views): {balanced_accuracy:.4f}"
+        )
+        self._log_fn(
+            f"[*] Selected-model {dataset_name} recall per class "
+            f"(32 views): {recall_per_class}"
+        )
+        return balanced_accuracy, recall_per_class, probabilities
 
     def predict(self, test_data):
         probs = self.predict_logits(test_data)

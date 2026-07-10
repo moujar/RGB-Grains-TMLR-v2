@@ -1,0 +1,12 @@
+data/
+github-Phuoc-preprocessing/
+*.pth
+**/__pycache__/
+expe/
+pretrained_weights/
+control-logs/
+code_to_refactor/
+calib-pdf/
+calib-plots/
+splits/
+models/
