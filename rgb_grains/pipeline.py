@@ -43,7 +43,9 @@ def build_parser():
                       help="Directory of raw .hdr hyperspectral cubes to segment. "
                            "If omitted, segmentation is skipped and --data-dir is assumed already populated.")
     seg.add_argument("--dataset-name", type=str, default=None,
-                      help="Name used to pick segmentation parameters (must contain 'perfomix' or 'SCOOP-R2022-bacs'); "
+                      help="Used to name the output '{dataset-name}_processed' folder, and forwarded to the "
+                           "segmentation script's own --dataset-name override so segmentation parameters are picked "
+                           "correctly (must contain 'perfomix' or 'SCOOP-R2022-bacs'); "
                            "see rgb_grains/segmentation/grain_hs/constants.py:set_parameters.")
     seg.add_argument("--segmentation-jobs", type=int, default=4, help="Parallel workers for segmentation.")
     seg.add_argument("--skip-segmentation", action="store_true", help="Force-skip stage 1 even if --raw-hdr-dir is given.")
@@ -95,6 +97,7 @@ def _run_segmentation(args) -> None:
         "--input", args.raw_hdr_dir,
         "--output", str(out_dir),
         "--jobs", str(args.segmentation_jobs),
+        "--dataset-name", args.dataset_name,
     ]
     print("[pipeline]  ", " ".join(cmd))
     subprocess.run(cmd, check=True)

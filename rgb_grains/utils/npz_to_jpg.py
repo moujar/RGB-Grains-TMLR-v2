@@ -111,8 +111,7 @@ def exclude_small_grains(npz_files, imgs, output_dir, min_area=None, max_area=No
             plt.imshow(img)
             plt.savefig(f"{output_dir}/{tag}Area={area}_{npz_files[i].stem}.png", dpi=300)
             plt.close()
-            if too_small:
-                shutil.move(str(npz_files[i]), excluded_folder / npz_files[i].name)
+            shutil.move(str(npz_files[i]), excluded_folder / npz_files[i].name)
 
     plt.figure()
     plt.title(f"Histogram of grain areas for {len(areas)} images")

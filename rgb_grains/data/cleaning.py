@@ -31,7 +31,7 @@ DEFAULT_MIN_AREA = {
     "perfomix": 15000,
     "SCOOP": 110000,
 }
-DEFAULT_MAX_AREA = None  # no upper bound by default; large grains are flagged, not dropped, upstream
+DEFAULT_MAX_AREA = None  # no upper bound by default; pass --max-grain-area to enable one
 
 
 def grain_active_area(x: np.ndarray, threshold: float = 0.01) -> int:

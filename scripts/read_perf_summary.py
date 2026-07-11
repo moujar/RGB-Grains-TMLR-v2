@@ -58,7 +58,11 @@ def main(argv=None):
             last_summary = None
             for summary in summary_list:
                 name = summary.get("experiment_short_name", "")
-                if split_choice in name and f"rstCls={restrict}" in name:
+                # restrict=0 (MultiClass) runs never get a "_rstCls=" tag at all
+                # (rgb_grains.train only appends it when restrict_classes != 0),
+                # so match on tag *absence* for 0 and tag *presence* for non-zero.
+                has_rstcls = "_rstCls=" in name
+                if split_choice in name and (has_rstcls if restrict else not has_rstcls):
                     if args.verbose:
                         print(f"        {name}")
                     train_accs.append(summary.get("train_acc"))
