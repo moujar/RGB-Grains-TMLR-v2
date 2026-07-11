@@ -1,24 +1,12 @@
 from __future__ import annotations
 import os
-import shutil
-import math, os, time
-import glob
-import re
+import math, time
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.metrics import (
-    confusion_matrix,
-    accuracy_score,
-    balanced_accuracy_score,
-    f1_score,
-)
-from pathlib import Path
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader
 import json
 
 from rgb_grains.data.dataset import *
@@ -328,11 +316,6 @@ def soft_ce_weighted(logits, targets, weights, smooth=0.05):
     The only requirement is that targets are non-negative and sum to 1 along dim=1.
     """
     nc = logits.size(1)
-    # targets = targets.float()
-    # # Renormalize defensively in case caller passes targets that don't quite sum to 1
-    # s = targets.sum(1, keepdim=True).clamp_min(1e-8)
-    # targets = targets / s
-    # # Label smoothing that preserves soft-label semantics (still sums to 1)
     t = targets * (1 - smooth) + smooth / nc
     ce = -(t * F.log_softmax(logits, 1)).sum(1)
     if weights is not None:
@@ -349,31 +332,12 @@ def avg_states(sds):
     return out
 
 
-# @torch.no_grad()
-# def val_acc(net, ld, device, amp, device_type="cuda"):
-#     net.eval()
-#     c = t = 0
-#     for xb, yb in ld:
-#         xb = xb.to(device, non_blocking=True)
-#         yb = yb.to(device, non_blocking=True)
-#         with _autocast(amp, device_type):
-#             preds = net(xb).argmax(1)
-#             if yb.ndim > 1:
-#                 support = yb > 0
-#                 c += support.gather(1, preds.unsqueeze(1)).sum().item()
-#             else:
-#                 c += (preds == yb).sum().item()
-#         t += xb.size(0)
-#     return c / max(t, 1)
-
-
 @torch.no_grad()
 def val_bal_acc_per_class(net, ld, device, amp, nc, device_type="cuda", strict=False):
     """Compute balanced accuracy and per-class recall."""
     net.eval()
     correct_per_class = np.zeros(nc)
     total_per_class = np.zeros(nc)
-    # print(f"DEBUG: nc={nc}")
     for xb, yb in ld:
         xb = xb.to(device, non_blocking=True)
         yb = yb.to(device, non_blocking=True)
@@ -396,20 +360,6 @@ def val_bal_acc_per_class(net, ld, device, amp, nc, device_type="cuda", strict=F
     return bal_acc, recall_per_class
 
 
-# @torch.no_grad()
-# def val_bal_acc(net, ld, device, amp):
-#     ## make this into balanced accuracy instead of accuracy:
-
-#     net.eval(); c = t = 0
-#     for xb, yb in ld:
-#         xb = xb.to(device, non_blocking=True)
-#         yb = yb.to(device, non_blocking=True)
-#         with _autocast(amp):
-#             c += (net(xb).argmax(1) == yb).sum().item()
-#         t += xb.size(0)
-#     return c / max(t, 1)
-
-
 def _param_groups(net, lr_bb, lr_hd, wd):
     """Two-group split: backbone (lower LR) vs head (higher LR)."""
     bb, hd = [], []
@@ -429,9 +379,6 @@ def extract_features_from_dataset(model, train_y2, test_y2):
     device_lr = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     use_amp_lr = device_lr.type == "cuda"
 
-    # net_lr = ConvNeXtTiny(num_classes=8, drop_path=0.0, head_drop=0.0)
-    # net_lr.load_state_dict(torch.load(y1_model_path, map_location='cpu'), strict=False)
-    # net_lr = net_lr.to(device_lr)
     model.eval()
 
     def extract_features(model, X, y, device, use_amp, batch_size=64, augment_train=0):
@@ -455,7 +402,6 @@ def extract_features_from_dataset(model, train_y2, test_y2):
         all_views = []
         for cs in TTA_CROPS:
             ds = GrainDataset_ConvNeXt(X, y, augment=False, crop_size=cs)
-            nc = y.shape[1]
             dl = DataLoader(ds, batch_size=batch_size, shuffle=False, num_workers=0)
             for hflip, rot in D4:
                 feats_v = []
@@ -508,14 +454,10 @@ def extract_features_from_dataset(model, train_y2, test_y2):
         model, test_y2["X"], y_test_lr, device_lr, use_amp_lr, augment_train=3
     )
 
-    # del model; torch.cuda.empty_cache()
     print(f"  Train features: {X_train_lr.shape}  (32x{len(y_train_lr)} aug samples)")
     print(f"  Test  features: {X_test_lr.shape}")
 
     return X_train_lr, y_train_lr_aug, X_test_lr, y_test_lr, X_test_lr_aug
-
-
-# X_train_lr, y_train_lr_aug , X_test_lr, y_test_lr,X_test_lr_aug = extract_features_from_dataset(model, train_y2, test_y2)
 
 
 def extract_features_train_only(model, train_data, n_views=32):
@@ -696,8 +638,6 @@ class Model_ConvNeXt:
             if restricted_classes is not None
             else list(range(0, self.nc))
         )
-        # Convert to 0-indexed for internal use
-        # self.restricted_classes = [c - self.label_off for c in self.restricted_classes]
         self._log_fn(f"[*] Restricted classes (0-indexed): {self.restricted_classes}")
 
         # Apply configuration values (with defaults for any missing keys)
@@ -747,16 +687,26 @@ class Model_ConvNeXt:
             )
         self.cutMix_mixUp = bool(config.get("cutMix_mixUp", True))
 
+        self.backbone_impl = config.get("backbone_impl", "custom")
+        if self.backbone_impl not in ("custom", "torchvision"):
+            raise ValueError(f"backbone_impl must be 'custom' or 'torchvision', got {self.backbone_impl!r}")
+
         self.use_pretrained = bool(config.get("pretrained", True))
         init_mode = "pretrained" if self.use_pretrained else "random-init"
         self._log_fn(
-            "[*] ConvNeXt-Tiny | %s | single-phase | %d ep | SWA"
-            % (init_mode, self.max_ep)
+            "[*] ConvNeXt-Tiny | %s | %s backbone | single-phase | %d ep | SWA"
+            % (init_mode, self.backbone_impl, self.max_ep)
         )
         seed_everything(self.seed)
 
-        self.pt_state = _load_pretrained() if self.use_pretrained else None
-        self.pretrained = self.pt_state is not None
+        if self.backbone_impl == "torchvision":
+            # torchvision loads its own ImageNet weights internally (weights=...);
+            # no custom state-dict remapping (_load_pretrained/_map_tv) needed here.
+            self.pt_state = None
+            self.pretrained = self.use_pretrained
+        else:
+            self.pt_state = _load_pretrained() if self.use_pretrained else None
+            self.pretrained = self.pt_state is not None
         if not self.use_pretrained:
             self._log_fn("[*] Pretrained weights disabled; training from random initialization.")
         self.use_amp = self.device.type == "cuda"
@@ -770,7 +720,12 @@ class Model_ConvNeXt:
         self.train_recall_per_class_32views = None
         self.is_fitted = False
 
-        self.net = ConvNeXtTiny(self.nc, self.dp, self.head_drop).to(self.device)
+        if self.backbone_impl == "torchvision":
+            self.net = ConvNeXtTinyTorchvision(
+                self.nc, self.dp, self.head_drop, pretrained=self.use_pretrained
+            ).to(self.device)
+        else:
+            self.net = ConvNeXtTiny(self.nc, self.dp, self.head_drop).to(self.device)
 
         # LP-FT (Linear-Probe then Fine-Tune) kickstart state.
         # When self.kickstart is True and self.W_raw/self.b_raw are populated,
@@ -912,7 +867,6 @@ class Model_ConvNeXt:
     def _train(self, net, trainset_loader, validset_loader, t0):
         self.train_loss = []
         self.train_acc = []
-        # self.val_acc = []
         self.val_bal_acc = []
         self.val_recall_per_class = []
         device_name = (
@@ -982,10 +936,6 @@ class Model_ConvNeXt:
                 bs_ = xb.size(0)
                 rl += loss.item() * bs_
                 pred = lo.detach().argmax(1)
-                ## old version:
-                # yb_int = yb.argmax(1)
-                # cor += (pred == yb_int).sum().item()
-
                 # yb is a (possibly soft / partial) label distribution [batch_size, nc].
                 # Count a prediction as "correct" if argmax(pred) is in the support of yb
                 # (i.e. one of the candidate classes). Reduces to standard top-1 for one-hot.
@@ -993,7 +943,6 @@ class Model_ConvNeXt:
                 cor += support.gather(1, pred.unsqueeze(1)).sum().item()
                 tot += bs_
 
-            # vacc = val_acc(net, validset_loader, self.device, self.use_amp, self.device_type)
             vbal_acc, recall_per_class = val_bal_acc_per_class(
                 net, validset_loader, self.device, self.use_amp, self.nc, self.device_type
             )
@@ -1016,7 +965,6 @@ class Model_ConvNeXt:
 
             self.train_loss.append(rl / tot)
             self.train_acc.append(cor / tot)
-            # self.val_acc.append(vacc)
             self.val_bal_acc.append(vbal_acc)
             self.val_recall_per_class.append(recall_per_class)
 
@@ -1042,7 +990,6 @@ class Model_ConvNeXt:
                     npz_path,
                     train_loss=np.array(self.train_loss),
                     train_acc=np.array(self.train_acc),
-                    # val_acc=np.array(self.val_acc),
                     val_bal_acc=np.array(self.val_bal_acc),
                     val_recall_per_class=np.array(self.val_recall_per_class),
                 )
@@ -1068,7 +1015,6 @@ class Model_ConvNeXt:
             swa_sd = avg_states(swa_snaps)
             net.load_state_dict(swa_sd)
             net.to(self.device)
-            # sv = val_acc(net, validset_loader, self.device, self.use_amp, self.device_type)
             vbal_acc, recall_per_class = val_bal_acc_per_class(
                 net, validset_loader, self.device, self.use_amp, self.nc, self.device_type
             )
@@ -1095,11 +1041,6 @@ class Model_ConvNeXt:
         X = train_data["X"]
         y = np.asarray(train_data["y"])  # Keep as float for partial labels
 
-        # np.savez("ys_for_debug.npz", y=y)
-        # print(f"y.shape={y.shape}")
-        # y = np.load("ys_for_debug.npz")["y"]
-        # print(f"y.shape={y.shape}")
-
         self._log_fn(
             f"[*] Data  n={X.shape[0]}  shape={X.shape[1:]}  y.shape={y.shape}"
         )
@@ -1113,12 +1054,9 @@ class Model_ConvNeXt:
         self._log_fn("[*] Train=%d  Val=%d" % (len(tr), len(va)))
 
         print(f"y.shape={y.shape}")
-        # assert False
         unique_classes = np.arange(y.shape[1])
-        # unique_classes, train_counts = np.unique(y[tr].argmax(1), return_counts=True)
         train_counts = y[tr].sum(0)
         val_counts = y[va].sum(0)
-        # _, val_counts = np.unique(y[va].argmax(1), return_counts=True)
         self._log_fn("[*] Class distribution in train/val split:")
         for c, tc, vc in zip(unique_classes, train_counts, val_counts):
             self._log_fn(f"    Class {c}: train={tc:.1f} ({tc / len(tr) * 100:.0f}%), val={vc:.1f} ({vc / len(va) * 100:.0f}%)")
@@ -1231,7 +1169,6 @@ class Model_ConvNeXt:
         lines1, labels1 = ax1.get_legend_handles_labels()
         lines2, labels2 = ax2.get_legend_handles_labels()
         ax1.legend(lines1 + lines2, labels1 + labels2, loc="center right")
-        # plt.show()
         plt.savefig(os.path.join(self.expe, "fine_tuning_monitoring.jpg"))
         plt.savefig(os.path.join(self.expe, "fine_tuning_monitoring.pdf"))
         plt.close()
@@ -1242,7 +1179,6 @@ class Model_ConvNeXt:
             npz_path,
             train_loss=np.array(self.train_loss),
             train_acc=np.array(self.train_acc),
-            # val_acc=np.array(self.val_acc),
             val_bal_acc=np.array(self.val_bal_acc),
             val_recall_per_class=np.array(self.val_recall_per_class),
         )
@@ -1334,6 +1270,18 @@ class Model_ConvNeXt:
         return preds
 
 
+def _init_weights(m):
+    """Official ConvNeXt init recipe (trunc-normal weights, zero bias) for
+    Conv2d/Linear layers -- matters only when training from random init
+    (``pretrained=0``); pretrained runs overwrite the backbone via
+    ``_apply_pretrained_backbone()`` right after construction anyway.
+    """
+    if isinstance(m, (nn.Conv2d, nn.Linear)):
+        nn.init.trunc_normal_(m.weight, std=0.02)
+        if m.bias is not None:
+            nn.init.zeros_(m.bias)
+
+
 class ConvNeXtTiny(nn.Module):
     def __init__(self, num_classes=8, drop_path=0.10, head_drop=0.20):
         super().__init__()
@@ -1356,6 +1304,7 @@ class ConvNeXtTiny(nn.Module):
         self.norm = nn.LayerNorm(_DIMS[-1], eps=1e-6)
         self.dropout = nn.Dropout(p=head_drop)
         self.head = nn.Linear(_DIMS[-1], num_classes)
+        self.apply(_init_weights)
 
     def forward_features(self, x):
         x = self.stem(x)
@@ -1364,6 +1313,43 @@ class ConvNeXtTiny(nn.Module):
             if i < 3:
                 x = self.downs[i](x)
         return self.norm(x.mean([2, 3]))
+
+    def forward(self, x):
+        return self.head(self.dropout(self.forward_features(x)))
+
+
+class ConvNeXtTinyTorchvision(nn.Module):
+    """``torchvision.models.convnext_tiny`` wrapped to expose the same
+    interface as the hand-rolled :class:`ConvNeXtTiny` above (``forward_features``
+    returning a (B, 768) pooled vector, and a ``.head`` submodule the rest of
+    ``Model_ConvNeXt`` can read/write directly for kickstart injection and init).
+
+    For A/B-testing the hand-rolled implementation against the reference
+    torchvision one (see the README "Project status / TODO" section for why the
+    custom implementation was kept as the default rather than replacing it
+    outright) -- select with ``config["backbone_impl"] = "torchvision"`` /
+    ``--backbone-impl torchvision``. Requires the ``torchvision`` package
+    (``pip install -e ".[torchvision]"``), not a core dependency.
+    """
+
+    def __init__(self, num_classes=8, drop_path=0.10, head_drop=0.20, pretrained=True):
+        super().__init__()
+        from torchvision.models import ConvNeXt_Tiny_Weights, convnext_tiny
+
+        weights = ConvNeXt_Tiny_Weights.IMAGENET1K_V1 if pretrained else None
+        m = convnext_tiny(weights=weights, stochastic_depth_prob=drop_path)
+        self.features = m.features
+        self.avgpool = m.avgpool
+        self.norm = m.classifier[0]  # LayerNorm2d(768), pretrained along with the backbone
+        self.dropout = nn.Dropout(p=head_drop)
+        self.head = nn.Linear(768, num_classes)
+        nn.init.trunc_normal_(self.head.weight, std=0.02)
+        nn.init.zeros_(self.head.bias)
+
+    def forward_features(self, x):
+        x = self.avgpool(self.features(x))
+        x = self.norm(x)
+        return torch.flatten(x, 1)
 
     def forward(self, x):
         return self.head(self.dropout(self.forward_features(x)))

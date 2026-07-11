@@ -4,13 +4,14 @@
 
 | Item | Status |
 |---|---|
-| 5.1 Easy fixes (all 5 bullets) | **Done** |
+| 5.1 Easy fixes (all 5 bullets) | **Done**. Bonus fix found in audit (not one of the 5 bullets): when training from random init (`--pretrained 0`), only the classifier head got the official ConvNeXt truncated-normal init — the backbone's Conv2d/Linear layers silently fell back to PyTorch defaults. Fixed via `_init_weights`/`self.apply(...)` in `rgb_grains/models/convnext.py:ConvNeXtTiny.__init__`; no effect on the default `--pretrained 1` path (pretrained weights overwrite the backbone right after construction). |
 | 5.2 Mengtsu et al. dataset | **Blocked** — no data present in this repo; add a `dataset_choice` mode in `rgb_grains/data/dataset.py` (follow the `SCOOP` branch) once the files are available |
-| 5.2 bis SCOOP/BACS dataset | **Done** — `--dataset-choice SCOOP --splitting-choice bacs_2train_1test` |
-| 5.3 Downsampling image resolution | **Done** — `--downsample-kernel`/`--downsample-mode` on `rgb_grains.train` / `rgb_grains.pipeline` |
-| 5.4 Factoring the code better | **Partially done** — full package restructuring (this commit), de-duplicated the two `npz_to_jpg` scripts. The hand-rolled ConvNeXt-Tiny/augmentation code was deliberately left untouched — see README "Project status / TODO" for why. |
+| 5.2 bis SCOOP/BACS dataset | **Code done, smoke-tested only** — `--dataset-choice SCOOP --splitting-choice bacs_2train_1test` runs correctly end-to-end, but no full/serious training run has been executed for real results yet. |
+| 5.3 Downsampling image resolution | **Infra done, sweep never run** — `--downsample-kernel`/`--downsample-mode` on `rgb_grains.train` / `rgb_grains.pipeline` work correctly, but no actual resolution-ablation sweep has been executed to collect results. |
+| 5.4 Factoring the code better | **Partially done** — full package restructuring (this commit), de-duplicated the two `npz_to_jpg` scripts, removed dead/unused code and commented-out blocks across the package. The hand-rolled ConvNeXt-Tiny/augmentation code was left as the default rather than rewritten, but can now be A/B-tested: `--backbone-impl torchvision` (`rgb_grains/models/convnext.py:ConvNeXtTinyTorchvision`, needs `pip install -e ".[torchvision]"`) swaps in `torchvision.models.convnext_tiny` behind the same training loop. CPU-verified for correct wiring only — an actual GPU accuracy comparison between `custom` and `torchvision` hasn't been run yet. See README "Project status / TODO" for the full reasoning. |
 | 5.5 Data cleaning (by size) | **Done** — `rgb_grains/data/cleaning.py`, `--clean-data` flag (both in-loader filtering and the pipeline's one-time physical move-to-`_excluded`) |
-| 5.5 Data cleaning (manual tagging / outlier detection) | Not done (bigger work, no strong need identified yet) |
+| 5.5 Data cleaning (manually) | **Done** — `rgb_grains/utils/manual_tag.py` (`rgb-grains-tag export`/`apply`): export grain crops to JPG, delete the bad ones by hand, then apply moves the excluded `.npz` files to `_excluded/` |
+| 5.5 Data cleaning (by OD / outlier detection) | **Done (basic)** — `rgb_grains/data/cleaning.py:detect_outliers_od`/`move_outliers_od`, `--od-exclude`/`--od-contamination` on `rgb_grains.pipeline`. Uses a hand-picked feature vector (active area + per-channel active-pixel mean/std) with `sklearn.IsolationForest`, one fit per `*_processed` folder. Provisional — a learned-embedding-based approach would likely do better, revisit if this proves too coarse. |
 
 See `README.md` for usage. The original request, verbatim, follows.
 

@@ -25,7 +25,6 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
         help="Output directory for NPZ files",
     )
-    # p.add_argument("--variety", type=str, default=None)
     # --start-index removed: indexing always starts from 0 per file
     p.add_argument("--crop-idx-dim1", type=int, default=1300)
     p.add_argument("--reflectance-trim", type=int, default=350)
@@ -34,13 +33,6 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--area-max", type=int, default=20000)
     p.add_argument("--solidity", type=float, default=0.75)
     p.add_argument("--binary-thresh", type=float, default=0.15)
-    # p.add_argument("--segmentation-band", type=int, default=None)
-    # p.add_argument(
-    #     "--brightest-csv",
-    #     type=Path,
-    #     default=None,
-    #     help="Optional brightest_bands.csv",
-    # )
     return p
 
 

@@ -4,7 +4,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import balanced_accuracy_score
-import matplotlib.pyplot as plt
 from rgb_grains.viz.plots import plot_transfer_learning_learningCurve
 from rgb_grains.utils.tools import val_bal_acc_per_class_offline
 
@@ -226,7 +225,6 @@ def exactFit_classifier_and_score(Ntrain_cap, X_train_lr, y_train_lr_aug , X_tes
     y_train_lr_reduced = y_train_lr_reduced.reshape((NVIEWS*Ntrain_cap))
     print(f"classes present in train set: {np.unique(y_train_lr_reduced)}")
     print(f"classes present in train set: {np.unique(y_train_lr_aug_int)}")
-    # y_train_lr_aug
 
     y_test_lr_int  = y_test_lr.argmax(1)
 
@@ -247,7 +245,6 @@ def exactFit_classifier_and_score(Ntrain_cap, X_train_lr, y_train_lr_aug , X_tes
 
 
 
-    # print('  Fitting LogisticRegression (lbfgs, max_iter=1000)...')
     lr_clf = LogisticRegression(class_weight="balanced", max_iter=1000, solver='lbfgs', C=1.0, random_state=42)
     lr_clf.fit(X_train_sc, y_train_lr_reduced)
 
@@ -276,7 +273,6 @@ def exactFit_classifier_and_score(Ntrain_cap, X_train_lr, y_train_lr_aug , X_tes
         b_raw = lr_clf.intercept_
 
     return Ntrain_cap, acc_lr_train, acc_lr_test, acc_lr_test_views, W_raw, b_raw
-# acc_lr_train, acc_lr_test = exactFit_classifier_and_score(X_train_lr, y_train_lr_aug, X_test_lr, y_test_lr)
 
 
 def exactFit_classifier_return_W_b(X_train_lr, y_train_lr_aug, scaler=False):
@@ -309,8 +305,7 @@ def exactFit_classifier_return_W_b(X_train_lr, y_train_lr_aug, scaler=False):
         Balanced accuracy on training data (for logging only).
     """
     y_train_int = y_train_lr_aug.argmax(axis=1)
-    n_classes = y_train_lr_aug.shape[1]
-    
+
     if scaler:
         scaler_lr = StandardScaler()
         X_train_sc = scaler_lr.fit_transform(X_train_lr)
@@ -320,7 +315,6 @@ def exactFit_classifier_return_W_b(X_train_lr, y_train_lr_aug, scaler=False):
     lr_clf = LogisticRegression(
         class_weight="balanced", max_iter=1000, solver='lbfgs', C=1.0, random_state=42
     )
-    # assert False
 
     lr_clf.fit(X_train_sc, y_train_int)
     
@@ -372,27 +366,4 @@ def learning_curve_exactFit(X_train_lr, y_train_lr_aug , X_test_lr, y_test_lr, X
 
     plot_transfer_learning_learningCurve(Ncaps, acc_lr_train_list, acc_lr_test_list, acc_lr_test_views_list, OUTPUT_DIR)
 
-    return Ncaps, acc_lr_train_list, acc_lr_test_list, acc_lr_test_views_list, W_raw, b_raw 
-
-# # Comparison bar chart (6 bars)
-# labels_cmp = ['Y1->Y2\n(Direct)', 'Y1->Y2\n(Head FT)',
-#               'Y1->Y2\n LogReg\n768', 'Y2 Native\n(Upper Bound)']
-# accs_cmp   = [acc_direct, acc_ft_y2, acc_lr_test, acc_native]
-# colors_cmp = ['#E53935', '#1565C0', '#7B1FA2', '#2E7D32']
-# edge_cmp   = ['#B71C1C', '#0D47A1', '#4A148C', '#1B5E20']
-
-# fig, ax = plt.subplots(figsize=(12, 5))
-# bars = ax.bar(labels_cmp, accs_cmp, color=colors_cmp, edgecolor=edge_cmp,
-#               linewidth=1.2, alpha=0.87, width=0.55)
-# for bar, acc in zip(bars, accs_cmp):
-#     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.010,
-#             f'{acc:.3f}', ha='center', va='bottom', fontsize=12, fontweight='bold')
-# ax.set_ylabel('Accuracy', fontsize=12)
-# ax.set_ylim(0, 1.15)
-# ax.set_title(
-#     'Y1->Y2 Transfer: Comparison of Adaptation Strategies\nConvNeXt-Tiny — Year 2 Test Set',
-#     fontsize=13, fontweight='bold')
-# ax.grid(axis='y', alpha=0.35); ax.set_axisbelow(True)
-# plt.tight_layout()
-# plt.savefig(BASE_DIR / 'head_finetune_comparison.png', dpi=300, bbox_inches='tight')
-# plt.show()
+    return Ncaps, acc_lr_train_list, acc_lr_test_list, acc_lr_test_views_list, W_raw, b_raw

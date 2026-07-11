@@ -1,24 +1,6 @@
 from __future__ import annotations
-import os
-import shutil
-import math, os, time
-import glob
-import re
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, accuracy_score, balanced_accuracy_score, f1_score
-from pathlib import Path
-from torch.utils.data import Dataset, DataLoader
-
-from pathlib import Path
-# import numpy as np
-# import pandas as pd
-
 
 
 def seed_everything(seed=42):
@@ -28,15 +10,6 @@ def seed_everything(seed=42):
     torch.backends.cudnn.deterministic = False
     torch.backends.cudnn.benchmark     = True
 
-
-# def stratified_split(y, val_ratio, seed):
-#     rng = np.random.RandomState(seed); y = np.asarray(y)
-#     tr, va = [], []
-#     for c in np.unique(y):
-#         idx = np.where(y == c)[0]; rng.shuffle(idx)
-#         n = max(1, int(round(len(idx) * val_ratio)))
-#         va.append(idx[:n]); tr.append(idx[n:])
-#     return np.concatenate(tr), np.concatenate(va)
 
 ## compare logits_test_data and true_y_test in the spirit of partial labelling:
 # for each mix, count how many times the predicted class is the same as ONE OF the true class(es)
@@ -103,22 +76,9 @@ def soft_class_metrics(logits, true_y):
     -------
     dict with keys 'precision', 'recall', 'f1', each an array of length nc.
     """
-    # # Softmax probabilities
-    # shifted = logits - logits.max(axis=1, keepdims=True)   # numerical stability
-    # exp_l   = np.exp(shifted)
-    # probs   = exp_l / exp_l.sum(axis=1, keepdims=True)     # (N, nc)
- 
-    ## sum the logits over the support classes and aggregate results such as to cmpute per class recall, precision:
-    # logits = logits_test_data[keep_mixed]
-    # true_y = true_y_test[keep_mixed]
-    # logits = logits_test_data[keep_pure]
-    # true_y = true_y_test[keep_pure]
-    nc = true_y.shape[1]
-
     # Uniform weights over candidate sets
     weights  = true_y / true_y.sum(axis=1, keepdims=True)  # (N, nc)
-    # weights = true_y
- 
+
     soft_tp  = (weights * logits).sum(axis=0)               # (nc,)
     sum_true = weights.sum(axis=0)                         # (nc,)
     sum_pred = logits.sum(axis=0)                           # (nc,)

@@ -47,7 +47,6 @@ def _process_one_hdr_worker(
     Writes NPZ files directly to *output_dir*.
     Returns (img_name, grain_count).
     """
-    t0 = time.time()
     process_one_hdr(
         hdr,
         output_dir,
@@ -88,12 +87,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="Override the string matched against 'SCOOP-R2022-bacs'/'perfomix' in set_parameters() "
              "(default: derived from --input's path, which set_parameters() actually keys off of).",
     )
-    # p.add_argument(
-    #     "--variety",
-    #     type=str,
-    #     default=None,
-    #     help="Label stored as y (default: parse varN from filename)",
-    # )
     # --start-index removed: indexing always starts from 0 per file, filenames are non-overlapping
     p.add_argument(
         "--crop-idx-dim1",
@@ -137,18 +130,6 @@ def build_parser() -> argparse.ArgumentParser:
         default=0.10,
         help="Binary threshold on reflectance for watershed (default: 0.10 when restricting to RGB (selection of binary filter on band 80). Used to be 0.15 on band 106.)",
     )
-    # p.add_argument(
-    #     "--segmentation-band",
-    #     type=int,
-    #     default=None,
-    #     help="Fixed band index for segmentation (skip brightest-band search)",
-    # )
-    # p.add_argument(
-    #     "--brightest-csv",
-    #     type=Path,
-    #     default=None,
-    #     help="Optional brightest_bands.csv (from python -m grain_hs.brightest_csv)",
-    # )
     p.add_argument(
         "--jobs",
         type=int,

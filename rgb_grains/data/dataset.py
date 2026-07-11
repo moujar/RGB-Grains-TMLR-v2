@@ -1,25 +1,14 @@
 from __future__ import annotations
 import os
-import shutil
-import math, os, time
 import glob
 import re
 import numpy as np
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 import pandas as pd
 os.environ.setdefault("MPLBACKEND", "Agg")
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.metrics import (
-    confusion_matrix,
-    accuracy_score,
-    balanced_accuracy_score,
-    f1_score,
-)
 from pathlib import Path
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 
 from rgb_grains.utils.tools import *
 from rgb_grains.data.cleaning import filter_excluded_files
@@ -30,16 +19,6 @@ CH_SCALE = [1567.0, 8316.0, 18126.0]  # spectral bands [22, 53, 89]
 IMGNET_MEAN = [0.485, 0.456, 0.406]
 IMGNET_STD = [0.229, 0.224, 0.225]
 
-
-def seed_everything(seed=42):
-    import random
-
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.deterministic = False
-    torch.backends.cudnn.benchmark = True
 
 class GrainDataset_ConvNeXt(Dataset):
     def __init__(
@@ -136,12 +115,6 @@ class GrainDataset_ConvNeXt(Dataset):
         x = (x - self.mean) / self.std
         if self.y is not None:
             return x, self.y[idx]
-            # label = int(self.y[idx])
-            # if self.return_one_hot:
-            #     y_one_hot = torch.zeros(self.nc)
-            #     y_one_hot[label] = 1.0
-            #     return x, y_one_hot
-            return x, label
         return x
 
 
@@ -194,43 +167,13 @@ def _load_mix_dict(csv_path=None):
     return mix_dict
 
 
-# def _equalize_classes_pureStand(X, y, restricted_classes):
-#     '''
-#     undersampling to have all classes become balanced.
-#     The code is simple because it only handles pure stand data, i.e. when y is a true one hot vector
-#     '''
-#     assert np.unique(y).shape[0] == 2, "y should be a true one hot vector"
-#     cap_N = np.min(np.sum(y, axis=0)) ## max number of samples per class: the minimum over all classes
-#     X_out = []
-#     y_out = []
-    
-#     for c in restricted_classes:
-#         class_mask = y[:, c] > 0.0
-#         mask = np.cumsum(y[class_mask, c]) <= cap_N      
-#         X_out.append(X[class_mask][mask])
-#         y_out.append(y[class_mask][mask])
-    
-#     X_out = np.concatenate(X_out, axis=0)
-#     y_out = np.concatenate(y_out, axis=0)
-    
-#     return X_out, y_out
-
 def _equalize_classes(X, y, filenames, restricted_classes, _log_fn):
     '''
     undersampling to have all classes become balanced.
     The code may seem to be overcomplicated, but it's because it handles BOW-style y vectors, i.e entries where several bits are >0.
     '''
 
-    # TODO: trier aussi les filenames 
-    # ## DEBUG help:
-    # # assert False 
-    # data = np.load("data/equalized_data_debug.npz")
-    # print(f"Loaded equalized data... shape: Y_te={data['Y_te'].shape}")
-    # X_y1_te =np.zeros((data['Y_te'].shape[0], 3, 24, 24))
-    # Y_y1_te = data['Y_te']
-    # # X_y1_tr, Y_y1_tr = data['X_tr'], data['Y_tr']
-    # X, y = X_y1_te, Y_y1_te
-    # restricted_classes = np.arange(8, dtype=int)
+    # TODO: trier aussi les filenames
 
     counts = np.sum(y, axis=0)
     cap_N = np.min(counts) ## max number of samples per class: is chosen as the minimum number of samples per class, over all classes
@@ -263,9 +206,7 @@ def _equalize_classes(X, y, filenames, restricted_classes, _log_fn):
             continue
         mask = np.cumsum(class_y_values) <= cap_N-current_counts[c] ## key line: cumulative sum to select up to cap_N samples (minus those already in)
         selected_indices = np.where(available_mask)[0][mask]
-        
-        # if selected_indices.shape[0] > 100:
-        #     _log_fn(f"Class {c} has {selected_indices.shape[0]} samples, splitting in pieces of 100")
+
         X_out.append(X[selected_indices])
         y_out.append(y[selected_indices])
         files_out.append(files[selected_indices])
@@ -338,7 +279,6 @@ def _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_on
                 torch.tensor(label_from_filename), num_classes=NUM_CLASSES
             ).float()
     elif mix_match:
-        # mix_match = re.search(r"mix\d{1,2}", filename)
         if mix_match:
             mixed = True
             mix_str = mix_match.group(0)
@@ -409,7 +349,6 @@ def load_datasets_microplot_split(
     def read_split_csv(csv_path):
         df = pd.read_csv(csv_path)
         return np.array(df["filepath"]), df
-        # return np.array(df["filepath"].tolist()), df
 
     assert os.path.exists(dataset_path), f"Dataset path not found! Make sure to mount drive correctly to: {dataset_path}"
 
@@ -421,8 +360,6 @@ def load_datasets_microplot_split(
             np.random.shuffle(files)
             files = files[:limit_per_year*8]
         _log_fn(f"Found {len(files)} total NPZ files (Pure Stand).")
-        # mixedStands_dataset_path = dataset_path / ".."  / "processed_mixedStands"
-        # assert os.path.exists(mixedStands_dataset_path), f"Dataset path not found! Make sure to mount drive correctly to: {dataset_path}"
         mixedStands_files = glob.glob(f"{dataset_path}/perfomix_*_mix_processed/*.npz")
         if limit_per_year is not None:
             np.random.shuffle(mixedStands_files) 
@@ -465,7 +402,6 @@ def load_datasets_microplot_split(
             log_fn=_log_fn,
         )
 
-    # def make_split_csv(files, csv_train_path, csv_test_path):
     rows = []
     rows_mixedStands = []
     for f in files:
@@ -480,7 +416,6 @@ def load_datasets_microplot_split(
         else:
             _log_fn(f"Warning: Could not extract microplot name from {f}")
             microplotname = "unknown"
-            # assert False
 
 
         label_from_filename, mixed = _label_from_filename_func(
@@ -507,7 +442,6 @@ def load_datasets_microplot_split(
         else: 
             year_str = "2026"
 
-        data = np.load(f)
         if mixed==False:
             rows.append(
                 {
@@ -534,8 +468,6 @@ def load_datasets_microplot_split(
 
     df = pd.DataFrame(rows)
     classes = np.sort(df["label"].unique())
-    # classes = np.arange(NUM_CLASSES)
-    # restricted_classes = classes
     if restrict_classes == True:
         restricted_classes = restricted_classes
     else:
@@ -703,20 +635,16 @@ def load_datasets_microplot_split(
             indices_to_add = df[(df["label"] == c) & (df["microplot"] == mutrain)].sample(n=NsamplesYear2, replace=False).index
             df.loc[indices_to_add, "split"] = "train"
             ## display the max size of that sub-sample:
-            # _log_fn(f"[*] Max size of sub-sample for class {c} and microplot {mutrain}: {df.loc[(df["label"] == c) & (df["microplot"] == mutrain), "split"].count()}")
             max_subsample_size = df.loc[
                 (df["label"] == c) & (df["microplot"] == mutrain), "filepath"
             ].count()
             _log_fn(f"[*] Max size of sub-sample for class {c}, for the other year, and microplot {mutrain}: {max_subsample_size}")
-            # df.loc[(df["label"] == c) & (df["microplot"] == mutrain) & (~df.sample(n=NsamplesYear2, replace=False)).index, "split"] = "none"
             mutest = microplot_names[1-fold_number]
             df.loc[(df["label"] == c) & (df["microplot"] == mutest), "split"] = "test"
 
         df = pd.concat([df1, df])
 
         _log_fn_split_stats(df, restricted_classes)
-
-        # assert False, "debug"
 
 
     # 87% test bal acc:
@@ -779,7 +707,6 @@ def load_datasets_microplot_split(
             df_c = df[df["label"] == c]
             number_available = len(df_c)
             number_test = int(number_available * test_ratio)
-            number_train = number_available - number_test
             test_indices = np.random.choice(
                 number_available, number_test, replace=False
             )
@@ -790,7 +717,6 @@ def load_datasets_microplot_split(
 
 
     if splitting_choice == "random_1muPlot":
-        # np.random.seed(fold_number)
         _log_fn(f"[*] Splitting : {splitting_choice}:  randomly, taking only ONE fold={fold_number} as train+test data")
         df = pd.DataFrame(rows)
         for c in restricted_classes:
@@ -800,7 +726,6 @@ def load_datasets_microplot_split(
             df_select = df[ (df["label"] == c) & (df["microplot"] == microplot_names[fold_number]) ]
             number_available = len(df_select)
             number_test = int(number_available * test_ratio)
-            number_train = number_available - number_test
             test_indices = np.random.choice(
                 number_available, number_test, replace=False
             )
@@ -810,7 +735,6 @@ def load_datasets_microplot_split(
         _log_fn_split_stats(df, restricted_classes)
 
     if splitting_choice == "random_3muPlot":
-        # np.random.seed(fold_number)
         _log_fn(f"[*] Splitting : {splitting_choice}:  randomly, taking THREE fold={fold_number} as train+test data")
         df = pd.DataFrame(rows)
         for c in restricted_classes:
@@ -821,7 +745,6 @@ def load_datasets_microplot_split(
             assert len(microplot_names) ==4 , "the code logic assumes that there are 4 microplots per class, we exclude one and are left with 3."
             number_available = len(df_select)
             number_test = int(number_available * test_ratio)
-            number_train = number_available - number_test
             test_indices = np.random.choice(
                 number_available, number_test, replace=False
             )
@@ -837,11 +760,9 @@ def load_datasets_microplot_split(
         for c in restricted_classes:
             df_c = df[df["label"] == c]
             microplot_names = np.sort(df_c["microplot"].unique())
-            # assert len(microplot_names) > fold_number, f"Error: fold number {fold_number} is too large for microplot names {microplot_names}. Aborting this useless trial"
             df_select = df[ (df["label"] == c) ] ## exclude nothing
             number_available = len(df_select)
             number_test = int(number_available * test_ratio)
-            number_train = number_available - number_test
             test_indices = np.random.choice(
                 number_available, number_test, replace=False
             )
@@ -870,10 +791,8 @@ def load_datasets_microplot_split(
         df["split"] = "train"
         assert fold_number == 0 , " there is no notion of fold number for this mode: don't waste resources at re-computing the same thing multiple times. Aborting."
         _log_fn_split_stats(df, restricted_classes)
-        # testOnWholePureOnly=True
-        
 
-    #####################################################################   
+    #####################################################################
     ## df, coming from rows (pureStand data) is now split in train and test.
   
     ## split the df into train and test
@@ -960,10 +879,6 @@ def load_datasets_microplot_split(
         Y_y1_te = Y_y1_te[indices_test]
         test_files = test_files[indices_test]
         _log_fn(f"[*] After limiting: Train={len(X_y1_tr)}, Test={len(X_y1_te)}")
-
-    ## DEBUG:
-    # np.savez("data/equalized_data.npz", X_tr=X_y1_tr, Y_tr=Y_y1_tr, X_te=X_y1_te, Y_te=Y_y1_te)
-    # np.savez("data/equalized_data_debug.npz",Y_te=Y_y1_te)
 
     if equalize_classes:
         _log_fn(f"Equalize-classes: {equalize_classes}: we are balancing classes")

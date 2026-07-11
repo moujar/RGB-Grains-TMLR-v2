@@ -45,12 +45,16 @@ segmentation = [
 ]
 notebook = ["jupyter", "ipykernel"]
 dev = ["pytest"]
+# Only needed for --backbone-impl torchvision (A/B-testing the hand-rolled
+# ConvNeXt-Tiny against torchvision's reference implementation), not the default path.
+torchvision = ["torchvision>=0.15"]
 
 [project.scripts]
 rgb-grains-train = "rgb_grains.train:main"
 rgb-grains-pipeline = "rgb_grains.pipeline:main"
 rgb-grains-eda = "rgb_grains.viz.eda:main"
 rgb-grains-npz2jpg = "rgb_grains.utils.npz_to_jpg:main"
+rgb-grains-tag = "rgb_grains.utils.manual_tag:main"
 
 [tool.setuptools.packages.find]
 include = ["rgb_grains*"]

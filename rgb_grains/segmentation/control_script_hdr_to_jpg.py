@@ -25,12 +25,9 @@ This is the REFERENCE for how colors SHOULD look. Compare with:
 """
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 from pathlib import Path
 import argparse
-from tqdm import tqdm
 import spectral as sp
-import cv2
 
 from grain_hs.constants import SPECTRALON_COL_START, SPECTRALON_ROW_COUNT
 from grain_hs import set_parameters
@@ -70,7 +67,6 @@ def convert_to_rgb(data_dir, img_name):
     Note: Output is BGR order (Blue, Green, Red) for OpenCV compatibility.
     """
     img = sp.open_image(data_dir / img_name)
-    # RGB_BANDS: tuple[int, int, int] = (22, 53, 89) ## les valeurs du preproc de Phuoc et des etudiants dans la version 1.
     RGB_BANDS: tuple[int, int, int] = (15, 52, 80) ## les valeurs du constructeur
     bands = list(RGB_BANDS)
     # CRITICAL: Divide each band by its spectralon mean for realistic colors
@@ -82,33 +78,10 @@ def convert_to_rgb(data_dir, img_name):
     ## rotate the two first axis:
     img_rgb = np.rot90(img_rgb, k=1, axes=(0, 1))
 
-    # img_rgb = np.fliplr(
-    #     cv2.rotate(np.dstack((img_b, img_g, img_r)), cv2.ROTATE_90_CLOCKWISE)
-    # )
     return img_rgb
 
 def plot_hdr_to_jpg(data_dir, img_name, crop_idx_dim1, reflectance_trim, watershed_trim, show=False):
     img = convert_to_rgb(data_dir, img_name)
-
-    # ## histogram of colors
-    # plt.figure()
-    # plt.title(f"Histogram of RGB values for {len(imgs)} images")
-    # b, c = np.histogram(img[:,0].flatten(), bins=256)
-    # plt.plot(c[10:], b[9:], label="Blue", color="blue")
-    # b, c = np.histogram(img[:,1].flatten(), bins=256)
-    # plt.plot(c[10:], b[9:], label="Green", color="green")
-    # b, c = np.histogram(img[:,2].flatten(), bins=256)
-    # plt.plot(c[10:], b[9:], label="Red", color="red")
-    # plt.xlabel("Pixel value")
-    # plt.ylabel("Frequency")
-    # plt.legend()
-    # img_name = Path(img_name)
-    # plt.savefig(f"{data_dir.parent}/{img_name.stem}-histogram-of-colors.png", dpi=300)
-    # if show:
-    #     plt.show()
-    # else:
-    #     plt.close()
-
 
     ## image with rectangles
     plt.figure()
@@ -127,13 +100,11 @@ def plot_hdr_to_jpg(data_dir, img_name, crop_idx_dim1, reflectance_trim, watersh
             [0, 0, height, height, 0], 'y-', linewidth=2, alpha=0.5, label='Spectralon region')
 
     # Solid rectangle for reflectance selected region (left part)
-    # plt.axvline(x=col_reflectance_end, color='red', linestyle='-', linewidth=2, label='Reflectance region end')
-    plt.plot([0, col_reflectance_end, col_reflectance_end, 0, 0], 
+    plt.plot([0, col_reflectance_end, col_reflectance_end, 0, 0],
             [0, 0, height, height, 0], 'r-', linewidth=2, alpha=0.5, label='Reflectance-computing region')
 
     # Dashed rectangle for watershed excluded region (left part, larger)
-    # plt.axvline(x=col_watershed_start, color='blue', linestyle='--', linewidth=2, label='Watershed region start')
-    plt.plot([0, col_watershed_start, col_watershed_start, 0, 0], 
+    plt.plot([0, col_watershed_start, col_watershed_start, 0, 0],
             [0, 0, height, height, 0], 'b--', linewidth=2, alpha=0.5, label='Watershed excluded region')
 
     plt.legend(loc='upper right')
@@ -171,19 +142,6 @@ if __name__ == "__main__":
         default=500,
         help="Watershed and crops use columns from crop_idx_dim1 - this (default: 500)",
     )
-    # p.add_argument(
-    #     "--area-min",
-    #     type=int,
-    #     default=3000,
-    #     help="Minimum grain area in pixels (default: 3000)",
-    # )
-    # p.add_argument(
-    #     "--area-max",
-    #     type=int,
-    #     default=20000,
-    #     help="Maximum grain area in pixels (default: 20000)",
-    # )
-
     args = p.parse_args()
     input_path = Path(args.input_path)
     data_dir = input_path.parent

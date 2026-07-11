@@ -9,26 +9,16 @@ now wrapped in ``build_parser()`` / ``main()`` so it can be imported (e.g. by
 """
 from __future__ import annotations
 import os
-import math, os, time
-import glob
-import re
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import pandas as pd
 
 os.environ.setdefault("MPLBACKEND", "Agg")
-import matplotlib.pyplot as plt
 from sklearn.metrics import (
-    confusion_matrix,
     accuracy_score,
     balanced_accuracy_score,
-    f1_score,
     precision_recall_fscore_support,
 )
 from pathlib import Path
-from torch.utils.data import Dataset, DataLoader
 import json
 import argparse
 
@@ -69,6 +59,8 @@ def get_experiment_short_name(args, config, reload=False):
         experiment_name += f"_kickstart={args.kickstart}"
     if args.pretrained == 0:
         experiment_name += "_pretrained=0"
+    if args.backbone_impl != "custom":
+        experiment_name += f"_backbone={args.backbone_impl}"
     if args.NsamplesYear2 != 0:
         experiment_name += f"_NsamplesYear2={args.NsamplesYear2}"
     if args.downsample_kernel != 1:
@@ -160,6 +152,12 @@ def build_parser():
         help="Use ImageNet pretrained ConvNeXt-Tiny backbone weights (1) or train from random initialization (0).",
     )
     p.add_argument(
+        "--backbone-impl", type=str, default="custom", choices=["custom", "torchvision"],
+        help="'custom': hand-rolled ConvNeXt-Tiny, no torchvision dependency (default; see README "
+             "'Project status / TODO' for why). 'torchvision': torchvision.models.convnext_tiny, for "
+             "A/B-testing the two on GPU. Requires the 'torchvision' extra (pip install -e \".[torchvision]\").",
+    )
+    p.add_argument(
         "--kickstart_path", type=str, default=None,
         help="Optional path to an .npz file with keys W_raw, b_raw. If provided and "
              "the file exists, kickstart weights are loaded from it. If provided and "
@@ -236,6 +234,7 @@ def main(argv=None):
     experiment_short_name = get_experiment_short_name(args, config, reload=reload)
     config["expe"] = experiment_short_name
     config["pretrained"] = bool(args.pretrained)
+    config["backbone_impl"] = args.backbone_impl
     config["downsample_kernel"] = args.downsample_kernel
     config["downsample_mode"] = args.downsample_mode
     print(f"Experiment name: {experiment_short_name}")
@@ -375,7 +374,6 @@ def main(argv=None):
         pred_flow = np.load(npz_path, allow_pickle=True)
         logits_test_data = pred_flow["logits_test_data"]
         true_y_test = pred_flow["true_y_test"]
-        ids = pred_flow["ids"]
         y_pred_test = logits_test_data.argmax(1)
     else:
         _log_fn(f"[*] Computing predictions for {model_name}")
@@ -411,7 +409,7 @@ def main(argv=None):
         test_acc = accuracy_score(y_true, y_pred_test[keep_pure])
         test_bal_acc = balanced_accuracy_score(y_true, y_pred_test[keep_pure])
         metric_labels = np.arange(num_classes)
-        precision, recall, f1, _ = precision_recall_fscore_support(
+        precision, recall, _, _ = precision_recall_fscore_support(
             y_true, y_pred_test[keep_pure], labels=metric_labels, average=None, zero_division=0,
         )
         _log_fn(f"\n--- Balanced Accuracy for {model_name} ---")
@@ -440,7 +438,7 @@ def main(argv=None):
     else:
         test_acc = np.nan
         test_bal_acc = np.nan
-        precision, recall, f1 = np.array([np.nan, np.nan, np.nan]), np.array([np.nan, np.nan, np.nan]), np.array([np.nan, np.nan, np.nan])
+        precision, recall = np.array([np.nan, np.nan, np.nan]), np.array([np.nan, np.nan, np.nan])
         print("No pure data in test set")
 
     if keep_mixed.sum() > 0:

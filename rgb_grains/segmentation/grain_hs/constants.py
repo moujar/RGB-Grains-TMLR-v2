@@ -18,7 +18,6 @@ from __future__ import annotations
 
 
 # Three-band RGB-style export (same bands as ``npz_fullband_to_rgb.py`` / ``grain_hs.npz_rgb_reduce``).
-# RGB_BANDS: tuple[int, int, int] = (22, 53, 89) ## les valeurs du preproc de Phuoc et des etudiants dans la version 1.
 RGB_BANDS: tuple[int, int, int] = (15, 52, 80) ## les valeurs du constructeur
 
 # Spectralon ROI for brightest-band and reference statistics (rows, col start).
@@ -36,6 +35,4 @@ def set_parameters(args, inp):
       args.crop_idx_dim1 = 2000
       args.reflectance_trim = 1500
       args.watershed_trim = 850
-      # args.area_min = 3000
-      # args.area_max = 20000
    return args

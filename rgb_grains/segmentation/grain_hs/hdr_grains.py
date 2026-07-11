@@ -107,7 +107,6 @@ def segment_grains_from_hdr(
 
     # Extract scene region (raw int16 values, not normalized)
     image_cropped_spectralon = cube_image[:, col0:, :]
-    # y_label = "u"  # Variety label (simplified)
 
     return img_name, grains, image_cropped_spectralon, labelled_cropped_spectralon, means_over_spectralon
 
@@ -122,23 +121,3 @@ def segment_grains_from_hdr(
     #     band, max_ref = brightest_cache[img_name]
     #     print(f"    2using band {band} (max_ref={max_ref:.2f})")
     # else:
-
-
-# def parse_variety_from_name(name: str) -> str | None:
-#     """Return digits after ``var`` in the filename, if present (case-insensitive)."""
-#     m = re.search(r"var(\d+)", name, re.I)
-#     return m.group(1) if m else None
-# def load_brightest_csv(path: Path) -> dict[str, tuple[int, float]]:
-#     """Parse ``brightest_bands.csv`` (index column + band, max_ref)."""
-#     out: dict[str, tuple[int, float]] = {}
-#     with open(path, newline="") as f:
-#         rows = list(csv.reader(f))
-#     if len(rows) < 2:
-#         return out
-#     for parts in rows[1:]:
-#         if len(parts) < 3:
-#             continue
-#         stem_raw = parts[0].strip()
-#         stem = Path(stem_raw).stem if stem_raw.lower().endswith(".hdr") else stem_raw
-#         out[stem] = (int(float(parts[1])), float(parts[2]))
-#     return out

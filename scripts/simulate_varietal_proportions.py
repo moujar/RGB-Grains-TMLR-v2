@@ -49,7 +49,6 @@ for VAR_I, VAR_J in PAIRS:
     ## pool is equal and symmetric for simplicity
     N_pool = min(len(idx_i), len(idx_j))
     N_pools.append(N_pool)
-    # print(f'\nPair Variety {VAR_I} vs Variety {VAR_J}  |  pool={N_pool}  |  B={N_BOOTSTRAP}')
     results = []
     for ratio in RATIOS:
         n_i = max(1, int(round(N_pool*DEBUG_BOOST * ratio)))
@@ -72,8 +71,6 @@ for VAR_I, VAR_J in PAIRS:
             ## Naive, robust approach:
             pred_ratio_var_i = ( p_i >= p_j).mean() ## as soon as p_i >= p_j, we predict variety i, regardless of the p_i value
             ## Claude's alternative suggestion (worse results)
-            # pred_ratio_var_i = np.mean(p_i / (p_i+p_j))
-            # pred_ratio_var_j = np.mean(p_j / (p_i+p_j)) 
             ## they sum to 1 :)
 
             ## recording
@@ -87,8 +84,6 @@ for VAR_I, VAR_J in PAIRS:
                     ci_lo, ci_hi,
                          boot_arr_i.min(), \
                             boot_arr_i.max()))
-        # print(f'  true={true_ratio:.0%}  pred={boot_arr_i.mean():.4f} ± {boot_arr_i.std():.4f}'
-        #       f'  95% CI [{ci_lo:.4f}, {ci_hi:.4f}]')
     pair_results[(VAR_I, VAR_J)] = results
 N_pools = np.array(N_pools)
 
@@ -97,7 +92,6 @@ os.makedirs(args.output_dir, exist_ok=True)
 
 for ax_idx, (pair, results) in enumerate(pair_results.items()):
     plt.figure(1, [5,3])
-    # ax = axes_flat[ax_idx]
     VAR_I, VAR_J = pair
     ratios_arr, means, stds, ci_lo_arr, ci_hi_arr, \
         mini, maxi = \
@@ -110,29 +104,18 @@ for ax_idx, (pair, results) in enumerate(pair_results.items()):
     plt.scatter(ratios_arr, mini-ratios_arr, marker='.', color=GREEN_Y1)
     plt.scatter(ratios_arr, maxi-ratios_arr, marker='.', color=GREEN_Y1)
     plt.xticks(ratios_arr[::2])
-    # plt.xticklabels(pct_labels[::2], fontsize=6, rotation=45)
     plt.yticks([-0.04, -0.02, 0, 0.02, 0.04])
     plt.xticks([0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95])
-    # plt.yticklabels(['-4%','-2%','0%','2%','4%'], fontsize=6)
     plt.xlim([0.05, 0.95])
     plt.ylim([-0.05, 0.05])
     plt.xlabel('True fraction')
     plt.title(f'V{VAR_I} vs V{VAR_J} - pool size:{N_pools[ax_idx]}', pad=2)
-    # if ax_idx == 0:
-    # plt.legend(fontsize=6)
-    # plt.tick_params(labelsize=6)
-    plt.grid(alpha=0.3); 
-    # plt.gca().yaxis.set_axisbelow(True)
+    plt.grid(alpha=0.3);
 
-    # plt.text(0.5,  0.01, 'True fraction of Variety i/j',    ha='center', fontsize=10)
-    # fig.text(0.005, 0.5, 'Error in predicted fraction', va='center', rotation='vertical', fontsize=10)
-    # fig.suptitle(   f'Mixing Ratio Error — {N_BOOTSTRAP} bootstraps\n',  fontsize=11, fontweight='bold', y=1.01)
     plt.tight_layout()
-    # plt.savefig(f'mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.png', dpi=300, bbox_inches='tight')
     plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.jpg', dpi=300, bbox_inches='tight')
     plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.pdf', dpi=300, bbox_inches='tight')
     plt.close()
-    # f'Blue = Var I  |  Orange = Var J  |  Dashed = perfect  | ',
 
 ## averaged medians of all the 28 combinations: we plot the average of the means-ratios_arr and corresponding CI and min/max:
 mean_medians = []
@@ -171,32 +154,18 @@ plt.fill_between(ratios_arr, mean_ci_lo-ratios_arr, mean_ci_hi-ratios_arr, alpha
 plt.scatter(ratios_arr, mean_mini-ratios_arr, marker='.', color=GREEN_Y1)
 plt.scatter(ratios_arr, mean_maxi-ratios_arr, marker='.', color=GREEN_Y1)
 plt.xticks(ratios_arr[::2])
-# plt.xticklabels(pct_labels[::2], fontsize=6, rotation=45)
 plt.yticks([-0.04, -0.02, 0, 0.02, 0.04])
 plt.xticks([0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95])
-# plt.yticklabels(['-4%','-2%','0%','2%','4%'], fontsize=6)
 plt.xlim([0.05, 0.95])
 plt.ylim([-0.05, 0.05])
 plt.xlabel('True fraction')
 plt.title(f'All pairs average', pad=2)
-# if ax_idx == 0:
-# plt.legend(fontsize=6)
-# plt.tick_params(labelsize=6)
-plt.grid(alpha=0.3); 
-# plt.gca().yaxis.set_axisbelow(True)
+plt.grid(alpha=0.3);
 
-# plt.text(0.5,  0.01, 'True fraction of Variety i/j',    ha='center', fontsize=10)
-# fig.text(0.005, 0.5, 'Error in predicted fraction', va='center', rotation='vertical', fontsize=10)
-# fig.suptitle(   f'Mixing Ratio Error — {N_BOOTSTRAP} bootstraps\n',  fontsize=11, fontweight='bold', y=1.01)
 plt.tight_layout()
-# plt.savefig(f'mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.png', dpi=300, bbox_inches='tight')
 plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_28-var-avg.jpg', dpi=300, bbox_inches='tight')
 plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_28-var-avg.pdf', dpi=300, bbox_inches='tight')
 plt.close()
-
-# plt.show()
-
-
 
 
 ## huge plot summairzing all pairs ion one pdf or jpg:
@@ -219,9 +188,7 @@ for ax_idx, (pair, results) in enumerate(pair_results.items()):
     ax.plot([0.1, 0.9], [0., 0.], '--', color='gray', lw=1.5, label='Perfect prediction')
     ax.plot(ratios_arr, means-ratios_arr , 'o-', color=GREEN_Y1, lw=2.0, markersize=5,
             label=f'Var {VAR_I} pred. ratio - true ratio')
-    # ax.plot(ratios_arr, biases[ax_idx]*(1-ratios_arr), 'x-', color='k', lw=4.0, markersize=5,
-    #         label=f'bias*(1-ratio)')
-            
+
     ax.fill_between(ratios_arr, ci_lo_arr-ratios_arr, ci_hi_arr-ratios_arr, alpha=0.18, color=GREEN_LIGHT)
     ax.scatter(ratios_arr, mini-ratios_arr, marker='.', color=GREEN_Y1)
     ax.scatter(ratios_arr, maxi-ratios_arr, marker='.', color=GREEN_Y1)
@@ -248,9 +215,6 @@ fig.text(0.5,  0.01, 'True fraction of Variety i/j',
 fig.text(0.005, 0.5, 'Error in predicted fraction', va='center', rotation='vertical', fontsize=10)
 fig.suptitle(   f'Mixing Ratio Error — {N_BOOTSTRAP} bootstraps\n',  fontsize=11, fontweight='bold', y=1.01)
 plt.tight_layout()
-# plt.savefig(f'mixing_ratio_robustness_Nb={N_BOOTSTRAP}.png', dpi=300, bbox_inches='tight')
 plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}.jpg', dpi=300, bbox_inches='tight')
 plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}.pdf', dpi=300, bbox_inches='tight')
 plt.show()
-# plt.close()
-    # f'Blue = Var I  |  Orange = Var J  |  Dashed = perfect  | ',

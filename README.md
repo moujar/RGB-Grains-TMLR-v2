@@ -31,6 +31,7 @@ rgb_grains/                  installable Python package
   utils/
     tools.py                    balanced-accuracy / soft-label metrics
     npz_to_jpg.py                grain crop -> JPG viewer/QC tool
+    manual_tag.py                TODO 5.5: manual by-hand exclusion tagging tool
   segmentation/                raw hyperspectral .hdr cubes -> RGB grain crops (optional extra)
   train.py                      single train/test split: fine-tune + evaluate ConvNeXt-Tiny
   pipeline.py                   end-to-end entrypoint: segment (optional) -> clean -> train -> validate
@@ -55,7 +56,8 @@ pip install -e .
 
 This installs the core dependencies (PyTorch, numpy, pandas, scikit-learn,
 seaborn, matplotlib) and registers console scripts `rgb-grains-train`,
-`rgb-grains-pipeline`, `rgb-grains-eda`, `rgb-grains-npz2jpg`. If you only
+`rgb-grains-pipeline`, `rgb-grains-eda`, `rgb-grains-npz2jpg`, `rgb-grains-tag`.
+If you only
 need `requirements.txt`-style installs (no local package build), `pip
 install -r requirements.txt` gives the same core dependencies, and you'd run
 modules as `python -m rgb_grains.train ...` instead.
@@ -129,14 +131,28 @@ python -m rgb_grains.pipeline \
   --raw-hdr-dir /path/to/hdr_cubes --dataset-name perfomix_2020-2021_IE_HSI_var1-8 \
   --config configs/serious.json
 
-# One-time physical cleanup of outlier-area grain crops (TODO 5.5), without training:
+# One-time physical cleanup of outlier-area grain crops (TODO 5.5, by size), without training:
 python -m rgb_grains.pipeline --clean-data --clean-dry-run --data-dir data
+
+# One-time physical cleanup of outlier grain crops via unsupervised outlier
+# detection (TODO 5.5, "by OD"; no labels used), without training:
+python -m rgb_grains.pipeline --od-exclude --clean-dry-run --data-dir data
 ```
 
 Each stage can be skipped independently: `--skip-segmentation` (or simply
-omit `--raw-hdr-dir`), and cleaning only runs when `--clean-data` is passed.
-Run `python -m rgb_grains.pipeline --help` for the full flag reference,
-organized by stage.
+omit `--raw-hdr-dir`), and cleaning only runs when `--clean-data` and/or
+`--od-exclude` is passed. Run `python -m rgb_grains.pipeline --help` for the
+full flag reference, organized by stage.
+
+For manual by-hand cleaning (TODO 5.5, "manually" — catching artifacts the
+automatic filters miss), export grain crops to JPG, delete the bad ones
+yourself, then apply the review:
+
+```bash
+rgb-grains-tag export data/perfomix_..._processed reviews/perfomix_review
+# ... delete anomalous JPGs from reviews/perfomix_review in Finder/Preview/etc ...
+rgb-grains-tag apply data/perfomix_..._processed reviews/perfomix_review
+```
 
 Outputs land under `<base-dir>/expe/<experiment_name>/` (config snapshot,
 training log, augmentation/failed-prediction/confusion-matrix/calibration
@@ -161,6 +177,10 @@ python -m rgb_grains.train --config configs/debug.json --debugMode 100 \
 See `python -m rgb_grains.train --help` for the full set of experiment
 toggles (LP-FT kickstart, frozen-feature logistic-regression grid search,
 class restriction/equalization, mixed-vs-pure test composition, etc.).
+
+To A/B-test the hand-rolled ConvNeXt-Tiny against torchvision's reference
+implementation (see "Project status / TODO" below), add `--backbone-impl
+torchvision` (needs `pip install -e ".[torchvision]"`) to either command above.
 
 ### Mixture-proportion simulation
 
@@ -187,17 +207,24 @@ documents engineering work done on an earlier branch. As of this restructuring:
 - **Done**: checkpoint-selection cleanup (best-val vs SWA vs last), augmentation-example /
   failed-prediction / confusion-matrix-with-recall-precision plots, train-set 32-view
   balanced accuracy, SCOOP/BACS dataset mode with bac-based splitting, image-resolution
-  ablation (`--downsample-kernel`/`--downsample-mode`), and by-size data cleaning
-  (`rgb_grains/data/cleaning.py`, `--clean-data`).
+  ablation (`--downsample-kernel`/`--downsample-mode`), by-size data cleaning
+  (`rgb_grains/data/cleaning.py`, `--clean-data`), manual by-hand cleaning
+  (`rgb_grains/utils/manual_tag.py`, `rgb-grains-tag`), and a basic unsupervised
+  outlier-detection cleaning pass (`--od-exclude`, `IsolationForest`-based, provisional).
 - **Blocked**: the Mengtsu et al. dataset adapter — no data for it is present in this
   repository yet; add a new `dataset_choice` following the `SCOOP` branch in
   `rgb_grains/data/dataset.py` once the files are available.
-- **Deliberately out of scope**: rewriting the hand-rolled ConvNeXt-Tiny/augmentation code
-  to depend on torchvision. The current implementation is a documented, deliberate design
-  choice (see the module docstring in `rgb_grains/models/convnext.py`) to avoid a
-  torchvision dependency; swapping it would risk silently changing training dynamics and
-  checkpoint compatibility with no way to validate the effect without a full GPU
-  re-training/re-benchmarking pass.
+- **Not the default, opt-in for A/B testing**: `--backbone-impl torchvision` swaps in
+  `torchvision.models.convnext_tiny` (requires `pip install -e ".[torchvision]"`) behind the
+  same `Model_ConvNeXt` training loop, so the hand-rolled `custom` backbone (default; see the
+  module docstring in `rgb_grains/models/convnext.py` for why it was written from scratch —
+  no torchvision dependency, in case of a sandboxed submission environment with no network)
+  can be benchmarked against the reference torchvision implementation. Both pull the exact
+  same pretrained checkpoint (`download.pytorch.org/models/convnext_tiny-983f1562.pth`), so
+  any accuracy delta on GPU should reflect implementation details (init recipe, stochastic
+  depth, etc.), not different weights. CPU-verified for correct wiring (shapes, checkpoint
+  save/load, experiment-name tagging via `_backbone=torchvision`); accuracy comparison
+  between the two still needs an actual GPU run — not done as part of this change.
 
 ## Testing
 
@@ -206,11 +233,11 @@ pip install -e ".[dev]"
 pytest tests/
 ```
 
-Covers the two new pieces of logic added during this restructuring
-(`rgb_grains/data/cleaning.py`, and the resolution-ablation option in
-`GrainDataset_ConvNeXt`). The rest of the pipeline is validated by actually
-running it end-to-end on real data (see "Quickstart" above) — there's no
-substitute for that with a model this size.
+Covers the newer pieces of logic added during this restructuring
+(`rgb_grains/data/cleaning.py` incl. outlier detection, `rgb_grains/utils/manual_tag.py`,
+and the resolution-ablation option in `GrainDataset_ConvNeXt`). The rest of the pipeline
+is validated by actually running it end-to-end on real data (see "Quickstart" above) —
+there's no substitute for that with a model this size.
 
 ## License
 
