@@ -21,11 +21,8 @@ from sklearn.metrics import (
 from pathlib import Path
 from torch.utils.data import Dataset, DataLoader
 
-# from dataset import *
-# from model_others import *
-# from model_ConvNeXt import *
-# from cross_validate import *
-from tools import *
+from rgb_grains.utils.tools import *
+from rgb_grains.data.cleaning import filter_excluded_files
 
 
 # ── CONSTANTS ──
@@ -53,7 +50,15 @@ class GrainDataset_ConvNeXt(Dataset):
         crop_size=176,
         num_classes=8,
         return_one_hot=True,
+        downsample_kernel=1,
+        downsample_mode="mean",
     ):
+        """
+        downsample_kernel/downsample_mode: TODO 5.3 resolution ablation. The crop is
+        pooled by a downsample_kernel x downsample_kernel window (mean or max) and then
+        upsampled (nearest) back to crop_size, so the tensor shape fed to the model is
+        unchanged but its effective resolution is reduced. kernel=1 is a no-op.
+        """
         self.X, self.y = X, y
         self.aug, self.cs = augment, crop_size
         self.nc = num_classes
@@ -61,6 +66,10 @@ class GrainDataset_ConvNeXt(Dataset):
         self.scale = torch.tensor(CH_SCALE).view(3, 1, 1)
         self.mean = torch.tensor(IMGNET_MEAN).view(3, 1, 1)
         self.std = torch.tensor(IMGNET_STD).view(3, 1, 1)
+        self.downsample_kernel = int(downsample_kernel)
+        self.downsample_mode = downsample_mode
+        if self.downsample_mode not in ("mean", "max"):
+            raise ValueError(f"downsample_mode must be 'mean' or 'max', got {downsample_mode!r}")
 
     def __len__(self):
         return self.X.shape[0]
@@ -117,6 +126,13 @@ class GrainDataset_ConvNeXt(Dataset):
                 left = (W - s) // 2
                 x = x[:, top : top + s, left : left + s]
 
+        if self.downsample_kernel > 1:
+            k = self.downsample_kernel
+            pool = F.avg_pool2d if self.downsample_mode == "mean" else F.max_pool2d
+            xs = x.shape[-1]
+            x = pool(x.unsqueeze(0), kernel_size=k, ceil_mode=True)
+            x = F.interpolate(x, size=(xs, xs), mode="nearest").squeeze(0)
+
         x = (x - self.mean) / self.std
         if self.y is not None:
             return x, self.y[idx]
@@ -154,13 +170,15 @@ _scoop_class_by_bac = {
 }
 
 # Load CSV and build mix dictionary
-def _load_mix_dict():
+def _load_mix_dict(csv_path=None):
     """
     Load perfomix_mixtures.csv and return dict mapping mix names to variety number arrays.
     Maps mix names (mix01-mix52) to variety numbers (0-7, alphabetical order)
+
+    Defaults to the copy bundled with this package (rgb_grains/data/perfomix_mixtures.csv).
     """
-    # csv_path = Path(__file__).parent.parent / 'perfomix_mixtures.csv'
-    csv_path = 'perfomix_mixtures.csv'
+    if csv_path is None:
+        csv_path = Path(__file__).parent / "perfomix_mixtures.csv"
     df = pd.read_csv(csv_path, sep='\t')
     mix_dict = {}
     for mix_name, group in df.groupby('mix'):
@@ -371,10 +389,17 @@ def load_datasets_microplot_split(
     NsamplesYear2 = None,
     testOnWholePureOnly=False,
     combineMixedAndPureInTest=True,
+    clean_data=False,
+    min_grain_area=None,
+    max_grain_area=None,
 ):
     """
     takes care of making train/test split based on the micro plot tag.
        grain5323_x34y21-var8_8000_us_2x_2020-12-02T142436_corr.npz
+
+    clean_data / min_grain_area / max_grain_area: TODO 5.5 "by size" cleaning
+    (see rgb_grains/data/cleaning.py). Disabled by default to preserve the
+    original (unfiltered) behavior; enable with clean_data=True.
     """
 
     SPLIT_DIR = output_dir / "splits"
@@ -430,6 +455,15 @@ def load_datasets_microplot_split(
     # perfomix_2019-2020_IE_HSI_mix_processed
     # perfomix_2020-2021_IE_HSI_mix_processed
 
+    if clean_data:
+        files = filter_excluded_files(
+            files,
+            dataset_choice=dataset_choice,
+            min_area=min_grain_area,
+            max_area=max_grain_area,
+            enabled=True,
+            log_fn=_log_fn,
+        )
 
     # def make_split_csv(files, csv_train_path, csv_test_path):
     rows = []
@@ -690,6 +724,10 @@ def load_datasets_microplot_split(
         _log_fn(            f"[*] Splitting : {splitting_choice}:  by microplot, taking only year {yearChosen}"   )
         df = pd.DataFrame(rows)
         df = df[df["year"] == yearChosen]
+        assert len(df) > 0, (
+            f"No samples found for yearChosen={yearChosen} (dataset_choice={dataset_choice}). "
+            f"Years present in this dataset: {sorted(pd.DataFrame(rows)['year'].unique())}."
+        )
         for c in restricted_classes:
             ## extract the piece of the df that has this label and look at microplot names:
             df_c = df[df["label"] == c]
@@ -733,6 +771,10 @@ def load_datasets_microplot_split(
         df = pd.DataFrame(rows)
         ## take only one year, split at random among microplots.
         df = df[df["year"] == yearChosen]
+        assert len(df) > 0, (
+            f"No samples found for yearChosen={yearChosen} (dataset_choice={dataset_choice}). "
+            f"Years present in this dataset: {sorted(pd.DataFrame(rows)['year'].unique())}."
+        )
         for c in restricted_classes:
             df_c = df[df["label"] == c]
             number_available = len(df_c)

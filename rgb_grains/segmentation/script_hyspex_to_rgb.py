@@ -81,6 +81,13 @@ def build_parser() -> argparse.ArgumentParser:
         required=False,
         help="Output directory for NPZ files. Default will create a folder of the form {input}_processed/.",
     )
+    p.add_argument(
+        "--dataset-name",
+        type=str,
+        default=None,
+        help="Override the string matched against 'SCOOP-R2022-bacs'/'perfomix' in set_parameters() "
+             "(default: derived from --input's path, which set_parameters() actually keys off of).",
+    )
     # p.add_argument(
     #     "--variety",
     #     type=str,
@@ -185,7 +192,7 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         hdr_files = [inp]
 
-    args = set_parameters(args, inp)
+    args = set_parameters(args, args.dataset_name if args.dataset_name else inp)
 
     ## plot the control for the very first hdr file:
     data_dir = inp.parent / inp.name

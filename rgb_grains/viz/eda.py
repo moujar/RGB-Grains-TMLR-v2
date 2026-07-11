@@ -20,15 +20,15 @@ This module builds a rich, decoupled EDA (no torch dependency, headless-safe):
         · brightness · spectralon reference
   * A suite of figures + a Markdown report + summary CSVs written to ``--out``.
 
-Filename / label conventions mirror ``src/dataset.py``:
+Filename / label conventions mirror ``rgb_grains/data/dataset.py``:
   * pure stand   grain166_var1-x75y20_7000_us_2x_2021-10-19T160916_corr.npz
   * mixed stand  grain130_x38y23-mix19_8000_us_2x_2020-12-03T160859_corr.npz
   * SCOOP bacs   grain19_R22-scoop-bac74-3_8000_us_2x_2022-08-26T072529_corr.npz
 
 Usage
 -----
-    python src/eda.py                          # scans ./data, writes ./eda_outputs
-    python src/eda.py --data-dir data --out eda_outputs --max-per-class 400
+    python -m rgb_grains.viz.eda                          # scans ./data, writes ./eda_outputs
+    python -m rgb_grains.viz.eda --data-dir data --out eda_outputs --max-per-class 400
 """
 from __future__ import annotations
 
@@ -80,8 +80,13 @@ _RE_DATETIME = re.compile(r"(\d{4}-\d{2}-\d{2}T\d{6})")
 _RE_ILLUM = re.compile(r"_(\d+)_us_2x_")
 
 
-def _load_mix_dict(csv_path: str = "perfomix_mixtures.csv") -> dict[str, list[str]]:
-    """Return {mixNN: [variety names]} from the mixtures table (see dataset.py)."""
+def _load_mix_dict(csv_path: str | None = None) -> dict[str, list[str]]:
+    """Return {mixNN: [variety names]} from the mixtures table (see dataset.py).
+
+    Defaults to the copy bundled with the package (rgb_grains/data/perfomix_mixtures.csv).
+    """
+    if csv_path is None:
+        csv_path = str(Path(__file__).resolve().parent.parent / "data" / "perfomix_mixtures.csv")
     if not os.path.exists(csv_path):
         return {}
     df = pd.read_csv(csv_path, sep="\t")
@@ -556,7 +561,7 @@ def main():
     ap = argparse.ArgumentParser(description="Advanced EDA for RGB-Grains datasets")
     ap.add_argument("--data-dir", default="data", help="root folder of *_processed datasets")
     ap.add_argument("--out", default="eda_outputs", help="output directory")
-    ap.add_argument("--mix-csv", default="perfomix_mixtures.csv")
+    ap.add_argument("--mix-csv", default=None, help="defaults to the bundled rgb_grains/data/perfomix_mixtures.csv")
     ap.add_argument("--max-per-class", type=int, default=400,
                     help="grains sampled per class for pixel-level stats/scatter")
     ap.add_argument("--montage-n", type=int, default=8, help="example grains per class")
