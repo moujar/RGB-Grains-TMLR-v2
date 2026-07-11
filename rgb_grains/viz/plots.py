@@ -163,12 +163,9 @@ def calibration_plot(logits_test_data, true_y_test, OUTPUT_DIR, experiment_short
     confidence = logits_test_data.max(axis=1)
     predicted = logits_test_data.argmax(axis=1)
     ## support flexible PLL style correctness:
-    # correct_per_class[c] = support[mask, preds[mask]].sum().item()
-    # total_per_class[c] = mask.sum().item()
     support = true_y_test > 0
     mask = np.arange(len(y_true_0))
     correct = support[mask, predicted[mask]] # .sum().item()
-    # correct = (predicted == y_true_0).astype(float)
 
     # ── Calibration binning — non-overlapping fixed-width bins ────────────────
     # Use 10 equal-width bins [0.0, 0.1), [0.1, 0.2), ... [0.9, 1.0]
@@ -228,7 +225,6 @@ def calibration_plot(logits_test_data, true_y_test, OUTPUT_DIR, experiment_short
     expe_title = f" {experiment_short_name}" if experiment_short_name else ""
     ax.set_title(f"Reliability Diagram{expe_title}  (ECE = {ece:.4f})")
     ax.set_xticks(bin_edges[::4])
-    # ax.set_xticklabels([f'{v:.1f}' for v in bin_edges[::4]], fontsize=8)
     ax.legend()
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
@@ -238,7 +234,6 @@ def calibration_plot(logits_test_data, true_y_test, OUTPUT_DIR, experiment_short
     fig1.tight_layout()
     fig1.savefig(OUTPUT_DIR / "calibration_reliability.png", dpi=300, bbox_inches="tight")
     fig1.savefig(OUTPUT_DIR / "calibration_reliability.pdf", bbox_inches="tight")
-    # plt.show()
     plt.close()
     print(f"[*] Saved calibration_reliability.png + .pdf  (main text figure)")
 
@@ -250,11 +245,9 @@ def calibration_plot(logits_test_data, true_y_test, OUTPUT_DIR, experiment_short
     ax2.set_title(f"Confidence Distribution{expe_title} — ConvNeXt-Tiny (Y1 test)")
     ax2.grid(alpha=0.4)
     ax2.set_axisbelow(True)
-    # fig2.suptitle('ConvNeXt-Tiny Calibration  |  Year 1 → Year 1',                fontsize=11, fontweight='bold')
     fig2.tight_layout()
     fig2.savefig(OUTPUT_DIR / "calibration_histogram.png", dpi=300, bbox_inches="tight")
     fig2.savefig(OUTPUT_DIR / "calibration_histogram.pdf", bbox_inches="tight")
-    # plt.show()
     plt.close()
     print(f"[*] Saved calibration_histogram.png + .pdf  (appendix figure)")
 
@@ -273,7 +266,6 @@ def plot_training_curve(
     flow = np.load(training_metrics_path)
     train_loss = flow["train_loss"]
     train_acc = flow["train_acc"]
-    # val_acc = flow["val_acc"]
     val_bal_acc = flow["val_bal_acc"] # , val_acc)
 
     fig, ax1 = plt.subplots(figsize=(6, 4))
@@ -287,13 +279,6 @@ def plot_training_curve(
         train_acc, ls="-.", label="Training Accuracy (not balanced)", color="tab:orange"
     )
     ax2.plot(val_bal_acc, ls="-", label="Validation Accuracy (balanced)", color="tab:green")
-    # if len(val_bal_acc) > 0 and np.any(val_bal_acc > 0):
-    #     ax2.plot(
-    #         val_bal_acc,
-    #         ls="--",
-    #         label="Validation Balanced Accuracy",
-    #         color="darkgreen",
-    #     )
     ax2.set_ylabel("Accuracy", color="tab:green")
     ax2.tick_params(axis="y", labelcolor="tab:green")
     ax2.set_ylim([0.7, 1.0])
@@ -319,47 +304,6 @@ def plot_training_curve(
     print(f"[*] Training curve saved to: {jpg_path} (+pdf+svg)")
 
 
-# training_metrics_path = "expe/transferlearning/training_metrics.npz"
-# training_metrics_path = "expe/noAug-noCutMix-noMixUp-epoch50-nworker=5/training_metrics.npz"
-# training_metrics_path = "expe/noAug-epoch200/training_metrics.npz"
-# plot_training_curve(training_metrics_path)
-
-
-# def _plot_training_curve(self, prefix=""):
-#     """Plot and save training curve during training (every 10 epochs)."""
-#     if len(self.train_loss) == 0:
-#         return
-
-#     fig, ax1 = plt.subplots(figsize=(10, 5))
-#     ax1.semilogy(self.train_loss, label='Training Loss', color='tab:blue')
-#     ax1.set_xlabel('Epoch')
-#     ax1.set_ylabel('Loss', color='tab:blue')
-#     ax1.tick_params(axis='y', labelcolor='tab:blue')
-
-#     ax2 = ax1.twinx()
-#     ax2.plot(self.train_acc, label='Training Accuracy (not balanced)', color='tab:orange')
-#     ax2.plot(self.val_acc, label='Validation Balanced Accuracy', color='tab:green')
-#     ax2.set_ylabel('Accuracy', color='tab:orange')
-#     ax2.tick_params(axis='y', labelcolor='tab:orange')
-#     ## manage to have the second y-axis, and only this one, in a given range:
-#     ax2.set_ylim([0.7,1.0])
-#     ax2.axhline(y=0.945, color='k', linestyle='--', label='reference bal acc: 0.945')
-
-
-#     plt.title('Training and Validation Loss')
-#     lines1, labels1 = ax1.get_legend_handles_labels()
-#     lines2, labels2 = ax2.get_legend_handles_labels()
-#     ax1.legend(lines1 + lines2, labels1 + labels2, loc='center right')
-
-#     # Save to both JPG and PDF
-#     jpg_path = os.path.join(self.expe, f"{prefix}training_curve.jpg")
-#     pdf_path = os.path.join(self.expe, f"{prefix}training_curve.pdf")
-#     plt.savefig(jpg_path, dpi=150)
-#     plt.savefig(pdf_path)
-#     plt.close()
-#     self._log_fn(f"[*] Training curve saved to: {jpg_path}")
-
-
 def plot_transfer_learning_learningCurve(
     Ncaps, acc_lr_train_list, acc_lr_test_list, acc_lr_test_views_list, OUTPUT_DIR
 ):
@@ -380,29 +324,16 @@ def plot_transfer_learning_learningCurve(
         marker="x",
         label="Test Balanced Accuracy",
     )
-    # plt.semilogx(Ncaps, acc_lr_test_list, c='tab:green', ls='-', marker='x', label='Test Accuracy (averaging input features)')
-    # plt.semilogx(Ncaps, acc_lr_test_views_list, c='darkgreen', ls="--", marker="+", label='Test Accuracy (averaging over logReg logits)')
     plt.axhline(y=0.945, color="k", linestyle="--", label="reference bal acc: 0.945")
     plt.xlabel("Number of Training Samples")
     plt.ylabel("Accuracy")
-    # plt.xlim([1,Ncaps[-1]])
     plt.ylim([0.0, 1.0])
-    # plt.title('Accuracy vs Number of Training Samples')
     plt.legend()
-    # plt.grid(True)
     plt.tight_layout()
     plt.savefig(OUTPUT_DIR / "transfer_learning.jpg", dpi=300)
     plt.savefig(OUTPUT_DIR / "transfer_learning.pdf")
     plt.savefig(OUTPUT_DIR / "transfer_learning.svg")
     plt.close()
-
-
-# flow = np.load("expe/transferlearning/transfer_learning.npz")
-# Ncaps = flow['Ncaps']
-# acc_lr_train_list = flow['acc_lr_train_list']
-# acc_lr_test_list = flow['acc_lr_test_list']
-# acc_lr_test_views_list = flow['acc_lr_test_views_list']
-# plot_transfer_learning_learningCurve(Ncaps, acc_lr_train_list, acc_lr_test_list, acc_lr_test_views_list, OUTPUT_DIR)
 
 
 ### Confusion Matrices Viewer

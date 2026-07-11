@@ -26,7 +26,6 @@ entrypoint on data that's already segmented and clean.
 from __future__ import annotations
 
 import argparse
-import json
 import subprocess
 import sys
 from pathlib import Path
@@ -55,10 +54,15 @@ def build_parser():
     clean.add_argument("--clean-data", action="store_true",
                         help="Physically move outlier-area grain crops from *_processed/ to *_excluded/ before training "
                              "(one-time; see rgb_grains/data/cleaning.py). Independent of --skip-cleaning.")
-    clean.add_argument("--skip-cleaning", action="store_true", help="Alias for not passing --clean-data (kept for symmetry with the other --skip-* flags).")
+    clean.add_argument("--skip-cleaning", action="store_true", help="Force-skip stage 2 even if --clean-data/--od-exclude are given.")
     clean.add_argument("--min-grain-area", type=int, default=None, help="Override the per-dataset default minimum active-pixel area.")
     clean.add_argument("--max-grain-area", type=int, default=None, help="Optional maximum active-pixel area.")
-    clean.add_argument("--clean-dry-run", action="store_true", help="Report what --clean-data would move, without moving anything.")
+    clean.add_argument("--clean-dry-run", action="store_true", help="Report what --clean-data/--od-exclude would move, without moving anything.")
+    clean.add_argument("--od-exclude", action="store_true",
+                        help="TODO 5.5 'By OD': also move IsolationForest-flagged outlier grains (no labels used) "
+                             "from *_processed/ to *_excluded/. Independent of --clean-data; runs after it if both are given.")
+    clean.add_argument("--od-contamination", type=float, default=0.02,
+                        help="Expected fraction of outliers per *_processed folder for --od-exclude (default: 0.02).")
 
     # ── Stage 3: train + validate ──
     train = p.add_argument_group("3. train + validate")
@@ -73,6 +77,9 @@ def build_parser():
     train.add_argument("--tag", type=str, default="pipeline")
     train.add_argument("--debugMode", type=int, default=0, help="Limit samples per class for a fast smoke run (0=off).")
     train.add_argument("--pretrained", type=int, default=1)
+    train.add_argument("--backbone-impl", type=str, default="custom", choices=["custom", "torchvision"],
+                        help="'custom' (default, no torchvision dep) or 'torchvision' for A/B-testing against "
+                             "torchvision.models.convnext_tiny; see rgb_grains.train --help.")
     train.add_argument("--downsample-kernel", type=int, default=1, help="TODO 5.3 resolution ablation kernel (1=off).")
     train.add_argument("--downsample-mode", type=str, default="mean", choices=["mean", "max"])
     train.add_argument("--extra-train-args", type=str, nargs="*", default=[],
@@ -104,21 +111,36 @@ def _run_segmentation(args) -> None:
 
 
 def _run_cleaning(args) -> None:
-    if not args.clean_data or args.skip_cleaning:
-        print("[pipeline] Stage 2/3 (cleaning): skipped (pass --clean-data to enable).")
+    if args.skip_cleaning or not (args.clean_data or args.od_exclude):
+        print("[pipeline] Stage 2/3 (cleaning): skipped (pass --clean-data and/or --od-exclude to enable).")
         return
-    from rgb_grains.data.cleaning import move_excluded_files
 
-    print(f"[pipeline] Stage 2/3 (cleaning): scanning {args.data_dir} for {args.dataset_choice} data "
-          f"(dry_run={args.clean_dry_run}) ...")
-    n_moved = move_excluded_files(
-        data_dir=args.data_dir,
-        dataset_choice=args.dataset_choice,
-        min_area=args.min_grain_area,
-        max_area=args.max_grain_area,
-        dry_run=args.clean_dry_run,
-    )
-    print(f"[pipeline]   {n_moved} grain crop(s) {'would be' if args.clean_dry_run else 'were'} excluded.")
+    if args.clean_data:
+        from rgb_grains.data.cleaning import move_excluded_files
+
+        print(f"[pipeline] Stage 2/3 (cleaning, by-size): scanning {args.data_dir} for {args.dataset_choice} data "
+              f"(dry_run={args.clean_dry_run}) ...")
+        n_moved = move_excluded_files(
+            data_dir=args.data_dir,
+            dataset_choice=args.dataset_choice,
+            min_area=args.min_grain_area,
+            max_area=args.max_grain_area,
+            dry_run=args.clean_dry_run,
+        )
+        print(f"[pipeline]   {n_moved} grain crop(s) {'would be' if args.clean_dry_run else 'were'} excluded.")
+
+    if args.od_exclude:
+        from rgb_grains.data.cleaning import move_outliers_od
+
+        print(f"[pipeline] Stage 2/3 (cleaning, by-OD): scanning {args.data_dir} for {args.dataset_choice} data "
+              f"(contamination={args.od_contamination}, dry_run={args.clean_dry_run}) ...")
+        n_moved = move_outliers_od(
+            data_dir=args.data_dir,
+            dataset_choice=args.dataset_choice,
+            contamination=args.od_contamination,
+            dry_run=args.clean_dry_run,
+        )
+        print(f"[pipeline]   {n_moved} grain crop(s) {'would be' if args.clean_dry_run else 'were'} excluded.")
 
 
 def _run_training(args):
@@ -146,6 +168,7 @@ def _run_training(args):
             "--tag", args.tag,
             "--debugMode", str(args.debugMode),
             "--pretrained", str(args.pretrained),
+            "--backbone-impl", args.backbone_impl,
             "--downsample-kernel", str(args.downsample_kernel),
             "--downsample-mode", args.downsample_mode,
             # the loader-side filter mirrors stage 2 so a single --clean-data

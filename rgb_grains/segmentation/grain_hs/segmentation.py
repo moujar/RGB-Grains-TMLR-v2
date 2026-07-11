@@ -14,9 +14,7 @@ from grain_hs._path import ensure_gala_path
 ensure_gala_path()
 from gala import morpho  # noqa: E402
 
-from grain_hs.constants import RGB_BANDS
 
-from numba import njit
 
 
 def watershed_segmentation(
@@ -128,10 +126,4 @@ def grain_segmentation(
     grain_cleaned_background[start_row:start_row + height, :width, :] = (
         grain_cropped_region * mask_bool[..., np.newaxis]
     )
-    #     # Apply mask per band: keep only pixels belonging to this grain
-    #     for d in range(depth):
-    #         plane = np.zeros((height, width), dtype=grain_cropped_region.dtype)
-    #         plane[label_mask_local_to_one_grain != 0] = grain_cropped_region[:, :, d]
-    # [label_mask_local_to_one_grain != 0]
-    #         grain_cleaned_background[start_row : start_row + height, :width, d] = plane
     return grain_cleaned_background
