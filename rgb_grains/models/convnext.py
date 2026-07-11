@@ -21,13 +21,9 @@ from pathlib import Path
 from torch.utils.data import Dataset, DataLoader
 import json
 
-from dataset import *
-
-# from model_others import *
-# from model_ConvNeXt import *
-# from cross_validate import *
-from tools import *
-from module_plots import plot_training_curve
+from rgb_grains.data.dataset import *
+from rgb_grains.utils.tools import *
+from rgb_grains.viz.plots import plot_training_curve
 # ## 2. ConvNeXt-Tiny Model Architecture
 
 PIN_MEMORY = True
@@ -654,7 +650,7 @@ def _extract_features_multiview(model, X, y, device, use_amp, batch_size=64, aug
 
 
 class Model_ConvNeXt:
-    def __init__(self, config=None, restricted_classes=None):
+    def __init__(self, config=None, restricted_classes=None, base_dir="."):
         # Load configuration from dict, file path, or default config.json
         if config is None:
             # Default: load from config.json in the same directory as this module
@@ -672,15 +668,13 @@ class Model_ConvNeXt:
                 config = json.load(f)
         # If config is already a dict, use it directly
 
-        # Get output directory from config (default to "expe/")
-        # Use path relative to invocation point.
+        # Get output directory from config (default to "expe/"), relative to
+        # base_dir (matches the OUTPUT_DIR computed by rgb_grains.train / .pipeline).
         expe_path = config.get("expe", "expe/")
         if not os.path.isabs(expe_path):
-            # Make it relative to the script location
-            script_dir = os.path.dirname(os.path.abspath(__file__))
-            self.expe = os.path.join(script_dir, "..", "expe", expe_path)
+            self.expe = os.path.join(base_dir, "expe", expe_path)
         else:
-            self.expe = os.path.join("expe", expe_path)
+            self.expe = expe_path
         os.makedirs(self.expe, exist_ok=True)
         print(f"[*] Output directory: {self.expe}")
 
@@ -721,6 +715,15 @@ class Model_ConvNeXt:
         self.crop = config.get("crop", 176)
         self.bs = config.get("bs", 48)
         self.val_ratio = config.get("val_ratio", 0.08)
+
+        # TODO 5.3 resolution ablation: kernel=1 is a no-op (full resolution).
+        self.downsample_kernel = config.get("downsample_kernel", 1)
+        self.downsample_mode = config.get("downsample_mode", "mean")
+        if self.downsample_kernel > 1:
+            self._log_fn(
+                f"[*] Resolution ablation: downsample_kernel={self.downsample_kernel} "
+                f"mode={self.downsample_mode}"
+            )
 
         self.time_budget = config.get("time_budget", 1020)
         self.predict_t = config.get("predict_t", 120)
@@ -825,7 +828,7 @@ class Model_ConvNeXt:
         ``_apply_pretrained_backbone()`` here so the call can happen before fit().
         """
         # local import to avoid a circular import at module top
-        from module_exactfit_classifierHead import exactFit_classifier_return_W_b
+        from rgb_grains.models.classifier_head import exactFit_classifier_return_W_b
 
         if cache_path is not None and os.path.isfile(cache_path) and not recompute:
             self._log_fn(f"[*] kickstart: loading W_raw/b_raw from {cache_path}")
@@ -1125,9 +1128,11 @@ class Model_ConvNeXt:
         ## and assign weight 0 to classes that are not inside resticted_classes
         full_weights = np.zeros(self.nc)
         for i, c in enumerate(unique_classes):
-            if c < self.nc and c in self.restricted_classes:
+            if c < self.nc and c in self.restricted_classes and train_counts[i] > 0:
                 ## we use the cariant where weights are taken as sqrt(inv class frequency) to decrease the effect.
                 full_weights[c] = (1.0 / (train_counts[i] / train_counts.sum())) # **0.5
+                ## (classes with zero train samples keep weight 0: they never appear in the
+                ## training loss, and 1/0 would otherwise poison the whole normalized vector with nan/inf)
 
 
         # Normalize so that sum of non-zero weights = nc
@@ -1152,6 +1157,8 @@ class Model_ConvNeXt:
             crop_size=self.crop,
             num_classes=self.nc,
             return_one_hot=True,
+            downsample_kernel=self.downsample_kernel,
+            downsample_mode=self.downsample_mode,
         )
         vds = GrainDataset_ConvNeXt(
             X[va],
@@ -1160,6 +1167,8 @@ class Model_ConvNeXt:
             crop_size=self.crop,
             num_classes=self.nc,
             return_one_hot=True,
+            downsample_kernel=self.downsample_kernel,
+            downsample_mode=self.downsample_mode,
         )
         trainset_loader = DataLoader(
             tds,
@@ -1264,7 +1273,14 @@ class Model_ConvNeXt:
         net.load_state_dict(self.selected_state_dict)
         net.eval()
         for cs in crops:
-            ds = GrainDataset_ConvNeXt(X, y=None, augment=False, crop_size=cs)
+            ds = GrainDataset_ConvNeXt(
+                X,
+                y=None,
+                augment=False,
+                crop_size=cs,
+                downsample_kernel=self.downsample_kernel,
+                downsample_mode=self.downsample_mode,
+            )
             ld = DataLoader(
                 ds,
                 batch_size=64,

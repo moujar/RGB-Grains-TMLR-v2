@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rgb-grains"
+version = "2.0.0"
+description = "Varietal classification of wheat grains from RGB(-reduced hyperspectral) imagery with a fine-tuned ConvNeXt-Tiny."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Oudoum Ali Houmed" },
+    { name = "Quang-Phuoc Ho" },
+    { name = "Abderrahmane Moujar" },
+    { name = "Olutola Oloruntobi Paul" },
+    { name = "Gnonsou Daryl Marcel Okou" },
+    { name = "Ran Lu" },
+    { name = "Thanh Gia Hieu Khuong" },
+    { name = "Martin Ecarnot" },
+    { name = "Timothee Flutre" },
+    { name = "Lisheng Sun-Hosoya" },
+    { name = "Francois P. Landes" },
+]
+dependencies = [
+    "torch>=2.0",
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "scikit-learn>=1.1",
+    "seaborn>=0.12",
+    "matplotlib>=3.5",
+    "tqdm>=4.64",
+    "tabulate>=0.9",
+]
+
+[project.optional-dependencies]
+# Only needed for rgb_grains.segmentation (raw .hdr -> RGB grain crops).
+segmentation = [
+    "opencv-python>=4.5.0",
+    "spectral>=0.22.0",
+    "scikit-image>=0.19.0",
+    "scipy>=1.9.0",
+    "joblib>=1.0.0",
+    "numba>=0.56.0",
+]
+notebook = ["jupyter", "ipykernel"]
+dev = ["pytest"]
+
+[project.scripts]
+rgb-grains-train = "rgb_grains.train:main"
+rgb-grains-pipeline = "rgb_grains.pipeline:main"
+rgb-grains-eda = "rgb_grains.viz.eda:main"
+rgb-grains-npz2jpg = "rgb_grains.utils.npz_to_jpg:main"
+
+[tool.setuptools.packages.find]
+include = ["rgb_grains*"]
+
+[tool.setuptools.package-data]
+rgb_grains = ["data/*.csv", "data/*.tsv"]

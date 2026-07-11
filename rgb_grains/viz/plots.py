@@ -18,7 +18,7 @@ def plot_augmentation_examples(
     seed=42,
 ):
     """Plot original center crops and independent random augmentations."""
-    from dataset import GrainDataset_ConvNeXt, IMGNET_MEAN, IMGNET_STD
+    from rgb_grains.data.dataset import GrainDataset_ConvNeXt, IMGNET_MEAN, IMGNET_STD
 
     X = train_data["X"]
     y = np.asarray(train_data["y"])
@@ -97,7 +97,7 @@ def plot_failed_predictions(
     columns=5,
 ):
     """Plot the most confident incorrect predictions using original grains."""
-    from dataset import CH_SCALE
+    from rgb_grains.data.dataset import CH_SCALE
 
     X = test_data["X"]
     true_y = np.asarray(test_data["y"])

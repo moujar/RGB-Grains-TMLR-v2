@@ -1,11 +1,21 @@
+"""Bootstrap simulation of binary mixture-ratio estimation error across all
+variety pairs, from a saved predictions .npz (see rgb_grains.train).
+
+Usage:
+    python scripts/simulate_varietal_proportions.py --predictions-npz expe/<run>/predictions.npz
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 from itertools import combinations
 import argparse
 import os
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--boot', type=int, default=100)
+parser.add_argument('--predictions-npz', required=True,
+                     help="Path to a predictions .npz with keys logits_y1_on_y1, true_y1_test "
+                          "(pure-stand, single-domain test predictions).")
+parser.add_argument('--output-dir', default='calib_outputs', help="Where to save the calibration plots.")
 args = parser.parse_args()
 N_BOOTSTRAP = args.boot
 
@@ -17,7 +27,7 @@ GREEN_LIGHT = '#81C784'
 
 DEBUG_BOOST = 1 ## to get more samples ?
 
-flow = np.load("expe/try/ConvNeXt-Tiny_Y2=False_predictions.npz")
+flow = np.load(args.predictions_npz)
 probs_y1 = flow["logits_y1_on_y1"]
 y_true_1idx = flow["true_y1_test"]
 classes     = sorted(np.unique(y_true_1idx))
@@ -82,8 +92,7 @@ for VAR_I, VAR_J in PAIRS:
     pair_results[(VAR_I, VAR_J)] = results
 N_pools = np.array(N_pools)
 
-os.makedirs("calib-pdf", exist_ok=True)
-os.makedirs("calib-plots", exist_ok=True)
+os.makedirs(args.output_dir, exist_ok=True)
 
 
 for ax_idx, (pair, results) in enumerate(pair_results.items()):
@@ -120,8 +129,8 @@ for ax_idx, (pair, results) in enumerate(pair_results.items()):
     # fig.suptitle(   f'Mixing Ratio Error — {N_BOOTSTRAP} bootstraps\n',  fontsize=11, fontweight='bold', y=1.01)
     plt.tight_layout()
     # plt.savefig(f'mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.png', dpi=300, bbox_inches='tight')
-    plt.savefig(f'calib-plots/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.jpg', dpi=300, bbox_inches='tight')
-    plt.savefig(f'calib-pdf/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.pdf', dpi=300, bbox_inches='tight')
+    plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.jpg', dpi=300, bbox_inches='tight')
+    plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.pdf', dpi=300, bbox_inches='tight')
     plt.close()
     # f'Blue = Var I  |  Orange = Var J  |  Dashed = perfect  | ',
 
@@ -181,8 +190,8 @@ plt.grid(alpha=0.3);
 # fig.suptitle(   f'Mixing Ratio Error — {N_BOOTSTRAP} bootstraps\n',  fontsize=11, fontweight='bold', y=1.01)
 plt.tight_layout()
 # plt.savefig(f'mixing_ratio_robustness_Nb={N_BOOTSTRAP}_varI={VAR_I}_varJ={VAR_J}.png', dpi=300, bbox_inches='tight')
-plt.savefig(f'calib-plots/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_28-var-avg.jpg', dpi=300, bbox_inches='tight')
-plt.savefig(f'calib-pdf/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_28-var-avg.pdf', dpi=300, bbox_inches='tight')
+plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_28-var-avg.jpg', dpi=300, bbox_inches='tight')
+plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}_28-var-avg.pdf', dpi=300, bbox_inches='tight')
 plt.close()
 
 # plt.show()
@@ -240,8 +249,8 @@ fig.text(0.005, 0.5, 'Error in predicted fraction', va='center', rotation='verti
 fig.suptitle(   f'Mixing Ratio Error — {N_BOOTSTRAP} bootstraps\n',  fontsize=11, fontweight='bold', y=1.01)
 plt.tight_layout()
 # plt.savefig(f'mixing_ratio_robustness_Nb={N_BOOTSTRAP}.png', dpi=300, bbox_inches='tight')
-plt.savefig(f'calib-plots/mixing_ratio_robustness_Nb={N_BOOTSTRAP}.jpg', dpi=300, bbox_inches='tight')
-plt.savefig(f'calib-pdf/mixing_ratio_robustness_Nb={N_BOOTSTRAP}.pdf', dpi=300, bbox_inches='tight')
+plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}.jpg', dpi=300, bbox_inches='tight')
+plt.savefig(f'{args.output_dir}/mixing_ratio_robustness_Nb={N_BOOTSTRAP}.pdf', dpi=300, bbox_inches='tight')
 plt.show()
 # plt.close()
     # f'Blue = Var I  |  Orange = Var J  |  Dashed = perfect  | ',

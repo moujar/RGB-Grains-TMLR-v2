@@ -5,8 +5,8 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import balanced_accuracy_score
 import matplotlib.pyplot as plt
-from  module_plots import plot_transfer_learning_learningCurve
-from tools import val_bal_acc_per_class_offline
+from rgb_grains.viz.plots import plot_transfer_learning_learningCurve
+from rgb_grains.utils.tools import val_bal_acc_per_class_offline
 
 
 def _check_view_major_labels(y_train_lr_aug, n_views):

@@ -1,5 +1,19 @@
 # RGB Grains TMLR v2
 
+## Status (as of the 2026-07 restructuring)
+
+| Item | Status |
+|---|---|
+| 5.1 Easy fixes (all 5 bullets) | **Done** |
+| 5.2 Mengtsu et al. dataset | **Blocked** — no data present in this repo; add a `dataset_choice` mode in `rgb_grains/data/dataset.py` (follow the `SCOOP` branch) once the files are available |
+| 5.2 bis SCOOP/BACS dataset | **Done** — `--dataset-choice SCOOP --splitting-choice bacs_2train_1test` |
+| 5.3 Downsampling image resolution | **Done** — `--downsample-kernel`/`--downsample-mode` on `rgb_grains.train` / `rgb_grains.pipeline` |
+| 5.4 Factoring the code better | **Partially done** — full package restructuring (this commit), de-duplicated the two `npz_to_jpg` scripts. The hand-rolled ConvNeXt-Tiny/augmentation code was deliberately left untouched — see README "Project status / TODO" for why. |
+| 5.5 Data cleaning (by size) | **Done** — `rgb_grains/data/cleaning.py`, `--clean-data` flag (both in-loader filtering and the pipeline's one-time physical move-to-`_excluded`) |
+| 5.5 Data cleaning (manual tagging / outlier detection) | Not done (bigger work, no strong need identified yet) |
+
+See `README.md` for usage. The original request, verbatim, follows.
+
 ## 5. TODOs
 
 To Oudoum & the M1 team, or everyone in general, there are a number of things I would like to have, based on my newer version of the model's code:
