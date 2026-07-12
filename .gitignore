@@ -20,3 +20,4 @@ splits/
 overall_perf_summary.json
 config_end_check.json
 /*.npz
+data_2*
