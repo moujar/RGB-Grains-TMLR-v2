@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-07 — Audit fixes: pipeline frozen-feature flag, restored color histogram
+
+Audited every claim in `docs/TODO.md` against the actual code (not just the
+prose). Everything reported "Done" checked out correctly (best/SWA selection,
+augmentation grid, failed-prediction viz, confusion-matrix recall/precision
+placement, 32-view train balanced accuracy, SCOOP/BACS splitting, downsampling,
+torchvision A/B, the three 5.5 cleaning modes). Two real gaps found and fixed:
+
+- `rgb_grains/pipeline.py` now exposes `--run-frozen-features` /
+  `--frozen-feature-c-grid` as first-class flags (previously only reachable
+  through the `--extra-train-args` escape hatch).
+- `rgb_grains/utils/npz_to_jpg.py`: restored the per-channel RGB pixel-value
+  histogram diagnostic that the original `segmentation/control_script_npz_to_jpg.py`
+  produced, dropped when it was consolidated with `src/script_npz_to_jpg.py`.
+  New `plot_color_histogram()`, opt-in via `--color-histogram`.
+
+The perfomix by-size cleaning threshold remains a genuine open item (needs a
+real area-distribution study on data not available in this environment), and
+5.2 (Mengtsu), the SCOOP/BACS full run, the resolution sweep, and the
+torchvision GPU comparison remain blocked on data/compute, not code.
+
 ## 2026-07 — Package restructuring + pipeline entrypoint + TODO 5.3/5.5
 
 - Restructured the flat `src/`/`segmentation/` scripts into an installable

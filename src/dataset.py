@@ -1,17 +1,30 @@
 from __future__ import annotations
 import os
+import shutil
+import math, os, time
 import glob
 import re
 import numpy as np
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 import pandas as pd
-os.environ.setdefault("MPLBACKEND", "Agg")
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.metrics import (
+    confusion_matrix,
+    accuracy_score,
+    balanced_accuracy_score,
+    f1_score,
+)
 from pathlib import Path
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 
-from rgb_grains.utils.tools import *
-from rgb_grains.data.cleaning import filter_excluded_files
+# from dataset import *
+# from model_others import *
+# from model_ConvNeXt import *
+# from cross_validate import *
+from tools import *
 
 
 # ── CONSTANTS ──
@@ -19,6 +32,16 @@ CH_SCALE = [1567.0, 8316.0, 18126.0]  # spectral bands [22, 53, 89]
 IMGNET_MEAN = [0.485, 0.456, 0.406]
 IMGNET_STD = [0.229, 0.224, 0.225]
 
+
+def seed_everything(seed=42):
+    import random
+
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = False
+    torch.backends.cudnn.benchmark = True
 
 class GrainDataset_ConvNeXt(Dataset):
     def __init__(
@@ -32,12 +55,6 @@ class GrainDataset_ConvNeXt(Dataset):
         downsample_kernel=1,
         downsample_mode="mean",
     ):
-        """
-        downsample_kernel/downsample_mode: TODO 5.3 resolution ablation. The crop is
-        pooled by a downsample_kernel x downsample_kernel window (mean or max) and then
-        upsampled (nearest) back to crop_size, so the tensor shape fed to the model is
-        unchanged but its effective resolution is reduced. kernel=1 is a no-op.
-        """
         self.X, self.y = X, y
         self.aug, self.cs = augment, crop_size
         self.nc = num_classes
@@ -45,10 +62,12 @@ class GrainDataset_ConvNeXt(Dataset):
         self.scale = torch.tensor(CH_SCALE).view(3, 1, 1)
         self.mean = torch.tensor(IMGNET_MEAN).view(3, 1, 1)
         self.std = torch.tensor(IMGNET_STD).view(3, 1, 1)
-        self.downsample_kernel = int(downsample_kernel)
+        # 5.3 [optional] resolution ablation: pool the crop by `downsample_kernel`
+        # (mean/max) then upsample back to crop_size, to test how much accuracy
+        # depends on input resolution. downsample_kernel=1 is a no-op (full res).
+        assert downsample_mode in ("mean", "max")
+        self.downsample_kernel = downsample_kernel
         self.downsample_mode = downsample_mode
-        if self.downsample_mode not in ("mean", "max"):
-            raise ValueError(f"downsample_mode must be 'mean' or 'max', got {downsample_mode!r}")
 
     def __len__(self):
         return self.X.shape[0]
@@ -107,14 +126,20 @@ class GrainDataset_ConvNeXt(Dataset):
 
         if self.downsample_kernel > 1:
             k = self.downsample_kernel
+            crop_hw = x.shape[-2:]
             pool = F.avg_pool2d if self.downsample_mode == "mean" else F.max_pool2d
-            xs = x.shape[-1]
-            x = pool(x.unsqueeze(0), kernel_size=k, ceil_mode=True)
-            x = F.interpolate(x, size=(xs, xs), mode="nearest").squeeze(0)
+            x = pool(x.unsqueeze(0), kernel_size=k)
+            x = F.interpolate(x, size=crop_hw, mode="nearest").squeeze(0)
 
         x = (x - self.mean) / self.std
         if self.y is not None:
             return x, self.y[idx]
+            # label = int(self.y[idx])
+            # if self.return_one_hot:
+            #     y_one_hot = torch.zeros(self.nc)
+            #     y_one_hot[label] = 1.0
+            #     return x, y_one_hot
+            return x, label
         return x
 
 
@@ -130,28 +155,14 @@ _variety_to_num = {
     'BERGAMO': 4, 'BOREGAR': 5, 'EXPERT': 6, 'KALAHARI': 7
 }
 
-_scoop_bacs_by_class = {
-    0: [14, 18, 43],  # EL4X-199
-    1: [17, 71, 74],  # EL4X-35
-    2: [41, 42, 50],  # EL4X-482
-    3: [7, 57, 92],   # GQ4X-83
-}
-_scoop_class_by_bac = {
-    bac: class_idx
-    for class_idx, bacs in _scoop_bacs_by_class.items()
-    for bac in bacs
-}
-
 # Load CSV and build mix dictionary
-def _load_mix_dict(csv_path=None):
+def _load_mix_dict():
     """
     Load perfomix_mixtures.csv and return dict mapping mix names to variety number arrays.
     Maps mix names (mix01-mix52) to variety numbers (0-7, alphabetical order)
-
-    Defaults to the copy bundled with this package (rgb_grains/data/perfomix_mixtures.csv).
     """
-    if csv_path is None:
-        csv_path = Path(__file__).parent / "perfomix_mixtures.csv"
+    # csv_path = Path(__file__).parent.parent / 'perfomix_mixtures.csv'
+    csv_path = 'perfomix_mixtures.csv'
     df = pd.read_csv(csv_path, sep='\t')
     mix_dict = {}
     for mix_name, group in df.groupby('mix'):
@@ -167,13 +178,43 @@ def _load_mix_dict(csv_path=None):
     return mix_dict
 
 
+# def _equalize_classes_pureStand(X, y, restricted_classes):
+#     '''
+#     undersampling to have all classes become balanced.
+#     The code is simple because it only handles pure stand data, i.e. when y is a true one hot vector
+#     '''
+#     assert np.unique(y).shape[0] == 2, "y should be a true one hot vector"
+#     cap_N = np.min(np.sum(y, axis=0)) ## max number of samples per class: the minimum over all classes
+#     X_out = []
+#     y_out = []
+    
+#     for c in restricted_classes:
+#         class_mask = y[:, c] > 0.0
+#         mask = np.cumsum(y[class_mask, c]) <= cap_N      
+#         X_out.append(X[class_mask][mask])
+#         y_out.append(y[class_mask][mask])
+    
+#     X_out = np.concatenate(X_out, axis=0)
+#     y_out = np.concatenate(y_out, axis=0)
+    
+#     return X_out, y_out
+
 def _equalize_classes(X, y, filenames, restricted_classes, _log_fn):
     '''
     undersampling to have all classes become balanced.
     The code may seem to be overcomplicated, but it's because it handles BOW-style y vectors, i.e entries where several bits are >0.
     '''
 
-    # TODO: trier aussi les filenames
+    # TODO: trier aussi les filenames 
+    # ## DEBUG help:
+    # # assert False 
+    # data = np.load("data/equalized_data_debug.npz")
+    # print(f"Loaded equalized data... shape: Y_te={data['Y_te'].shape}")
+    # X_y1_te =np.zeros((data['Y_te'].shape[0], 3, 24, 24))
+    # Y_y1_te = data['Y_te']
+    # # X_y1_tr, Y_y1_tr = data['X_tr'], data['Y_tr']
+    # X, y = X_y1_te, Y_y1_te
+    # restricted_classes = np.arange(8, dtype=int)
 
     counts = np.sum(y, axis=0)
     cap_N = np.min(counts) ## max number of samples per class: is chosen as the minimum number of samples per class, over all classes
@@ -206,7 +247,9 @@ def _equalize_classes(X, y, filenames, restricted_classes, _log_fn):
             continue
         mask = np.cumsum(class_y_values) <= cap_N-current_counts[c] ## key line: cumulative sum to select up to cap_N samples (minus those already in)
         selected_indices = np.where(available_mask)[0][mask]
-
+        
+        # if selected_indices.shape[0] > 100:
+        #     _log_fn(f"Class {c} has {selected_indices.shape[0]} samples, splitting in pieces of 100")
         X_out.append(X[selected_indices])
         y_out.append(y[selected_indices])
         files_out.append(files[selected_indices])
@@ -249,25 +292,27 @@ def _equalize_classes(X, y, filenames, restricted_classes, _log_fn):
     return X_out, y_out, files_out
 
 
-def _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_one_hot=True, dataset_choice="perfomix"):
-    if "SCOOP" in dataset_choice:
-        bac_match = re.search(r"bac(\d+)", filename)
-        if not bac_match:
-            _log_fn(f"Warning: Could not extract bac from {filename}")
-            assert False
-        bac_number = int(bac_match.group(1))
-        if bac_number not in _scoop_class_by_bac:
-            _log_fn(f"Warning: Bac {bac_number} not found in SCOOP class mapping")
-            assert False
-        label_from_filename = _scoop_class_by_bac[bac_number]
-        if force_one_hot:
-            label_from_filename = F.one_hot(
-                torch.tensor(label_from_filename), num_classes=NUM_CLASSES
-            ).float()
-        return label_from_filename, False
+# 5.2bis: Martin's SCOOP/BACS dataset -- 4 varieties, pure stand, 3 bacs
+# (~microplots) each. Grain crop filenames are "grain{i}_{hdr_basename}.npz"
+# where hdr_basename looks like "R22-scoop-bac57-4_..." (no var\d/mix\d tag),
+# so labels come from the bac number via this mapping instead.
+_SCOOP_BACS_BY_VARIETY = {
+    "EL4X-199": [14, 18, 43],
+    "EL4X-35": [17, 71, 74],
+    "EL4X-482": [41, 42, 50],
+    "GQ4X-83": [7, 57, 92],
+}
+_SCOOP_BAC_TO_CLASS = {
+    bac: cls
+    for cls, variety in enumerate(sorted(_SCOOP_BACS_BY_VARIETY))
+    for bac in _SCOOP_BACS_BY_VARIETY[variety]
+}
 
+
+def _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_one_hot=True):
     label_match = re.search(r"var\d{1,2}", filename)
     mix_match = re.search(r"mix\d{1,2}", filename)
+    bac_match = re.search(r"bac(\d+)", filename)
     if label_match:
         mixed = False
         label_str = label_match.group(0)[3:]
@@ -279,6 +324,7 @@ def _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_on
                 torch.tensor(label_from_filename), num_classes=NUM_CLASSES
             ).float()
     elif mix_match:
+        # mix_match = re.search(r"mix\d{1,2}", filename)
         if mix_match:
             mixed = True
             mix_str = mix_match.group(0)
@@ -295,8 +341,22 @@ def _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_on
                 # losses (soft_ce_weighted) receive a float tensor.
                 label_from_filename = torch.zeros(NUM_CLASSES, dtype=torch.float32)
                 label_from_filename[labels] = 1.0 / Nlabels_true
-            else: 
+            else:
                 label_from_filename = labels[0]  ## taking the first of the list, naively..
+
+    elif bac_match:
+        ## 5.2bis SCOOP/BACS: pure stand, label comes from the bac number, not var\d/mix\d.
+        mixed = False
+        bac_num = int(bac_match.group(1))
+        if bac_num not in _SCOOP_BAC_TO_CLASS:
+            _log_fn(f"Warning: bac number {bac_num} not found in SCOOP bac-to-class mapping ({filename})")
+            label_from_filename = -1
+        else:
+            label_from_filename = _SCOOP_BAC_TO_CLASS[bac_num]
+        if force_one_hot:
+            label_from_filename = F.one_hot(
+                torch.tensor(label_from_filename), num_classes=NUM_CLASSES
+            ).float()
 
     else:
         mixed=False
@@ -329,17 +389,10 @@ def load_datasets_microplot_split(
     NsamplesYear2 = None,
     testOnWholePureOnly=False,
     combineMixedAndPureInTest=True,
-    clean_data=False,
-    min_grain_area=None,
-    max_grain_area=None,
 ):
     """
     takes care of making train/test split based on the micro plot tag.
        grain5323_x34y21-var8_8000_us_2x_2020-12-02T142436_corr.npz
-
-    clean_data / min_grain_area / max_grain_area: TODO 5.5 "by size" cleaning
-    (see rgb_grains/data/cleaning.py). Disabled by default to preserve the
-    original (unfiltered) behavior; enable with clean_data=True.
     """
 
     SPLIT_DIR = output_dir / "splits"
@@ -349,6 +402,7 @@ def load_datasets_microplot_split(
     def read_split_csv(csv_path):
         df = pd.read_csv(csv_path)
         return np.array(df["filepath"]), df
+        # return np.array(df["filepath"].tolist()), df
 
     assert os.path.exists(dataset_path), f"Dataset path not found! Make sure to mount drive correctly to: {dataset_path}"
 
@@ -360,6 +414,8 @@ def load_datasets_microplot_split(
             np.random.shuffle(files)
             files = files[:limit_per_year*8]
         _log_fn(f"Found {len(files)} total NPZ files (Pure Stand).")
+        # mixedStands_dataset_path = dataset_path / ".."  / "processed_mixedStands"
+        # assert os.path.exists(mixedStands_dataset_path), f"Dataset path not found! Make sure to mount drive correctly to: {dataset_path}"
         mixedStands_files = glob.glob(f"{dataset_path}/perfomix_*_mix_processed/*.npz")
         if limit_per_year is not None:
             np.random.shuffle(mixedStands_files) 
@@ -372,16 +428,6 @@ def load_datasets_microplot_split(
     elif "SCOOP" in dataset_choice :
         _log_fn("Using SCOOP dataset")
         files = glob.glob(f"{dataset_path}/SCOOP-R2022-bacs_processed/*.npz")
-        if limit_per_year is not None:
-            files_by_bac = {}
-            for f in files:
-                bac_match = re.search(r"bac(\d+)", os.path.basename(f))
-                if bac_match:
-                    files_by_bac.setdefault(bac_match.group(0), []).append(f)
-            files = []
-            for bac_files in files_by_bac.values():
-                np.random.shuffle(bac_files)
-                files.extend(bac_files[:limit_per_year])
         _log_fn(f"Found {len(files)} total NPZ files (Pure Stand, SCOOP).")
     else:
         _log_fn("\n\nDataset must be iether perfomix or SCOOP.\n\n")
@@ -392,40 +438,29 @@ def load_datasets_microplot_split(
     # perfomix_2019-2020_IE_HSI_mix_processed
     # perfomix_2020-2021_IE_HSI_mix_processed
 
-    if clean_data:
-        files = filter_excluded_files(
-            files,
-            dataset_choice=dataset_choice,
-            min_area=min_grain_area,
-            max_area=max_grain_area,
-            enabled=True,
-            log_fn=_log_fn,
-        )
 
+    # def make_split_csv(files, csv_train_path, csv_test_path):
     rows = []
     rows_mixedStands = []
     for f in files:
         filename = os.path.splitext(os.path.basename(f))[0]
         # extract the microplot name (eg. _x40y20-var) from the filename grain7820_x40y20-var6_8000_us_2x_2020-12-02T134036_corr.npz:
-        if "SCOOP" in dataset_choice:
-            microplotsearch = re.search(r"bac\d+", filename)
-        else:
-            microplotsearch = re.search(r"x\d{2}y\d{2}", filename)
+        microplotsearch = re.search(r"x\d{2}y\d{2}", filename)
+        bacsearch = re.search(r"bac\d+", filename)
         if microplotsearch:
             microplotname = microplotsearch.group(0)
+        elif bacsearch:
+            ## 5.2bis SCOOP/BACS: use the bac tag itself as the "microplot" name, so
+            ## the existing by-microplot splitting/CV logic (e.g. muPlot_year1only)
+            ## applies unchanged -- 3 bacs per variety = 3 microplots per class.
+            microplotname = bacsearch.group(0)
         else:
             _log_fn(f"Warning: Could not extract microplot name from {f}")
             microplotname = "unknown"
+            # assert False
 
 
-        label_from_filename, mixed = _label_from_filename_func(
-            filename,
-            NUM_CLASSES,
-            mix_dict,
-            _log_fn,
-            force_one_hot=False,
-            dataset_choice=dataset_choice,
-        )
+        label_from_filename, mixed = _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_one_hot=False)
 
         if mixed == False:
             # Corrected regex to capture the year from filenames like _YYYY-MM-DDT...
@@ -433,7 +468,7 @@ def load_datasets_microplot_split(
             if year_match:
                 year_str = year_match.group(1)
                 # Assign to y1_files (2020) or y2_files (2021) based on year_str
-                if not ((year_str == "2020") or (year_str == "2021") or ("SCOOP" in dataset_choice and year_str == "2022")):
+                if not ((year_str == "2020") or (year_str == "2021")):
                     _log_fn(f"Warning: year not matching in {f}")
                     year_str = "unknown"
             else:
@@ -442,6 +477,7 @@ def load_datasets_microplot_split(
         else: 
             year_str = "2026"
 
+        data = np.load(f)
         if mixed==False:
             rows.append(
                 {
@@ -466,8 +502,10 @@ def load_datasets_microplot_split(
             )
         
 
-    df = pd.DataFrame(rows, columns=["filename", "filepath", "label", "microplot", "year", "mixed"])
+    df = pd.DataFrame(rows)
     classes = np.sort(df["label"].unique())
+    # classes = np.arange(NUM_CLASSES)
+    # restricted_classes = classes
     if restrict_classes == True:
         restricted_classes = restricted_classes
     else:
@@ -635,10 +673,9 @@ def load_datasets_microplot_split(
             indices_to_add = df[(df["label"] == c) & (df["microplot"] == mutrain)].sample(n=NsamplesYear2, replace=False).index
             df.loc[indices_to_add, "split"] = "train"
             ## display the max size of that sub-sample:
-            max_subsample_size = df.loc[
-                (df["label"] == c) & (df["microplot"] == mutrain), "filepath"
-            ].count()
-            _log_fn(f"[*] Max size of sub-sample for class {c}, for the other year, and microplot {mutrain}: {max_subsample_size}")
+            # _log_fn(f"[*] Max size of sub-sample for class {c} and microplot {mutrain}: {df.loc[(df["label"] == c) & (df["microplot"] == mutrain), "split"].count()}")
+            _log_fn(f"[*] Max size of sub-sample for class {c}, for the other year, and microplot {mutrain}: {df.loc[(df["label"] == c) & (df["microplot"] == mutrain), "filepath"].count()}")
+            # df.loc[(df["label"] == c) & (df["microplot"] == mutrain) & (~df.sample(n=NsamplesYear2, replace=False)).index, "split"] = "none"
             mutest = microplot_names[1-fold_number]
             df.loc[(df["label"] == c) & (df["microplot"] == mutest), "split"] = "test"
 
@@ -646,16 +683,17 @@ def load_datasets_microplot_split(
 
         _log_fn_split_stats(df, restricted_classes)
 
+        # assert False, "debug"
+
 
     # 87% test bal acc:
+    # 5.2bis SCOOP/BACS: this mode also serves that dataset unchanged -- pass
+    # dataset_choice="SCOOP", yearChosen=2022 (the bacs' collection year) and
+    # fold_number in {0,1,2}; "microplot" is then the bac tag (3 bacs/variety).
     if splitting_choice == "muPlot_year1only":
         _log_fn(            f"[*] Splitting : {splitting_choice}:  by microplot, taking only year {yearChosen}"   )
         df = pd.DataFrame(rows)
         df = df[df["year"] == yearChosen]
-        assert len(df) > 0, (
-            f"No samples found for yearChosen={yearChosen} (dataset_choice={dataset_choice}). "
-            f"Years present in this dataset: {sorted(pd.DataFrame(rows)['year'].unique())}."
-        )
         for c in restricted_classes:
             ## extract the piece of the df that has this label and look at microplot names:
             df_c = df[df["label"] == c]
@@ -669,29 +707,6 @@ def load_datasets_microplot_split(
             ] = "test"
         _log_fn_split_stats(df, restricted_classes)
 
-    if splitting_choice == "bacs_2train_1test":
-        _log_fn(
-            f"[*] Splitting : {splitting_choice}: SCOOP/BACS, 2 bacs train and 1 bac test per class, fold={fold_number}"
-        )
-        assert "SCOOP" in dataset_choice, "bacs_2train_1test is only valid with dataset_choice='SCOOP'"
-        assert 0 <= fold_number < 3, "SCOOP/BACS has exactly 3 folds: 0, 1, 2"
-        df = pd.DataFrame(rows)
-        for c in restricted_classes:
-            df_c = df[df["label"] == c]
-            bac_names = np.sort(df_c["microplot"].unique())
-            expected_bacs = [f"bac{bac}" for bac in _scoop_bacs_by_class[int(c)]]
-            missing_bacs = sorted(set(expected_bacs) - set(bac_names))
-            if missing_bacs:
-                _log_fn(f"  Warning: class {c} is missing expected bacs: {missing_bacs}")
-            assert len(bac_names) >= 2, f"Expected at least 2 bacs for class {c}, got {bac_names}"
-            for bac_name in bac_names:
-                df.loc[(df["label"] == c) & (df["microplot"] == bac_name), "split"] = "train"
-            test_bac = bac_names[fold_number % len(bac_names)]
-            df.loc[(df["label"] == c) & (df["microplot"] == test_bac), "split"] = "test"
-            train_bacs = [str(bac_name) for bac_name in bac_names[bac_names != test_bac]]
-            _log_fn(f"  Class {c}: test bac={test_bac}, train bacs={train_bacs}")
-        _log_fn_split_stats(df, restricted_classes)
-
     # 92% test bal acc:
     if splitting_choice == "random_year1only":
         np.random.seed(fold_number)
@@ -699,14 +714,11 @@ def load_datasets_microplot_split(
         df = pd.DataFrame(rows)
         ## take only one year, split at random among microplots.
         df = df[df["year"] == yearChosen]
-        assert len(df) > 0, (
-            f"No samples found for yearChosen={yearChosen} (dataset_choice={dataset_choice}). "
-            f"Years present in this dataset: {sorted(pd.DataFrame(rows)['year'].unique())}."
-        )
         for c in restricted_classes:
             df_c = df[df["label"] == c]
             number_available = len(df_c)
             number_test = int(number_available * test_ratio)
+            number_train = number_available - number_test
             test_indices = np.random.choice(
                 number_available, number_test, replace=False
             )
@@ -717,6 +729,7 @@ def load_datasets_microplot_split(
 
 
     if splitting_choice == "random_1muPlot":
+        # np.random.seed(fold_number)
         _log_fn(f"[*] Splitting : {splitting_choice}:  randomly, taking only ONE fold={fold_number} as train+test data")
         df = pd.DataFrame(rows)
         for c in restricted_classes:
@@ -726,6 +739,7 @@ def load_datasets_microplot_split(
             df_select = df[ (df["label"] == c) & (df["microplot"] == microplot_names[fold_number]) ]
             number_available = len(df_select)
             number_test = int(number_available * test_ratio)
+            number_train = number_available - number_test
             test_indices = np.random.choice(
                 number_available, number_test, replace=False
             )
@@ -735,6 +749,7 @@ def load_datasets_microplot_split(
         _log_fn_split_stats(df, restricted_classes)
 
     if splitting_choice == "random_3muPlot":
+        # np.random.seed(fold_number)
         _log_fn(f"[*] Splitting : {splitting_choice}:  randomly, taking THREE fold={fold_number} as train+test data")
         df = pd.DataFrame(rows)
         for c in restricted_classes:
@@ -745,6 +760,7 @@ def load_datasets_microplot_split(
             assert len(microplot_names) ==4 , "the code logic assumes that there are 4 microplots per class, we exclude one and are left with 3."
             number_available = len(df_select)
             number_test = int(number_available * test_ratio)
+            number_train = number_available - number_test
             test_indices = np.random.choice(
                 number_available, number_test, replace=False
             )
@@ -760,9 +776,11 @@ def load_datasets_microplot_split(
         for c in restricted_classes:
             df_c = df[df["label"] == c]
             microplot_names = np.sort(df_c["microplot"].unique())
+            # assert len(microplot_names) > fold_number, f"Error: fold number {fold_number} is too large for microplot names {microplot_names}. Aborting this useless trial"
             df_select = df[ (df["label"] == c) ] ## exclude nothing
             number_available = len(df_select)
             number_test = int(number_available * test_ratio)
+            number_train = number_available - number_test
             test_indices = np.random.choice(
                 number_available, number_test, replace=False
             )
@@ -791,8 +809,10 @@ def load_datasets_microplot_split(
         df["split"] = "train"
         assert fold_number == 0 , " there is no notion of fold number for this mode: don't waste resources at re-computing the same thing multiple times. Aborting."
         _log_fn_split_stats(df, restricted_classes)
+        # testOnWholePureOnly=True
+        
 
-    #####################################################################
+    #####################################################################   
     ## df, coming from rows (pureStand data) is now split in train and test.
   
     ## split the df into train and test
@@ -848,14 +868,7 @@ def load_datasets_microplot_split(
             filename = os.path.splitext(os.path.basename(f))[0] ## avoid to read the folder name, which contains tags like mix* or var*
             data = np.load(f)
             X[idx] = data["x"]
-            Y[idx], _ = _label_from_filename_func(
-                filename,
-                NUM_CLASSES,
-                mix_dict,
-                _log_fn,
-                force_one_hot=True,
-                dataset_choice=dataset_choice,
-            )
+            Y[idx], _ = _label_from_filename_func(filename, NUM_CLASSES, mix_dict, _log_fn, force_one_hot=True)
         return X, Y
 
     X_y1_tr, Y_y1_tr = load_bunch(train_files)
@@ -866,7 +879,7 @@ def load_datasets_microplot_split(
 
 
     # Apply limit_per_year for fast debugging
-    if limit_per_year is not None and limit_per_year > 0 and "SCOOP" not in dataset_choice:
+    if limit_per_year is not None and limit_per_year > 0:
         _log_fn(f"[*] Limiting total samples to {limit_per_year} (for debugging)")
         n_train = min(limit_per_year, len(X_y1_tr))
         n_test  = min(limit_per_year, len(X_y1_te))  # Keep decent size for test set
@@ -879,6 +892,10 @@ def load_datasets_microplot_split(
         Y_y1_te = Y_y1_te[indices_test]
         test_files = test_files[indices_test]
         _log_fn(f"[*] After limiting: Train={len(X_y1_tr)}, Test={len(X_y1_te)}")
+
+    ## DEBUG:
+    # np.savez("data/equalized_data.npz", X_tr=X_y1_tr, Y_tr=Y_y1_tr, X_te=X_y1_te, Y_te=Y_y1_te)
+    # np.savez("data/equalized_data_debug.npz",Y_te=Y_y1_te)
 
     if equalize_classes:
         _log_fn(f"Equalize-classes: {equalize_classes}: we are balancing classes")
