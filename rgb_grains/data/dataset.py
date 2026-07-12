@@ -466,7 +466,7 @@ def load_datasets_microplot_split(
             )
         
 
-    df = pd.DataFrame(rows)
+    df = pd.DataFrame(rows, columns=["filename", "filepath", "label", "microplot", "year", "mixed"])
     classes = np.sort(df["label"].unique())
     if restrict_classes == True:
         restricted_classes = restricted_classes

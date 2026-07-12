@@ -82,9 +82,14 @@ def build_parser():
                              "torchvision.models.convnext_tiny; see rgb_grains.train --help.")
     train.add_argument("--downsample-kernel", type=int, default=1, help="TODO 5.3 resolution ablation kernel (1=off).")
     train.add_argument("--downsample-mode", type=str, default="mean", choices=["mean", "max"])
+    train.add_argument("--run-frozen-features", action="store_true",
+                        help="Also run the frozen-feature (32-view) + logistic-regression C grid search, "
+                             "reporting the held-out test result (see rgb_grains.models.classifier_head).")
+    train.add_argument("--frozen-feature-c-grid", type=float, nargs="+",
+                        default=[0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0],
+                        help="C values for the frozen-feature logistic-regression grid search.")
     train.add_argument("--extra-train-args", type=str, nargs="*", default=[],
-                        help="Additional raw CLI args forwarded verbatim to rgb_grains.train "
-                             "(e.g. --extra-train-args --run-frozen-features 1)")
+                        help="Additional raw CLI args forwarded verbatim to rgb_grains.train.")
     train.add_argument("--skip-training", action="store_true",
                         help="Force-skip stage 3, e.g. to run only segmentation and/or cleaning (such as --clean-dry-run).")
     return p
@@ -171,6 +176,8 @@ def _run_training(args):
             "--backbone-impl", args.backbone_impl,
             "--downsample-kernel", str(args.downsample_kernel),
             "--downsample-mode", args.downsample_mode,
+            "--run-frozen-features", "1" if args.run_frozen_features else "0",
+            "--frozen-feature-c-grid", *[str(c) for c in args.frozen_feature_c_grid],
             # the loader-side filter mirrors stage 2 so a single --clean-data
             # flag governs both the one-time move and any remaining in-loader filtering
             "--clean-data", "1" if args.clean_data else "0",

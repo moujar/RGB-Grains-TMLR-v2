@@ -123,6 +123,23 @@ def exclude_small_grains(npz_files, imgs, output_dir, min_area=None, max_area=No
     plt.close()
 
 
+def plot_color_histogram(imgs, output_dir):
+    """Per-channel pixel-value histogram diagnostic (restored from the original
+    ``segmentation/control_script_npz_to_jpg.py``, dropped when that script and
+    ``src/script_npz_to_jpg.py`` were consolidated into this module)."""
+    stacked = np.stack(imgs).reshape(-1, 3)
+    plt.figure()
+    plt.title(f"Histogram of RGB values for {len(imgs)} images")
+    for channel, (label, color) in enumerate([("Blue", "blue"), ("Green", "green"), ("Red", "red")]):
+        counts, edges = np.histogram(stacked[:, channel].flatten(), bins=256)
+        plt.plot(edges[10:], counts[9:], label=label, color=color)
+    plt.xlabel("Pixel value")
+    plt.ylabel("Frequency")
+    plt.legend()
+    plt.savefig(f"{output_dir}/histogram-of-colors.png", dpi=300)
+    plt.close()
+
+
 def build_parser():
     parser = argparse.ArgumentParser(description="Convert NPZ grain crops to JPG")
     parser.add_argument("input", help="Input NPZ file or folder")
@@ -138,6 +155,8 @@ def build_parser():
                          help="TODO 5.5: also apply by-size exclusion and move outliers to a sibling _excluded folder (folder input only).")
     parser.add_argument("--min-area", type=int, default=None, help="Override default min active-pixel area for --exclude-small.")
     parser.add_argument("--max-area", type=int, default=None, help="Optional max active-pixel area for --exclude-small.")
+    parser.add_argument("--color-histogram", action="store_true",
+                         help="Also save a per-channel (R/G/B) pixel-value histogram diagnostic (folder input only).")
     return parser
 
 
@@ -168,6 +187,8 @@ def main(argv=None):
                         min_area = default
                         break
             exclude_small_grains(npz_files, imgs, output_folder, min_area=min_area, max_area=args.max_area)
+        if args.color_histogram and imgs:
+            plot_color_histogram(imgs, output_folder)
     else:
         print(f"Input path does not exist: {args.input}")
 
