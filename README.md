@@ -2,6 +2,9 @@
 
 This branch contains engineering and experiment-support changes for the RGB grain classification pipeline. The work focuses on making training/evaluation runs more reproducible, adding requested diagnostic plots, and adding frozen-feature and scratch-training experiment modes.
 
+See [COMMANDS.md](COMMANDS.md) for the maintained command reference, argument
+descriptions, and PowerShell usage examples.
+
 ## Main Changes
 
 ### Model Selection And Persistence

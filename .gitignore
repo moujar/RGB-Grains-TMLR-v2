@@ -10,3 +10,5 @@ calib-pdf/
 calib-plots/
 splits/
 models/
+.modal/
+/src/import_dataset.py
