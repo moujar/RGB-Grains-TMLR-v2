@@ -1,0 +1,12 @@
+{
+  "exclusions": [
+    {
+      "dataset_choice": "perfomix",
+      "microplot": "x39y20",
+      "mixed": false,
+      "label": 4,
+      "year": 2020,
+      "reason": "Known mislabeled class-4 pure-stand microplot"
+    }
+  ]
+}

@@ -278,6 +278,15 @@ argparser.add_argument(
     default=[0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0],
     help="C values for frozen-feature logistic-regression grid search.",
 )
+argparser.add_argument(
+    "--microplot-exclusions",
+    type=str,
+    default="microplot_exclusions.json",
+    help=(
+        "JSON file listing microplots to omit before train/validation/test splitting. "
+        "Pass an empty string to disable exclusions."
+    ),
+)
 args = argparser.parse_args()
 
 n_views=32  ## for the kickstarting only. In the end, it's not helping.
@@ -321,6 +330,7 @@ if (
 experiment_short_name = get_experiment_short_name(args, config, reload=reload)
 config["expe"] = experiment_short_name
 config["pretrained"] = bool(args.pretrained)
+config["microplot_exclusions"] = args.microplot_exclusions
 print(f"Experiment name: {experiment_short_name}")
 
 
@@ -379,6 +389,7 @@ if args.npz_path is None:
         testOnWholePureOnly=args.testOnWholePureOnly,
         combineMixedAndPureInTest=args.combineMixedAndPureInTest,
         dataset_choice=args.dataset_choice,
+        microplot_exclusions_path=args.microplot_exclusions,
     )
     true_y_test = np.asarray(test_data["y"]) ## one-hot or BOW vectors, of shape: (Ntest, nc)
     augmentation_plot_path = plot_augmentation_examples(

@@ -3,6 +3,7 @@ import os
 import shutil
 import math, os, time
 import glob
+import json
 import re
 import numpy as np
 import torch
@@ -32,6 +33,59 @@ from tools import *
 CH_SCALE = [1567.0, 8316.0, 18126.0]  # spectral bands [22, 53, 89]
 IMGNET_MEAN = [0.485, 0.456, 0.406]
 IMGNET_STD = [0.229, 0.224, 0.225]
+
+
+def _load_microplot_exclusions(path):
+    if path in (None, ""):
+        return []
+
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError(f"Microplot exclusion file not found: {path}")
+    with path.open("r", encoding="utf-8") as handle:
+        payload = json.load(handle)
+
+    exclusions = payload.get("exclusions", payload) if isinstance(payload, dict) else payload
+    if not isinstance(exclusions, list):
+        raise ValueError("Microplot exclusions must be a list or an object containing an 'exclusions' list")
+
+    allowed_keys = {"dataset_choice", "microplot", "mixed", "mix", "label", "year", "reason"}
+    for index, rule in enumerate(exclusions):
+        if not isinstance(rule, dict):
+            raise ValueError(f"Microplot exclusion #{index + 1} must be a JSON object")
+        unknown_keys = set(rule) - allowed_keys
+        if unknown_keys:
+            raise ValueError(f"Microplot exclusion #{index + 1} has unknown fields: {sorted(unknown_keys)}")
+        if "microplot" not in rule:
+            raise ValueError(f"Microplot exclusion #{index + 1} must define 'microplot'")
+    return exclusions
+
+
+def _apply_microplot_exclusions(df, exclusions, dataset_choice, _log_fn):
+    if df.empty or not exclusions:
+        return df
+
+    excluded = np.zeros(len(df), dtype=bool)
+    for rule in exclusions:
+        if rule.get("dataset_choice", dataset_choice) != dataset_choice:
+            continue
+
+        matches = df["microplot"].astype(str).eq(str(rule["microplot"])).to_numpy(copy=True)
+        for field in ("mixed", "mix", "label", "year"):
+            if field in rule:
+                matches &= df[field].eq(rule[field]).to_numpy()
+
+        newly_excluded = matches & ~excluded
+        excluded |= matches
+        reason = f" ({rule['reason']})" if rule.get("reason") else ""
+        _log_fn(
+            f"[*] Microplot exclusion {rule['microplot']}: "
+            f"removed {int(newly_excluded.sum())} samples{reason}"
+        )
+
+    if excluded.any():
+        _log_fn(f"[*] Removed {int(excluded.sum())} samples using the microplot exclusion file")
+    return df.loc[~excluded].copy()
 
 
 def seed_everything(seed=42):
@@ -371,6 +425,7 @@ def load_datasets_microplot_split(
     NsamplesYear2 = None,
     testOnWholePureOnly=False,
     combineMixedAndPureInTest=True,
+    microplot_exclusions_path=None,
 ):
     """
     takes care of making train/test split based on the micro plot tag.
@@ -482,10 +537,12 @@ def load_datasets_microplot_split(
                     "label": label_from_filename,
                     "microplot": microplotname,
                     "year": int(year_str),
-                    "mixed": mixed
+                    "mixed": mixed,
+                    "mix": None,
                 }
             )
         else: 
+            mix_match = re.search(r"mix\d+", filename)
             rows_mixedStands.append(
                 {
                     "filename": filename,
@@ -493,12 +550,20 @@ def load_datasets_microplot_split(
                     "label": label_from_filename,
                     "microplot": microplotname,
                     "year": int(year_str),
-                    "mixed": mixed
+                    "mixed": mixed,
+                    "mix": mix_match.group(0) if mix_match else None,
                 }
             )
         
+    exclusions = _load_microplot_exclusions(microplot_exclusions_path)
+    df_all = _apply_microplot_exclusions(
+        pd.DataFrame(rows + rows_mixedStands), exclusions, dataset_choice, _log_fn
+    )
+    df = df_all[~df_all["mixed"]].copy()
+    df_mixed = df_all[df_all["mixed"]].copy()
+    rows = df.to_dict("records")
+    rows_mixedStands = df_mixed.to_dict("records")
 
-    df = pd.DataFrame(rows)
     classes = np.sort(df["label"].unique())
     # classes = np.arange(NUM_CLASSES)
     # restricted_classes = classes

@@ -157,7 +157,11 @@ for i, mixName in enumerate(mix_dict.keys()):
         projected_proportions = np.bincount(projected_prediction, minlength=num_classes) / len(projected_prediction)
         # print(f"Projected proportions for mix {mixName}: {projected_proportions}")
         
-        print(f"{mixName}, {microplot}, N={len(restricted_logits)}: acc: {accuracy:.2f} proj. props: {np.round(projected_proportions, 2)}")
+        print(
+            f"{mixName}, {microplot}, expected classes={expected_classes}, "
+            f"N={len(restricted_logits)}: acc: {accuracy:.2f} "
+            f"proj. props: {np.round(projected_proportions, 2)}"
+        )
 
         ## bar chart: 
         plt.figure()
