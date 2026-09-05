@@ -968,9 +968,11 @@ class Model_ConvNeXt:
                     scl.scale(loss).backward()
                     scl.unscale_(opt)
                     nn.utils.clip_grad_norm_(net.parameters(), 1.0)
+                    scale_before_step = scl.get_scale()
                     scl.step(opt)
                     scl.update()
-                    sch.step()
+                    if scl.get_scale() >= scale_before_step:
+                        sch.step()
                 else:
                     loss.backward()
                     nn.utils.clip_grad_norm_(net.parameters(), 1.0)
