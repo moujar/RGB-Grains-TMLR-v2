@@ -1,190 +1,260 @@
-# Daryl Branch Work Summary
+# RGB-Grains
 
-This branch contains engineering and experiment-support changes for the RGB grain classification pipeline. The work focuses on making training/evaluation runs more reproducible, adding requested diagnostic plots, and adding frozen-feature and scratch-training experiment modes.
+Code release for **"Estimating Varietal Proportions of Wheat Grain Varieties
+with Fine-Tuned Deep Vision Models"** (Houmed, Ho, Moujar, Oloruntobi, Okou,
+Lu, Khuong, Ecarnot, Flutre, Sun-Hosoya, Landes — Université Paris-Saclay /
+LISN, INRIA / GQE, INRAE, CNRS, AgroParisTech / AGAP Institut / DATAIA).
 
 See [COMMANDS.md](COMMANDS.md) for the maintained command reference, argument
 descriptions, and PowerShell usage examples.
 
 ## Main Changes
+Agroecology is increasingly relying on multivarietal cropping (sowing several
+varieties of the same species in one plot), which requires estimating each
+variety's yield after harvest — i.e. classifying grains. This repository
+contains (1) a dataset of RGB(-reduced hyperspectral) images of individual
+wheat grains from 8 varieties collected in a field trial in Saclay, France,
+and (2) the full pipeline to fine-tune a ConvNeXt-Tiny classifier on them,
+evaluate it, and simulate mixed-cropping proportion estimation from the
+predictions. See `paper/` for the full manuscript.
 
-### Model Selection And Persistence
+## Repository layout
 
-- Cleaned up checkpoint selection between best validation model, SWA model, and last model.
-- The selected model is now explicit:
-  - Best validation balanced-accuracy checkpoint is used by default.
-  - SWA is selected only if it improves validation balanced accuracy.
-- The same selected checkpoint is used for inference, saving, and reloading.
-- Experiment summaries now record:
-  - `selected_model`
-  - `selected_val_bal_acc`
+```
+rgb_grains/                  installable Python package
+  data/
+    dataset.py                dataset loading + train/test splitting (by microplot/bac)
+    cleaning.py                TODO 5.5: by-size grain exclusion
+    perfomix_mixtures.csv      variety composition of each "perfomix" mixture
+  models/
+    convnext.py                 ConvNeXt-Tiny (custom, no torchvision dependency) + training loop
+    classifier_head.py          frozen-feature logistic-regression / LP-FT kickstart
+  viz/
+    plots.py                    augmentation/failed-prediction/confusion-matrix/calibration plots
+    eda.py                       exploratory data analysis (used by eda.ipynb)
+  utils/
+    tools.py                    balanced-accuracy / soft-label metrics
+    npz_to_jpg.py                grain crop -> JPG viewer/QC tool
+    manual_tag.py                TODO 5.5: manual by-hand exclusion tagging tool
+  segmentation/                raw hyperspectral .hdr cubes -> RGB grain crops (optional extra)
+  train.py                      single train/test split: fine-tune + evaluate ConvNeXt-Tiny
+  pipeline.py                   end-to-end entrypoint: segment (optional) -> clean -> train -> validate
 
-### Diagnostics And Plots
-
-- Added `augmentation_examples.jpg/pdf`.
-  - Shows original center crops and random training augmentations.
-  - Useful for visually checking the augmentation pipeline.
-
-- Added `failed_predictions.jpg/pdf`.
-  - Shows the most confident incorrect predictions using original test grains.
-  - Handles partial/mixed labels by treating a prediction as correct if it is in the allowed label set.
-
-- Improved confusion matrices.
-  - Standard and soft confusion matrices now include:
-    - Recall as a right-side column.
-    - Precision as a bottom row.
-  - Soft confusion matrices now handle empty rows without runtime warnings.
-
-- Shortened generated artifact names for Windows path safety.
-  - The experiment folder already stores the long experiment name, so files inside the folder now use shorter names such as `predictions.npz`, `fine_tuning_monitoring.jpg`, and `calibration_reliability.png`.
-
-### Training Metrics
-
-- Added selected-model training-set balanced accuracy using the deterministic 32-view inference protocol.
-- Saved train-set 32-view probabilities to:
-
-```text
-train_selected_model_32view_predictions.npz
+configs/                     training configs (debug / default / serious)
+scripts/                     standalone analysis CLIs (not part of the core pipeline)
+tests/                       pytest tests for the newer utilities (cleaning, resolution ablation)
+docs/                        TODO backlog, changelog, segmentation notes
+archive/                     legacy run logs / stray output files, kept for provenance only
+eda.ipynb, eda_outputs/      interactive + generated exploratory data analysis
+paper/                       the manuscript PDF
 ```
 
-- Experiment summaries now include:
-  - `train_bal_acc_32views`
-  - `train_recall_per_class_32views`
-  - `train_val_bal_acc_gap`
+## Installation
 
-### Frozen-Feature Logistic Regression
+Requires Python ≥ 3.10.
 
-- Made the frozen-feature analysis optional:
-
-```powershell
---run-frozen-features 1
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -e .
 ```
 
-- Added 32-view frozen ConvNeXt feature extraction and saving:
+This installs the core dependencies (PyTorch, numpy, pandas, scikit-learn,
+seaborn, matplotlib) and registers console scripts `rgb-grains-train`,
+`rgb-grains-pipeline`, `rgb-grains-eda`, `rgb-grains-npz2jpg`, `rgb-grains-tag`.
+If you only
+need `requirements.txt`-style installs (no local package build), `pip
+install -r requirements.txt` gives the same core dependencies, and you'd run
+modules as `python -m rgb_grains.train ...` instead.
 
-```text
-frozen_features_32views.npz
+To also run the raw-hyperspectral segmentation pipeline (`rgb_grains/segmentation/`,
+`.hdr` → RGB grain crops), install the extra dependencies (OpenCV, `spectral`,
+scikit-image, numba, ...):
+
+```bash
+pip install -e ".[segmentation]"
 ```
 
-- Added logistic-regression `C` grid search using grouped cross-validation.
-  - All 32 augmented views of the same grain stay in the same fold.
-  - This avoids leakage between train and validation folds.
+GPU: PyTorch is used with automatic CUDA detection (`rgb_grains/models/convnext.py`) —
+training runs on GPU whenever one is visible to `torch.cuda.is_available()`,
+and falls back to CPU (with a warning; CPU training is very slow) otherwise.
+No extra flag is needed; just run on a CUDA-enabled machine, or via `sbatch.sh`
+on a SLURM cluster with `--gres=gpu:1` (edit the venv-activation line at the
+top of that script first).
 
-- Grid-search results are saved to:
+## Data layout
 
-```text
-frozen_feature_logreg_grid_search.npz
+Place (or symlink) the processed grain crops under `data/` at the repo root
+(gitignored — this is per-user data, not tracked):
+
 ```
-
-- The grid can be configured with:
-
-```powershell
---frozen-feature-c-grid 0.01 0.03 0.1 0.3 1 3 10 30
-```
-
-- Fixed feature/label ordering in the 32-view feature extraction path.
-  - Features are view-major.
-  - Labels are now tiled in the same view-major order.
-
-### Scratch Training Option
-
-- Added:
-
-```powershell
---pretrained 0
-```
-
-- This disables ImageNet ConvNeXt-Tiny weight loading and trains from random initialization.
-- Scratch runs are marked in experiment names with:
-
-```text
-pretrained=0
-```
-
-This feature was added but not fully benchmarked yet.
-
-### Windows And JSON Robustness
-
-- Log files now use UTF-8 encoding.
-- Config snapshots are written as valid JSON instead of appended JSON fragments.
-- Fresh model runs recompute predictions instead of silently reusing stale prediction archives.
-- Explicit `--npz_path` is still supported for loading saved predictions.
-
-## Smoke-Test Commands
-
-Run the standard debug smoke test:
-
-```powershell
-python src\script_train_5_models_singleSplit.py `
-  --config "config (debug).json" `
-  --debugMode 100 `
-  --splitting-choice random_year1only `
-  --yearChosen 2020 `
-  --tag smoke
-```
-
-Run the frozen-feature debug smoke test:
-
-```powershell
-python src\script_train_5_models_singleSplit.py `
-  --config "config (debug).json" `
-  --debugMode 100 `
-  --splitting-choice random_year1only `
-  --yearChosen 2020 `
-  --tag smoke_frozen `
-  --run-frozen-features 1
-```
-
-Run a scratch-training smoke test:
-
-```powershell
-python src\script_train_5_models_singleSplit.py `
-  --config "config (debug).json" `
-  --debugMode 100 `
-  --splitting-choice random_year1only `
-  --yearChosen 2020 `
-  --tag smoke_scratch `
-  --pretrained 0
-```
-
-## Notes On Artifacts
-
-The following directories/files should generally not be committed:
-
-```text
 data/
-expe/
-models/
-*.npz
-*.pth
-*.pt
-overall_perf_summary.json
+  perfomix_2019-2020_IE_HSI_var1-8_processed/*.npz   # pure-stand, 8 varieties
+  perfomix_2020-2021_IE_HSI_var1-8_processed/*.npz
+  perfomix_2019-2020_IE_HSI_mix_processed/*.npz      # mixed-stand
+  perfomix_2020-2021_IE_HSI_mix_processed/*.npz
+  SCOOP-R2022-bacs_processed/*.npz                    # SCOOP/BACS, 4 varieties
 ```
 
-The processed data can live in the workspace under `data/`, but it should stay ignored by Git.
+Each `.npz` holds a `(252, 252, 3) int16` array `x` (3 spectral bands) plus a
+`means_over_spectralon` calibration reference. These crops are produced by
+`rgb_grains/segmentation/` from raw Hyspex `.hdr` cubes — see that folder's
+docstrings, or run the full pipeline with `--raw-hdr-dir` (below) to generate
+them as part of a single invocation.
 
-## Verification Performed
+Run the EDA to sanity-check whatever data you've placed there before training:
 
-The following checks were run during development:
-
-```text
-compileall: OK
-selected-state helper: OK
-UTF-8 logging: OK
-augmentation plot generated from real grains
-failed-prediction plot generated from real grains
-confusion matrix plots generated
-32-view metric helper: OK
-exact-fit robust class sampling: OK
-frozen-feature grid search: OK
+```bash
+python -m rgb_grains.viz.eda --data-dir data --out eda_outputs
+# or open eda.ipynb for the interactive version
 ```
 
-The frozen-feature smoke run completed successfully on CPU with `--debugMode 100`.
+## Quickstart: the end-to-end pipeline
 
-## Remaining Professor TODOs
+`rgb_grains/pipeline.py` is the single entrypoint that takes you from raw
+data (optional) to a trained, validated model:
 
-- Fully benchmark `--pretrained 0` scratch training.
-- Add Mengtsu et al. dataset support.
-- Add SCOOP/BACS dataset mode with bac-based splitting.
-- Add image downsampling experiments.
-- Optional: refactor code structure.
-- Optional: data cleaning and artifact filtering.
+```bash
+# Fast smoke test on CPU (small debug config, tiny per-class sample cap):
+python -m rgb_grains.pipeline \
+  --config configs/debug.json --data-dir data \
+  --splitting-choice random_year1only --yearChosen 2021 \
+  --debugMode 60 --pretrained 0 --tag smoke
+
+# A real training + validation run (GPU used automatically if available):
+python -m rgb_grains.pipeline \
+  --config configs/serious.json --data-dir data \
+  --splitting-choice muPlot-3muTrain-1muTest --dataset-choice perfomix
+
+# SCOOP/BACS, all 3 microplot-holdout folds in one call:
+python -m rgb_grains.pipeline \
+  --config configs/serious.json --dataset-choice SCOOP \
+  --splitting-choice bacs_2train_1test --folds 0 1 2
+
+# Also segment raw .hdr cubes first (needs `pip install -e ".[segmentation]"`):
+python -m rgb_grains.pipeline \
+  --raw-hdr-dir /path/to/hdr_cubes --dataset-name perfomix_2020-2021_IE_HSI_var1-8 \
+  --config configs/serious.json
+
+# One-time physical cleanup of outlier-area grain crops (TODO 5.5, by size), without training:
+python -m rgb_grains.pipeline --clean-data --clean-dry-run --data-dir data
+
+# One-time physical cleanup of outlier grain crops via unsupervised outlier
+# detection (TODO 5.5, "by OD"; no labels used), without training:
+python -m rgb_grains.pipeline --od-exclude --clean-dry-run --data-dir data
+```
+
+Each stage can be skipped independently: `--skip-segmentation` (or simply
+omit `--raw-hdr-dir`), and cleaning only runs when `--clean-data` and/or
+`--od-exclude` is passed. Run `python -m rgb_grains.pipeline --help` for the
+full flag reference, organized by stage.
+
+For manual by-hand cleaning (TODO 5.5, "manually" — catching artifacts the
+automatic filters miss), export grain crops to JPG, delete the bad ones
+yourself, then apply the review:
+
+```bash
+rgb-grains-tag export data/perfomix_..._processed reviews/perfomix_review
+# ... delete anomalous JPGs from reviews/perfomix_review in Finder/Preview/etc ...
+rgb-grains-tag apply data/perfomix_..._processed reviews/perfomix_review
+```
+
+Outputs land under `<base-dir>/expe/<experiment_name>/` (config snapshot,
+training log, augmentation/failed-prediction/confusion-matrix/calibration
+plots, saved predictions) and the fine-tuned weights under
+`<base-dir>/models/`. Every run also appends one JSON line to
+`<base-dir>/overall_perf_summary.json`; aggregate several runs with:
+
+```bash
+python scripts/read_perf_summary.py --summary-json overall_perf_summary.json
+```
+
+### Just training (no segmentation/cleaning stages)
+
+`rgb_grains/train.py` is what `pipeline.py` calls under the hood for each
+fold; use it directly if you don't need the orchestration:
+
+```bash
+python -m rgb_grains.train --config configs/debug.json --debugMode 100 \
+  --splitting-choice random_year1only --yearChosen 2021 --tag smoke
+```
+
+See `python -m rgb_grains.train --help` for the full set of experiment
+toggles (LP-FT kickstart, frozen-feature logistic-regression grid search,
+class restriction/equalization, mixed-vs-pure test composition, etc.).
+
+To A/B-test the hand-rolled ConvNeXt-Tiny against torchvision's reference
+implementation (see "Project status / TODO" below), add `--backbone-impl
+torchvision` (needs `pip install -e ".[torchvision]"`) to either command above.
+
+### Mixture-proportion simulation
+
+Once you have a `predictions.npz` from a pure-stand test run, you can
+simulate binary-mixture proportion estimation error and sanity-check labels:
+
+```bash
+python scripts/simulate_varietal_proportions.py --predictions-npz expe/<run>/predictions.npz
+python scripts/control_labels.py --predictions-npz expe/<run>/predictions.npz --name-tag <run>
+```
+
+## Configs
+
+`configs/default.json`, `configs/debug.json` (fast, no augmentation, 3
+epochs), `configs/serious.json` (full-scale, 50 epochs, batch size 128) share
+one schema (see any file for all keys: seed, crop size, learning rates, SWA
+settings, mixup/cutmix, etc.) and are selected via `--config <path>`.
+
+## Project status / TODO
+
+`docs/TODO.md` is the original backlog from the lab; `docs/CHANGELOG_source_daryl_branch.md`
+documents engineering work done on an earlier branch. As of this restructuring:
+
+- **Done**: checkpoint-selection cleanup (best-val vs SWA vs last), augmentation-example /
+  failed-prediction / confusion-matrix-with-recall-precision plots, train-set 32-view
+  balanced accuracy, SCOOP/BACS dataset mode with bac-based splitting, image-resolution
+  ablation (`--downsample-kernel`/`--downsample-mode`), by-size data cleaning
+  (`rgb_grains/data/cleaning.py`, `--clean-data`), manual by-hand cleaning
+  (`rgb_grains/utils/manual_tag.py`, `rgb-grains-tag`), and a basic unsupervised
+  outlier-detection cleaning pass (`--od-exclude`, `IsolationForest`-based, provisional).
+- **Blocked**: the Mengtsu et al. dataset adapter — no data for it is present in this
+  repository yet; add a new `dataset_choice` following the `SCOOP` branch in
+  `rgb_grains/data/dataset.py` once the files are available.
+- **Not the default, opt-in for A/B testing**: `--backbone-impl torchvision` swaps in
+  `torchvision.models.convnext_tiny` (requires `pip install -e ".[torchvision]"`) behind the
+  same `Model_ConvNeXt` training loop, so the hand-rolled `custom` backbone (default; see the
+  module docstring in `rgb_grains/models/convnext.py` for why it was written from scratch —
+  no torchvision dependency, in case of a sandboxed submission environment with no network)
+  can be benchmarked against the reference torchvision implementation. Both pull the exact
+  same pretrained checkpoint (`download.pytorch.org/models/convnext_tiny-983f1562.pth`), so
+  any accuracy delta on GPU should reflect implementation details (init recipe, stochastic
+  depth, etc.), not different weights. CPU-verified for correct wiring (shapes, checkpoint
+  save/load, experiment-name tagging via `_backbone=torchvision`); accuracy comparison
+  between the two still needs an actual GPU run — not done as part of this change.
+
+## Testing
+
+```bash
+pip install -e ".[dev]"
+pytest tests/
+```
+
+Covers the newer pieces of logic added during this restructuring
+(`rgb_grains/data/cleaning.py` incl. outlier detection, `rgb_grains/utils/manual_tag.py`,
+and the resolution-ablation option in `GrainDataset_ConvNeXt`). The rest of the pipeline
+is validated by actually running it end-to-end on real data (see "Quickstart" above) —
+there's no substitute for that with a model this size.
+
+## License
+
+MIT — see `LICENSE`. The vendored watershed helpers under
+`rgb_grains/segmentation/gala/` are BSD-3-Clause (see the `NOTICE.md` there).
+
+## Citation
+
+If you use this code or data, please cite the paper (see `paper/` for the PDF):
+
+```
+Houmed, O.A., Ho, Q.P., Moujar, A., Oloruntobi, O.P., Okou, G.D.M., Lu, R.,
+Khuong, T.G.H., Ecarnot, M., Flutre, T., Sun-Hosoya, L., Landes, F.P.
+"Estimating Varietal Proportions of Wheat Grain Varieties with Fine-Tuned
+Deep Vision Models."
+```
